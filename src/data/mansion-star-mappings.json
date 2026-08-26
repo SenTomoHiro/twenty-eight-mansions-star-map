@@ -1,0 +1,2217 @@
+{
+  "metadata": {
+    "mappingSource": "Stellarium Chinese Song Dynasty sky culture",
+    "repository": "Stellarium/stellarium",
+    "path": "skycultures/chinese_song_dynasty/index.json",
+    "descriptionPath": "skycultures/chinese_song_dynasty/description.md",
+    "version": "26.2",
+    "tag": "v26.2",
+    "commit": "2b10b1a3bb534eb4e7586751054bf67b36c22e53",
+    "sourceLicense": "CC BY-SA 4.0",
+    "contributor": "Sun Shuwei (孙殳玮)",
+    "coordinateSource": "ESA Hipparcos Main Catalogue I/239 via CDS VizieR",
+    "parallaxSource": "Hipparcos, the New Reduction I/311 via CDS VizieR",
+    "coordinateEpoch": "ICRS, epoch J1991.25",
+    "generatedOn": "2026-08-24"
+  },
+  "mappings": [
+    {
+      "mansionId": "xingxiu-01-jiao",
+      "order": 1,
+      "name": "角",
+      "traditionalAsterism": "角宿",
+      "englishName": "Horn",
+      "definingStarHip": 65474,
+      "starCultureId": "CON chinese_song_dynasty 01A",
+      "lines": [
+        [
+          65474,
+          66249
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 65474,
+          "ra": 201.2983523,
+          "dec": -11.16124491,
+          "mag": 0.98
+        },
+        {
+          "hip": 66249,
+          "ra": 203.673978,
+          "dec": -0.59593821,
+          "mag": 3.38
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 65474,
+        "parallaxMas": 13.06,
+        "parallaxErrorMas": 0.7,
+        "relativeError": 0.05359877488514548,
+        "distanceLy": 250,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-02-kang",
+      "order": 2,
+      "name": "亢",
+      "traditionalAsterism": "亢宿",
+      "englishName": "Neck",
+      "definingStarHip": 69427,
+      "starCultureId": "CON chinese_song_dynasty 02A",
+      "lines": [
+        [
+          69427,
+          69701,
+          70755
+        ],
+        [
+          69427,
+          69974
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 69427,
+          "ra": 213.22392088,
+          "dec": -10.274044,
+          "mag": 4.18
+        },
+        {
+          "hip": 69701,
+          "ra": 214.00368717,
+          "dec": -5.99952622,
+          "mag": 4.07
+        },
+        {
+          "hip": 70755,
+          "ra": 217.05091806,
+          "dec": -2.22795009,
+          "mag": 4.81
+        },
+        {
+          "hip": 69974,
+          "ra": 214.77750771,
+          "dec": -13.37116634,
+          "mag": 4.52
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 69427,
+        "parallaxMas": 12.8,
+        "parallaxErrorMas": 0.25,
+        "relativeError": 0.01953125,
+        "distanceLy": 255,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-03-di",
+      "order": 3,
+      "name": "氐",
+      "traditionalAsterism": "氐宿",
+      "englishName": "Root",
+      "definingStarHip": 72622,
+      "starCultureId": "CON chinese_song_dynasty 03A",
+      "lines": [
+        [
+          72622,
+          74392,
+          76333,
+          74785
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 72622,
+          "ra": 222.71990536,
+          "dec": -16.04161047,
+          "mag": 2.75
+        },
+        {
+          "hip": 74392,
+          "ra": 228.05546736,
+          "dec": -19.79163143,
+          "mag": 4.54
+        },
+        {
+          "hip": 76333,
+          "ra": 233.88141398,
+          "dec": -14.78955365,
+          "mag": 3.91
+        },
+        {
+          "hip": 74785,
+          "ra": 229.25196591,
+          "dec": -9.38286694,
+          "mag": 2.61
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 72622,
+        "parallaxMas": 43.03,
+        "parallaxErrorMas": 0.19,
+        "relativeError": 0.004415524052986289,
+        "distanceLy": 76,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-04-fang",
+      "order": 4,
+      "name": "房",
+      "traditionalAsterism": "房宿",
+      "englishName": "Room",
+      "definingStarHip": 78265,
+      "starCultureId": "CON chinese_song_dynasty 04A",
+      "lines": [
+        [
+          78820,
+          78401,
+          78265,
+          78104
+        ],
+        [
+          78933,
+          78820
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 78820,
+          "ra": 241.35931206,
+          "dec": -19.80539286,
+          "mag": 2.56
+        },
+        {
+          "hip": 78401,
+          "ra": 240.08338225,
+          "dec": -22.62162024,
+          "mag": 2.29
+        },
+        {
+          "hip": 78265,
+          "ra": 239.71300283,
+          "dec": -26.1140428,
+          "mag": 2.89
+        },
+        {
+          "hip": 78104,
+          "ra": 239.22119438,
+          "dec": -29.21401221,
+          "mag": 3.87
+        },
+        {
+          "hip": 78933,
+          "ra": 241.70180197,
+          "dec": -20.66913479,
+          "mag": 3.93
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 78265,
+        "parallaxMas": 5.57,
+        "parallaxErrorMas": 0.64,
+        "relativeError": 0.1149012567324955,
+        "distanceLy": 586,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-05-xin",
+      "order": 5,
+      "name": "心",
+      "traditionalAsterism": "心宿",
+      "englishName": "Heart",
+      "definingStarHip": 80112,
+      "starCultureId": "CON chinese_song_dynasty 05A",
+      "lines": [
+        [
+          80112,
+          80763,
+          81266
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 80112,
+          "ra": 245.29717718,
+          "dec": -25.59275259,
+          "mag": 2.9
+        },
+        {
+          "hip": 80763,
+          "ra": 247.35194804,
+          "dec": -26.43194608,
+          "mag": 1.06
+        },
+        {
+          "hip": 81266,
+          "ra": 248.97066423,
+          "dec": -28.21596156,
+          "mag": 2.82
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 80112,
+        "parallaxMas": 4.68,
+        "parallaxErrorMas": 0.6,
+        "relativeError": 0.12820512820512822,
+        "distanceLy": 697,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-06-wei-east",
+      "order": 6,
+      "name": "尾",
+      "traditionalAsterism": "尾宿",
+      "englishName": "Tail",
+      "definingStarHip": 82514,
+      "starCultureId": "CON chinese_song_dynasty 06A",
+      "lines": [
+        [
+          82396,
+          82514,
+          82671,
+          84143,
+          86228,
+          87073,
+          86670,
+          85927
+        ],
+        [
+          86670,
+          85696
+        ],
+        [
+          82514,
+          82545
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 82396,
+          "ra": 252.54268738,
+          "dec": -34.29260982,
+          "mag": 2.29
+        },
+        {
+          "hip": 82514,
+          "ra": 252.96766195,
+          "dec": -38.04732717,
+          "mag": 3
+        },
+        {
+          "hip": 82671,
+          "ra": 253.49886366,
+          "dec": -42.36201968,
+          "mag": 4.7
+        },
+        {
+          "hip": 84143,
+          "ra": 258.038233,
+          "dec": -43.23849039,
+          "mag": 3.32
+        },
+        {
+          "hip": 86228,
+          "ra": 264.32969072,
+          "dec": -42.99782155,
+          "mag": 1.86
+        },
+        {
+          "hip": 87073,
+          "ra": 266.89617137,
+          "dec": -40.12698197,
+          "mag": 2.99
+        },
+        {
+          "hip": 86670,
+          "ra": 265.62199908,
+          "dec": -39.02992092,
+          "mag": 2.39
+        },
+        {
+          "hip": 85927,
+          "ra": 263.40219373,
+          "dec": -37.10374835,
+          "mag": 1.62
+        },
+        {
+          "hip": 85696,
+          "ra": 262.69099501,
+          "dec": -37.29574016,
+          "mag": 2.7
+        },
+        {
+          "hip": 82545,
+          "ra": 253.08397295,
+          "dec": -38.01747781,
+          "mag": 3.56
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 82514,
+        "parallaxMas": 6.51,
+        "parallaxErrorMas": 0.91,
+        "relativeError": 0.13978494623655915,
+        "distanceLy": 501,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-07-ji-east",
+      "order": 7,
+      "name": "箕",
+      "traditionalAsterism": "箕宿",
+      "englishName": "Winnowing Basket",
+      "definingStarHip": 88635,
+      "starCultureId": "CON chinese_song_dynasty 07A",
+      "lines": [
+        [
+          88635,
+          89931,
+          90185,
+          89642
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 88635,
+          "ra": 271.45218586,
+          "dec": -30.42365007,
+          "mag": 2.98
+        },
+        {
+          "hip": 89931,
+          "ra": 275.24842337,
+          "dec": -29.82803914,
+          "mag": 2.72
+        },
+        {
+          "hip": 90185,
+          "ra": 276.04310967,
+          "dec": -34.3843146,
+          "mag": 1.79
+        },
+        {
+          "hip": 89642,
+          "ra": 274.4072049,
+          "dec": -36.76128103,
+          "mag": 3.1
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 88635,
+        "parallaxMas": 33.67,
+        "parallaxErrorMas": 0.18,
+        "relativeError": 0.005346005346005346,
+        "distanceLy": 97,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-08-dou",
+      "order": 8,
+      "name": "斗",
+      "traditionalAsterism": "斗宿",
+      "englishName": "Dipper",
+      "definingStarHip": 92041,
+      "starCultureId": "CON chinese_song_dynasty 08A",
+      "lines": [
+        [
+          89341,
+          90496,
+          92041,
+          92855,
+          93864,
+          93506
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 89341,
+          "ra": 273.44086963,
+          "dec": -21.05883031,
+          "mag": 3.84
+        },
+        {
+          "hip": 90496,
+          "ra": 276.99278955,
+          "dec": -25.42124732,
+          "mag": 2.82
+        },
+        {
+          "hip": 92041,
+          "ra": 281.41397083,
+          "dec": -26.9907794,
+          "mag": 3.17
+        },
+        {
+          "hip": 92855,
+          "ra": 283.81631956,
+          "dec": -26.29659428,
+          "mag": 2.05
+        },
+        {
+          "hip": 93864,
+          "ra": 286.73517629,
+          "dec": -27.66981416,
+          "mag": 3.32
+        },
+        {
+          "hip": 93506,
+          "ra": 285.65301428,
+          "dec": -29.88011429,
+          "mag": 2.6
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 92041,
+        "parallaxMas": 13.63,
+        "parallaxErrorMas": 0.19,
+        "relativeError": 0.013939838591342625,
+        "distanceLy": 239,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-09-niu",
+      "order": 9,
+      "name": "牛",
+      "traditionalAsterism": "牛宿",
+      "englishName": "Ox",
+      "definingStarHip": 100345,
+      "starCultureId": "CON chinese_song_dynasty 09A",
+      "lines": [
+        [
+          100345,
+          100881,
+          101123,
+          101027,
+          100345,
+          100310
+        ],
+        [
+          100345,
+          100064
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 100345,
+          "ra": 305.25269347,
+          "dec": -14.78140119,
+          "mag": 3.05
+        },
+        {
+          "hip": 100881,
+          "ra": 306.83001454,
+          "dec": -18.21169433,
+          "mag": 5.08
+        },
+        {
+          "hip": 101123,
+          "ra": 307.47454931,
+          "dec": -18.58298474,
+          "mag": 5.94
+        },
+        {
+          "hip": 101027,
+          "ra": 307.21509857,
+          "dec": -17.81366828,
+          "mag": 4.77
+        },
+        {
+          "hip": 100310,
+          "ra": 305.16586145,
+          "dec": -12.75904403,
+          "mag": 4.77
+        },
+        {
+          "hip": 100064,
+          "ra": 304.5134103,
+          "dec": -12.54485877,
+          "mag": 3.58
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 100345,
+        "parallaxMas": 9.98,
+        "parallaxErrorMas": 1.09,
+        "relativeError": 0.1092184368737475,
+        "distanceLy": 327,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-10-nv",
+      "order": 10,
+      "name": "女",
+      "traditionalAsterism": "女宿",
+      "englishName": "Girl",
+      "definingStarHip": 102618,
+      "starCultureId": "CON chinese_song_dynasty 10A",
+      "lines": [
+        [
+          102618,
+          103045,
+          103005,
+          102624
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 102618,
+          "ra": 311.91888574,
+          "dec": -9.49568988,
+          "mag": 3.78
+        },
+        {
+          "hip": 103045,
+          "ra": 313.16335749,
+          "dec": -8.98323782,
+          "mag": 4.73
+        },
+        {
+          "hip": 103005,
+          "ra": 313.03622144,
+          "dec": -5.50704421,
+          "mag": 5.55
+        },
+        {
+          "hip": 102624,
+          "ra": 311.93432462,
+          "dec": -5.02760303,
+          "mag": 4.43
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 102618,
+        "parallaxMas": 15.7,
+        "parallaxErrorMas": 0.21,
+        "relativeError": 0.01337579617834395,
+        "distanceLy": 208,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-11-xu",
+      "order": 11,
+      "name": "虚",
+      "traditionalAsterism": "虚宿",
+      "englishName": "Emptiness",
+      "definingStarHip": 106278,
+      "starCultureId": "CON chinese_song_dynasty 11A",
+      "lines": [
+        [
+          106278,
+          104987
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 106278,
+          "ra": 322.88966951,
+          "dec": -5.57115593,
+          "mag": 2.9
+        },
+        {
+          "hip": 104987,
+          "ra": 318.95581976,
+          "dec": 5.2480739,
+          "mag": 3.92
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 106278,
+        "parallaxMas": 6.07,
+        "parallaxErrorMas": 0.22,
+        "relativeError": 0.036243822075782535,
+        "distanceLy": 537,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-12-wei-north",
+      "order": 12,
+      "name": "危",
+      "traditionalAsterism": "危宿",
+      "englishName": "Rooftop",
+      "definingStarHip": 109074,
+      "starCultureId": "CON chinese_song_dynasty 12A",
+      "lines": [
+        [
+          109074,
+          109427,
+          107315
+        ],
+        [
+          109427,
+          110672
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 109074,
+          "ra": 331.44593869,
+          "dec": -0.31982656,
+          "mag": 2.95
+        },
+        {
+          "hip": 109427,
+          "ra": 332.54924902,
+          "dec": 6.197789,
+          "mag": 3.52
+        },
+        {
+          "hip": 107315,
+          "ra": 326.04641808,
+          "dec": 9.87500791,
+          "mag": 2.38
+        },
+        {
+          "hip": 110672,
+          "ra": 336.31921857,
+          "dec": 1.37739245,
+          "mag": 4.8
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 109074,
+        "parallaxMas": 6.23,
+        "parallaxErrorMas": 0.19,
+        "relativeError": 0.030497592295345103,
+        "distanceLy": 524,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-13-shi",
+      "order": 13,
+      "name": "室",
+      "traditionalAsterism": "室宿",
+      "englishName": "Encampment",
+      "definingStarHip": 113963,
+      "starCultureId": "CON chinese_song_dynasty 13A",
+      "lines": [
+        [
+          113963,
+          113881,
+          115250
+        ],
+        [
+          113881,
+          112748
+        ],
+        [
+          113881,
+          112051
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 113963,
+          "ra": 346.1900702,
+          "dec": 15.20536786,
+          "mag": 2.49
+        },
+        {
+          "hip": 113881,
+          "ra": 345.94305575,
+          "dec": 28.08245462,
+          "mag": 2.44
+        },
+        {
+          "hip": 115250,
+          "ra": 350.1592632,
+          "dec": 23.7403592,
+          "mag": 4.58
+        },
+        {
+          "hip": 112748,
+          "ra": 342.5004181,
+          "dec": 24.60168486,
+          "mag": 3.51
+        },
+        {
+          "hip": 112051,
+          "ra": 340.43920724,
+          "dec": 29.3076892,
+          "mag": 4.8
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 113963,
+        "parallaxMas": 24.46,
+        "parallaxErrorMas": 0.19,
+        "relativeError": 0.00776778413736713,
+        "distanceLy": 133,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-14-bi-north",
+      "order": 14,
+      "name": "壁",
+      "traditionalAsterism": "壁宿",
+      "englishName": "Wall",
+      "definingStarHip": 1067,
+      "starCultureId": "CON chinese_song_dynasty 14A",
+      "lines": [
+        [
+          1067,
+          677
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 1067,
+          "ra": 3.30895828,
+          "dec": 15.18361593,
+          "mag": 2.83
+        },
+        {
+          "hip": 677,
+          "ra": 2.09653333,
+          "dec": 29.09082805,
+          "mag": 2.07
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 1067,
+        "parallaxMas": 8.33,
+        "parallaxErrorMas": 0.53,
+        "relativeError": 0.06362545018007203,
+        "distanceLy": 392,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-15-kui",
+      "order": 15,
+      "name": "奎",
+      "traditionalAsterism": "奎宿",
+      "englishName": "Legs",
+      "definingStarHip": 3693,
+      "starCultureId": "CON chinese_song_dynasty 15A",
+      "lines": [
+        [
+          3881,
+          4436,
+          5447,
+          5936,
+          5544,
+          5586,
+          6193,
+          5742,
+          5571,
+          4463,
+          3693,
+          3031,
+          3092,
+          2912,
+          2942,
+          3231,
+          3881
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 3881,
+          "ra": 12.45345723,
+          "dec": 41.07895474,
+          "mag": 4.53
+        },
+        {
+          "hip": 4436,
+          "ra": 14.18790699,
+          "dec": 38.49925513,
+          "mag": 3.86
+        },
+        {
+          "hip": 5447,
+          "ra": 17.43248991,
+          "dec": 35.62083048,
+          "mag": 2.07
+        },
+        {
+          "hip": 5936,
+          "ra": 19.07875996,
+          "dec": 33.11480731,
+          "mag": 6.04
+        },
+        {
+          "hip": 5544,
+          "ra": 17.7782219,
+          "dec": 31.42476555,
+          "mag": 5.15
+        },
+        {
+          "hip": 5586,
+          "ra": 17.91494471,
+          "dec": 30.08972962,
+          "mag": 4.51
+        },
+        {
+          "hip": 6193,
+          "ra": 19.86657455,
+          "dec": 27.26408682,
+          "mag": 4.74
+        },
+        {
+          "hip": 5742,
+          "ra": 18.43723014,
+          "dec": 24.58376482,
+          "mag": 4.67
+        },
+        {
+          "hip": 5571,
+          "ra": 17.86330901,
+          "dec": 21.03467568,
+          "mag": 4.66
+        },
+        {
+          "hip": 4463,
+          "ra": 14.30178237,
+          "dec": 23.41775997,
+          "mag": 4.4
+        },
+        {
+          "hip": 3693,
+          "ra": 11.83495908,
+          "dec": 24.26737703,
+          "mag": 4.08
+        },
+        {
+          "hip": 3031,
+          "ra": 9.63958024,
+          "dec": 29.312369,
+          "mag": 4.34
+        },
+        {
+          "hip": 3092,
+          "ra": 9.83165567,
+          "dec": 30.86122579,
+          "mag": 3.27
+        },
+        {
+          "hip": 2912,
+          "ra": 9.22016239,
+          "dec": 33.71935227,
+          "mag": 4.34
+        },
+        {
+          "hip": 2942,
+          "ra": 9.33844167,
+          "dec": 35.39951013,
+          "mag": 5.45
+        },
+        {
+          "hip": 3231,
+          "ra": 10.27998074,
+          "dec": 39.45867141,
+          "mag": 5.3
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 3693,
+        "parallaxMas": 17.24,
+        "parallaxErrorMas": 0.26,
+        "relativeError": 0.015081206496519723,
+        "distanceLy": 189,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-16-lou",
+      "order": 16,
+      "name": "娄",
+      "traditionalAsterism": "娄宿",
+      "englishName": "Bond",
+      "definingStarHip": 8903,
+      "starCultureId": "CON chinese_song_dynasty 16A",
+      "lines": [
+        [
+          9884,
+          8903,
+          8832
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 9884,
+          "ra": 31.79285757,
+          "dec": 23.46277743,
+          "mag": 2.01
+        },
+        {
+          "hip": 8903,
+          "ra": 28.65978771,
+          "dec": 20.80829949,
+          "mag": 2.64
+        },
+        {
+          "hip": 8832,
+          "ra": 28.38235506,
+          "dec": 19.29409264,
+          "mag": 3.88
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 8903,
+        "parallaxMas": 55.6,
+        "parallaxErrorMas": 0.58,
+        "relativeError": 0.010431654676258992,
+        "distanceLy": 59,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-17-wei-west",
+      "order": 17,
+      "name": "胃",
+      "traditionalAsterism": "胃宿",
+      "englishName": "Stomach",
+      "definingStarHip": 12719,
+      "starCultureId": "CON chinese_song_dynasty 17A",
+      "lines": [
+        [
+          12719,
+          13061,
+          13209
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 12719,
+          "ra": 40.86296031,
+          "dec": 27.70717078,
+          "mag": 4.65
+        },
+        {
+          "hip": 13061,
+          "ra": 41.97683942,
+          "dec": 29.24742385,
+          "mag": 4.52
+        },
+        {
+          "hip": 13209,
+          "ra": 42.49578911,
+          "dec": 27.26079044,
+          "mag": 3.61
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 12719,
+        "parallaxMas": 9.51,
+        "parallaxErrorMas": 0.85,
+        "relativeError": 0.08937960042060988,
+        "distanceLy": 343,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-18-mao",
+      "order": 18,
+      "name": "昴",
+      "traditionalAsterism": "昴宿",
+      "englishName": "Hairy Head",
+      "definingStarHip": 17499,
+      "starCultureId": "CON chinese_song_dynasty 18A",
+      "lines": [
+        [
+          17531,
+          17489,
+          17573,
+          17499,
+          17702,
+          17608,
+          17847
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 17531,
+          "ra": 56.30200876,
+          "dec": 24.46737879,
+          "mag": 4.3
+        },
+        {
+          "hip": 17489,
+          "ra": 56.20084227,
+          "dec": 24.28957712,
+          "mag": 5.45
+        },
+        {
+          "hip": 17573,
+          "ra": 56.45663804,
+          "dec": 24.36785796,
+          "mag": 3.87
+        },
+        {
+          "hip": 17499,
+          "ra": 56.21884811,
+          "dec": 24.1134484,
+          "mag": 3.72
+        },
+        {
+          "hip": 17702,
+          "ra": 56.87110065,
+          "dec": 24.10524193,
+          "mag": 2.85
+        },
+        {
+          "hip": 17608,
+          "ra": 56.58150135,
+          "dec": 23.94846207,
+          "mag": 4.14
+        },
+        {
+          "hip": 17847,
+          "ra": 57.29054669,
+          "dec": 24.05352412,
+          "mag": 3.62
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 17499,
+        "parallaxMas": 8.06,
+        "parallaxErrorMas": 0.25,
+        "relativeError": 0.031017369727047144,
+        "distanceLy": 405,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-19-bi-west",
+      "order": 19,
+      "name": "毕",
+      "traditionalAsterism": "毕宿",
+      "englishName": "Net",
+      "definingStarHip": 20889,
+      "starCultureId": "CON chinese_song_dynasty 19A",
+      "lines": [
+        [
+          20889,
+          20648,
+          20455,
+          20205
+        ],
+        [
+          21421,
+          20894,
+          20713,
+          20205,
+          18724
+        ],
+        [
+          21421,
+          21683
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 20889,
+          "ra": 67.15388879,
+          "dec": 19.18052092,
+          "mag": 3.53
+        },
+        {
+          "hip": 20648,
+          "ra": 66.37215593,
+          "dec": 17.92798917,
+          "mag": 4.3
+        },
+        {
+          "hip": 20455,
+          "ra": 65.73344722,
+          "dec": 17.5425843,
+          "mag": 3.77
+        },
+        {
+          "hip": 20205,
+          "ra": 64.94805793,
+          "dec": 15.62770031,
+          "mag": 3.65
+        },
+        {
+          "hip": 21421,
+          "ra": 68.98000195,
+          "dec": 16.50976164,
+          "mag": 0.87
+        },
+        {
+          "hip": 20894,
+          "ra": 67.16531219,
+          "dec": 15.8709468,
+          "mag": 3.4
+        },
+        {
+          "hip": 20713,
+          "ra": 66.58613217,
+          "dec": 15.6183462,
+          "mag": 4.48
+        },
+        {
+          "hip": 18724,
+          "ra": 60.17008591,
+          "dec": 12.49037571,
+          "mag": 3.41
+        },
+        {
+          "hip": 21683,
+          "ra": 69.81854938,
+          "dec": 15.9180242,
+          "mag": 4.67
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 20889,
+        "parallaxMas": 22.24,
+        "parallaxErrorMas": 0.25,
+        "relativeError": 0.011241007194244606,
+        "distanceLy": 147,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-20-zi",
+      "order": 20,
+      "name": "觜",
+      "traditionalAsterism": "觜宿",
+      "englishName": "Turtle Beak",
+      "definingStarHip": 26176,
+      "starCultureId": "CON chinese_song_dynasty 20A",
+      "lines": [
+        [
+          26207,
+          26176
+        ],
+        [
+          26207,
+          26366
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 26207,
+          "ra": 83.78449043,
+          "dec": 9.93416294,
+          "mag": 3.39
+        },
+        {
+          "hip": 26176,
+          "ra": 83.70515764,
+          "dec": 9.48958528,
+          "mag": 4.39
+        },
+        {
+          "hip": 26366,
+          "ra": 84.22637775,
+          "dec": 9.291412,
+          "mag": 4.09
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 26176,
+        "parallaxMas": 3,
+        "parallaxErrorMas": 0.25,
+        "relativeError": 0.08333333333333333,
+        "distanceLy": 1087,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-21-shen",
+      "order": 21,
+      "name": "参",
+      "traditionalAsterism": "参宿",
+      "englishName": "Three Stars",
+      "definingStarHip": 25930,
+      "starCultureId": "CON chinese_song_dynasty 21A",
+      "lines": [
+        [
+          27989,
+          26727,
+          26311,
+          25930,
+          24436
+        ],
+        [
+          25930,
+          25336
+        ],
+        [
+          26727,
+          27366
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 27989,
+          "ra": 88.79287161,
+          "dec": 7.40703634,
+          "mag": 0.45
+        },
+        {
+          "hip": 26727,
+          "ra": 85.18968672,
+          "dec": -1.94257841,
+          "mag": 1.74
+        },
+        {
+          "hip": 26311,
+          "ra": 84.05338572,
+          "dec": -1.20191725,
+          "mag": 1.69
+        },
+        {
+          "hip": 25930,
+          "ra": 83.00166562,
+          "dec": -0.2990934,
+          "mag": 2.25
+        },
+        {
+          "hip": 24436,
+          "ra": 78.63446353,
+          "dec": -8.20163919,
+          "mag": 0.18
+        },
+        {
+          "hip": 25336,
+          "ra": 81.28278416,
+          "dec": 6.34973451,
+          "mag": 1.64
+        },
+        {
+          "hip": 27366,
+          "ra": 86.93911641,
+          "dec": -9.66960186,
+          "mag": 2.07
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 25930,
+        "parallaxMas": 4.71,
+        "parallaxErrorMas": 0.58,
+        "relativeError": 0.12314225053078555,
+        "distanceLy": 692,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-22-jing",
+      "order": 22,
+      "name": "井",
+      "traditionalAsterism": "井宿",
+      "englishName": "Well",
+      "definingStarHip": 30343,
+      "starCultureId": "CON chinese_song_dynasty 22A",
+      "lines": [
+        [
+          35350,
+          34088,
+          32921,
+          32246
+        ],
+        [
+          32921,
+          30883,
+          30343
+        ],
+        [
+          30883,
+          31681,
+          34088
+        ],
+        [
+          31681,
+          32362
+        ],
+        [
+          30343,
+          29655
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 35350,
+          "ra": 109.52336162,
+          "dec": 16.54047526,
+          "mag": 3.58
+        },
+        {
+          "hip": 34088,
+          "ra": 106.02723079,
+          "dec": 20.57029939,
+          "mag": 4.01
+        },
+        {
+          "hip": 32921,
+          "ra": 102.88770733,
+          "dec": 21.76123162,
+          "mag": 5.28
+        },
+        {
+          "hip": 32246,
+          "ra": 100.98304088,
+          "dec": 25.13115531,
+          "mag": 3.06
+        },
+        {
+          "hip": 30883,
+          "ra": 97.24079361,
+          "dec": 20.2121672,
+          "mag": 4.13
+        },
+        {
+          "hip": 30343,
+          "ra": 95.73996302,
+          "dec": 22.51385027,
+          "mag": 2.87
+        },
+        {
+          "hip": 31681,
+          "ra": 99.42792641,
+          "dec": 16.39941482,
+          "mag": 1.93
+        },
+        {
+          "hip": 32362,
+          "ra": 101.3226398,
+          "dec": 12.89605513,
+          "mag": 3.35
+        },
+        {
+          "hip": 29655,
+          "ra": 93.71956952,
+          "dec": 22.50682376,
+          "mag": 3.31
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 30343,
+        "parallaxMas": 14.08,
+        "parallaxErrorMas": 0.71,
+        "relativeError": 0.05042613636363636,
+        "distanceLy": 232,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-23-gui",
+      "order": 23,
+      "name": "鬼",
+      "traditionalAsterism": "鬼宿",
+      "englishName": "Ghosts",
+      "definingStarHip": 41822,
+      "starCultureId": "CON chinese_song_dynasty 23A",
+      "lines": [
+        [
+          41822,
+          41909,
+          42806,
+          42911,
+          41822
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 41822,
+          "ra": 127.8990288,
+          "dec": 18.09455771,
+          "mag": 5.33
+        },
+        {
+          "hip": 41909,
+          "ra": 128.17718645,
+          "dec": 20.44127049,
+          "mag": 5.33
+        },
+        {
+          "hip": 42806,
+          "ra": 130.82172127,
+          "dec": 21.46859609,
+          "mag": 4.66
+        },
+        {
+          "hip": 42911,
+          "ra": 131.17129209,
+          "dec": 18.15486399,
+          "mag": 3.94
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 41822,
+        "parallaxMas": 7.86,
+        "parallaxErrorMas": 0.29,
+        "relativeError": 0.03689567430025445,
+        "distanceLy": 415,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-24-liu",
+      "order": 24,
+      "name": "柳",
+      "traditionalAsterism": "柳宿",
+      "englishName": "Willow",
+      "definingStarHip": 42313,
+      "starCultureId": "CON chinese_song_dynasty 24A",
+      "lines": [
+        [
+          42799,
+          42402,
+          42313,
+          43109,
+          43234,
+          43813,
+          44659,
+          45336
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 42799,
+          "ra": 130.80619315,
+          "dec": 3.39866539,
+          "mag": 4.3
+        },
+        {
+          "hip": 42402,
+          "ra": 129.68936993,
+          "dec": 3.34147477,
+          "mag": 4.45
+        },
+        {
+          "hip": 42313,
+          "ra": 129.41419739,
+          "dec": 5.70379868,
+          "mag": 4.14
+        },
+        {
+          "hip": 43109,
+          "ra": 131.6943593,
+          "dec": 6.41890691,
+          "mag": 3.38
+        },
+        {
+          "hip": 43234,
+          "ra": 132.10825351,
+          "dec": 5.83788486,
+          "mag": 4.35
+        },
+        {
+          "hip": 43813,
+          "ra": 133.84868687,
+          "dec": 5.9455277,
+          "mag": 3.11
+        },
+        {
+          "hip": 44659,
+          "ra": 136.49324097,
+          "dec": 5.09234249,
+          "mag": 4.99
+        },
+        {
+          "hip": 45336,
+          "ra": 138.59080529,
+          "dec": 2.31502422,
+          "mag": 3.89
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 42313,
+        "parallaxMas": 20.34,
+        "parallaxErrorMas": 0.63,
+        "relativeError": 0.030973451327433628,
+        "distanceLy": 160,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-25-xing",
+      "order": 25,
+      "name": "星",
+      "traditionalAsterism": "星宿",
+      "englishName": "Star",
+      "definingStarHip": 46390,
+      "starCultureId": "CON chinese_song_dynasty 25A",
+      "lines": [
+        [
+          46390,
+          46509,
+          46776,
+          47431
+        ],
+        [
+          46390,
+          45811,
+          45751,
+          46744
+        ],
+        [
+          46390,
+          46744
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 46390,
+          "ra": 141.8968826,
+          "dec": -8.65868335,
+          "mag": 1.99
+        },
+        {
+          "hip": 46509,
+          "ra": 142.28682816,
+          "dec": -2.76895627,
+          "mag": 4.59
+        },
+        {
+          "hip": 46776,
+          "ra": 142.99556148,
+          "dec": -1.18465438,
+          "mag": 4.54
+        },
+        {
+          "hip": 47431,
+          "ra": 144.96389156,
+          "dec": -1.14265722,
+          "mag": 3.9
+        },
+        {
+          "hip": 45811,
+          "ra": 140.12094162,
+          "dec": -9.55562948,
+          "mag": 4.8
+        },
+        {
+          "hip": 45751,
+          "ra": 139.94332821,
+          "dec": -11.97488214,
+          "mag": 4.77
+        },
+        {
+          "hip": 46744,
+          "ra": 142.91236818,
+          "dec": -10.55196998,
+          "mag": 6.13
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 46390,
+        "parallaxMas": 18.09,
+        "parallaxErrorMas": 0.18,
+        "relativeError": 0.009950248756218905,
+        "distanceLy": 180,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-26-zhang",
+      "order": 26,
+      "name": "张",
+      "traditionalAsterism": "张宿",
+      "englishName": "Extended Net",
+      "definingStarHip": 48356,
+      "starCultureId": "CON chinese_song_dynasty 26A",
+      "lines": [
+        [
+          48356,
+          49841,
+          51069,
+          48615
+        ],
+        [
+          48356,
+          48615
+        ],
+        [
+          48356,
+          47452
+        ],
+        [
+          51069,
+          52085
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 48356,
+          "ra": 147.86951033,
+          "dec": -14.84654997,
+          "mag": 4.11
+        },
+        {
+          "hip": 49841,
+          "ra": 152.64748785,
+          "dec": -12.35383921,
+          "mag": 3.61
+        },
+        {
+          "hip": 51069,
+          "ra": 156.52293768,
+          "dec": -16.83609584,
+          "mag": 3.83
+        },
+        {
+          "hip": 48615,
+          "ra": 148.71765461,
+          "dec": -19.00926985,
+          "mag": 4.94
+        },
+        {
+          "hip": 47452,
+          "ra": 145.07657975,
+          "dec": -14.33224542,
+          "mag": 5.07
+        },
+        {
+          "hip": 52085,
+          "ra": 159.6458878,
+          "dec": -16.87663687,
+          "mag": 4.91
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 48356,
+        "parallaxMas": 12.36,
+        "parallaxErrorMas": 0.26,
+        "relativeError": 0.02103559870550162,
+        "distanceLy": 264,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-27-yi",
+      "order": 27,
+      "name": "翼",
+      "traditionalAsterism": "翼宿",
+      "englishName": "Wings",
+      "definingStarHip": 53740,
+      "starCultureId": "CON chinese_song_dynasty 27A",
+      "lines": [
+        [
+          57587,
+          56633,
+          55687,
+          54029,
+          52980
+        ],
+        [
+          55687,
+          55874,
+          56802,
+          55282,
+          55705
+        ],
+        [
+          58188,
+          57283,
+          55705,
+          53740,
+          52943
+        ],
+        [
+          57283,
+          55598,
+          53740
+        ],
+        [
+          55598,
+          54682,
+          56078,
+          54204,
+          54477
+        ],
+        [
+          58158,
+          56280,
+          54477,
+          51979,
+          50066
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 57587,
+          "ra": 177.09812514,
+          "dec": -10.3128395,
+          "mag": 6.24
+        },
+        {
+          "hip": 56633,
+          "ra": 174.17061875,
+          "dec": -9.80225368,
+          "mag": 4.7
+        },
+        {
+          "hip": 55687,
+          "ra": 171.15252245,
+          "dec": -10.85938276,
+          "mag": 4.81
+        },
+        {
+          "hip": 54029,
+          "ra": 165.8122009,
+          "dec": -11.30320923,
+          "mag": 5.51
+        },
+        {
+          "hip": 52980,
+          "ra": 162.57524733,
+          "dec": -8.89772694,
+          "mag": 5.8
+        },
+        {
+          "hip": 55874,
+          "ra": 171.78989699,
+          "dec": -12.3568071,
+          "mag": 5.93
+        },
+        {
+          "hip": 56802,
+          "ra": 174.66648767,
+          "dec": -13.20224958,
+          "mag": 5.48
+        },
+        {
+          "hip": 55282,
+          "ra": 169.83551103,
+          "dec": -14.77904358,
+          "mag": 3.56
+        },
+        {
+          "hip": 55705,
+          "ra": 171.22076335,
+          "dec": -17.68401748,
+          "mag": 4.06
+        },
+        {
+          "hip": 58188,
+          "ra": 179.00409802,
+          "dec": -17.15080863,
+          "mag": 5.17
+        },
+        {
+          "hip": 57283,
+          "ra": 176.19066226,
+          "dec": -18.35061467,
+          "mag": 4.71
+        },
+        {
+          "hip": 53740,
+          "ra": 164.94478664,
+          "dec": -18.29909723,
+          "mag": 4.08
+        },
+        {
+          "hip": 52943,
+          "ra": 162.40596699,
+          "dec": -16.19413208,
+          "mag": 3.11
+        },
+        {
+          "hip": 55598,
+          "ra": 170.84196837,
+          "dec": -18.77990277,
+          "mag": 5.08
+        },
+        {
+          "hip": 54682,
+          "ra": 167.91452617,
+          "dec": -22.82560642,
+          "mag": 4.46
+        },
+        {
+          "hip": 56078,
+          "ra": 172.41103268,
+          "dec": -24.46405831,
+          "mag": 5.77
+        },
+        {
+          "hip": 54204,
+          "ra": 166.33346925,
+          "dec": -27.29359566,
+          "mag": 4.92
+        },
+        {
+          "hip": 54477,
+          "ra": 167.18353198,
+          "dec": -28.08061647,
+          "mag": 5.43
+        },
+        {
+          "hip": 58158,
+          "ra": 178.91720463,
+          "dec": -28.47703681,
+          "mag": 5.93
+        },
+        {
+          "hip": 56280,
+          "ra": 173.06840611,
+          "dec": -29.26137351,
+          "mag": 4.93
+        },
+        {
+          "hip": 51979,
+          "ra": 159.30749487,
+          "dec": -27.41268661,
+          "mag": 4.87
+        },
+        {
+          "hip": 50066,
+          "ra": 153.33117633,
+          "dec": -27.02897817,
+          "mag": 6.23
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 53740,
+        "parallaxMas": 20.49,
+        "parallaxErrorMas": 0.27,
+        "relativeError": 0.013177159590043926,
+        "distanceLy": 159,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    },
+    {
+      "mansionId": "xingxiu-28-zhen",
+      "order": 28,
+      "name": "轸",
+      "traditionalAsterism": "轸宿",
+      "englishName": "Chariot",
+      "definingStarHip": 59803,
+      "starCultureId": "CON chinese_song_dynasty 28A",
+      "lines": [
+        [
+          61359,
+          60965,
+          59803,
+          59316,
+          61359
+        ],
+        [
+          59803,
+          60189
+        ],
+        [
+          60965,
+          61174
+        ],
+        [
+          59316,
+          59199
+        ]
+      ],
+      "stars": [
+        {
+          "hip": 61359,
+          "ra": 188.59680864,
+          "dec": -23.39662306,
+          "mag": 2.65
+        },
+        {
+          "hip": 60965,
+          "ra": 187.4665965,
+          "dec": -16.51509397,
+          "mag": 2.94
+        },
+        {
+          "hip": 59803,
+          "ra": 183.95194937,
+          "dec": -17.5419837,
+          "mag": 2.58
+        },
+        {
+          "hip": 59316,
+          "ra": 182.53135773,
+          "dec": -22.61979211,
+          "mag": 3.02
+        },
+        {
+          "hip": 60189,
+          "ra": 185.14046113,
+          "dec": -22.21583387,
+          "mag": 5.2
+        },
+        {
+          "hip": 61174,
+          "ra": 188.01868646,
+          "dec": -16.19586556,
+          "mag": 4.3
+        },
+        {
+          "hip": 59199,
+          "ra": 182.10313607,
+          "dec": -24.72877993,
+          "mag": 4.02
+        }
+      ],
+      "definingStarDistance": {
+        "hip": 59803,
+        "parallaxMas": 21.23,
+        "parallaxErrorMas": 0.2,
+        "relativeError": 0.009420631182289214,
+        "distanceLy": 154,
+        "status": "available",
+        "sourceId": "astronomy-hipparcos-2"
+      },
+      "interactive": true,
+      "mappingStatus": "adopted-display-version",
+      "differenceNote": "采用 Stellarium 26.2 中国宋代星空文化的星官线与距星定义；不同历史时期对距星、增星及星官成员可能有异，页面不将其宣称为唯一古代定本。",
+      "sourceIds": [
+        "astronomy-hipparcos",
+        "astronomy-hipparcos-2",
+        "culture-stellarium-song"
+      ]
+    }
+  ]
+}

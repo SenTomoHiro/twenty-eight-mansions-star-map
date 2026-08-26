@@ -1,0 +1,30 @@
+# Dependencies, builds, caches, and test output
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+.vite/
+*.tsbuildinfo
+*.log
+*.local
+.DS_Store
+
+# Secrets and local environment
+.env
+.env.*
+
+# Private research and production working material
+reference_materials/
+artifacts/
+production_assets/
+research/
+docs/
+*.mp4
+*.zip
+ChatGPT Image *.png
+
+# Internal development records (public documentation lives at repository root)
+DEVELOPMENT_*.md
+PROJECT_ARCHITECTURE_BASELINE.md
+二十八星宿星图系统_*.md
