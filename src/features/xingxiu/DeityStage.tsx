@@ -74,9 +74,6 @@ export function DeityStage({ mansion, mapping, onSelect }: DeityStageProps) {
           )}
         </div>
         {cloud ? <img className="deity-stage__cloud deity-stage__cloud--front" src={cloud} alt="" aria-hidden="true" /> : null}
-        <p className="deity-stage__caption">
-          {deity ? '经确认的统一画风正式神像' : '造型考据资料已保留 · 正式神像暂未接入'}
-        </p>
       </div>
 
       <article className="deity-copy">

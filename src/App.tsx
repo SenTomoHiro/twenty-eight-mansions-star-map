@@ -227,11 +227,6 @@ export function App() {
             href="/"
             onClick={(event) => { event.preventDefault(); navigate('/') }}
           >观星</a>
-          <button
-            className={detailOpen ? 'is-active' : ''}
-            type="button"
-            onClick={() => { if (page !== 'sky') navigate('/'); setSelectedImportantId(undefined); setImportantDetailOpen(false); setDetailOpen(true) }}
-          >见神</button>
           <a
             className={page === 'provenance' ? 'is-active' : ''}
             href="/provenance"
