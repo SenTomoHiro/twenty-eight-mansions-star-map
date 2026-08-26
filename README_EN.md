@@ -8,7 +8,7 @@ The project brings modern stellar coordinates, the Twenty-Eight Mansions, tradit
 
 ## Vision
 
-The goal is to make the spatial and cultural structure of traditional Chinese astronomy explorable with modern web technology while keeping the underlying sources and historical uncertainties visible. This is a cultural visualization and research-navigation project, not a commercial divination service and not a claim to a single authoritative historical mapping.
+The goal is to make the spatial and cultural structure of traditional Chinese astronomy explorable with modern web technology while keeping the underlying sources and historical uncertainties visible. This is a cultural visualization and research-navigation project, not a claim to a single authoritative historical mapping.
 
 ## Live Demo
 
@@ -105,4 +105,3 @@ Issues and pull requests are welcome for software defects, responsive behavior, 
 ## License Status
 
 No project-wide open-source license has been selected yet. Code and digital illustrations remain under default copyright unless separately granted; third-party materials retain their own terms.
-
