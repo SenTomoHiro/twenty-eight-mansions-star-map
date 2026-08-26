@@ -1963,7 +1963,7 @@ body.is-sky-home {
   color: rgba(242, 231, 207, 0.62);
 }
 
-.sky-important-hover {
+.sky-hover-card {
   position: absolute;
   z-index: 11;
   top: 92px;
@@ -1978,8 +1978,8 @@ body.is-sky-home {
   transform: translateX(-50%);
   pointer-events: none;
 }
-.sky-important-hover small { font-size: 5px; letter-spacing: 0.13em; color: rgba(192, 146, 99, 0.8); }
-.sky-important-hover span { font: 400 12px/1 var(--serif); letter-spacing: 0.1em; }
+.sky-hover-card small { font-size: 5px; letter-spacing: 0.13em; color: rgba(192, 146, 99, 0.8); }
+.sky-hover-card span { font: 400 12px/1 var(--serif); letter-spacing: 0.1em; }
 
 .sky-home__status {
   position: absolute;
@@ -2868,9 +2868,9 @@ body.is-sky-home {
     font-size: 6px;
   }
 
-  .sky-important-hover { top: 68px; gap: 8px; padding: 6px 8px; }
-  .sky-important-hover small { display: none; }
-  .sky-important-hover span { font-size: 9px; }
+  .sky-hover-card { top: 68px; gap: 8px; padding: 6px 8px; }
+  .sky-hover-card small { display: none; }
+  .sky-hover-card span { font-size: 9px; }
 
   .sky-view-toggle {
     right: 14px;

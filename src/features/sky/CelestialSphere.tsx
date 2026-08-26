@@ -9,7 +9,7 @@ import {
   resolveImportantMembers,
 } from '../../data/importantAsterisms'
 import mansionStarMappingsData from '../../data/mansion-star-mappings.json'
-import { MANSIONS } from '../../data/mansions'
+import { MANSIONS, MANSION_BY_ID } from '../../data/mansions'
 import traditionalSkyData from '../../data/traditional-chinese-sky.json'
 import type {
   BrightStar,
@@ -69,6 +69,12 @@ import {
   mansionVisualRole,
   observationMansionVisualState,
 } from './skyVisualState'
+import {
+  importantAsterismHoverCard,
+  mansionHoverCard,
+  resolveSkyInteractionTarget,
+  type SkyHoverCard,
+} from './skyHover'
 
 const brightStars = brightStarsData as BrightStar[]
 const mansionStarMappings = mansionStarMappingsData.mappings as MansionStarMapping[]
@@ -1482,7 +1488,7 @@ export function CelestialSphere({
     pinchPanoramaViewport: resetPanoramaViewport(),
   })
   const [isInteracting, setIsInteracting] = useState(false)
-  const [hoveredImportantId, setHoveredImportantId] = useState<ImportantAsterismId | undefined>()
+  const [hoveredSkyTarget, setHoveredSkyTarget] = useState<SkyHoverCard | undefined>()
   const [fovReadout, setFovReadout] = useState<number>(DEFAULT_FOV)
   const [panoramaReadout, setPanoramaReadout] = useState<PanoramaViewportState>(resetPanoramaViewport)
 
@@ -1769,17 +1775,43 @@ export function CelestialSphere({
     if (!previous) {
       const point = pointerPosition(event)
       const rect = event.currentTarget.getBoundingClientRect()
-      const targets = runtime.mode === SKY_VIEW.panorama
+      const mansionTargets = runtime.mode === SKY_VIEW.panorama
+        ? runtime.panoramaHitTargets
+        : runtime.hitTargets
+      const importantTargets = runtime.mode === SKY_VIEW.panorama
         ? runtime.panoramaImportantHitTargets
         : runtime.importantHitTargets
-      const nearest = targets.map((target) => {
+      const nearestMansion = mansionTargets.map((target) => {
         const projected = projectMansionToCanvas(runtime, target.position, rect.width, rect.height, runtime.mode)
         return projected ? { ...target, distance: Math.hypot(point.x - projected.x, point.y - projected.y) } : undefined
       }).filter((target): target is NonNullable<typeof target> => Boolean(target)).sort((a, b) => a.distance - b.distance)[0]
-      const hoveredId = nearest && nearest.distance < 28 ? nearest.id : ''
-      event.currentTarget.dataset.hoveredImportantAsterism = hoveredId
-      event.currentTarget.style.cursor = hoveredId ? 'pointer' : 'grab'
-      setHoveredImportantId(hoveredId || undefined)
+      const nearestImportant = importantTargets.map((target) => {
+        const projected = projectMansionToCanvas(runtime, target.position, rect.width, rect.height, runtime.mode)
+        return projected ? { ...target, distance: Math.hypot(point.x - projected.x, point.y - projected.y) } : undefined
+      }).filter((target): target is NonNullable<typeof target> => Boolean(target)).sort((a, b) => a.distance - b.distance)[0]
+      const target = resolveSkyInteractionTarget({
+        mansion: nearestMansion,
+        importantAsterism: nearestImportant,
+        selectedImportantAsterismId: selectedImportantAsterism?.id,
+        maxDistance: 28,
+      })
+      const mansion = target?.type === 'mansion' ? MANSION_BY_ID[target.id] : undefined
+      const importantAsterism = target?.type === 'importantAsterism'
+        ? IMPORTANT_ASTERISMS.find((asterism) => asterism.id === target.id)
+        : undefined
+      const hoverCard = mansion
+        ? mansionHoverCard(mansion)
+        : importantAsterism
+          ? importantAsterismHoverCard(importantAsterism)
+          : undefined
+      event.currentTarget.dataset.hoveredSkyTargetType = hoverCard?.type ?? ''
+      event.currentTarget.dataset.hoveredSkyTargetId = hoverCard?.id ?? ''
+      event.currentTarget.dataset.hoveredMansion = hoverCard?.type === 'mansion' ? hoverCard.id : ''
+      event.currentTarget.dataset.hoveredImportantAsterism = hoverCard?.type === 'importantAsterism' ? hoverCard.id : ''
+      event.currentTarget.style.cursor = hoverCard ? 'pointer' : 'grab'
+      setHoveredSkyTarget((current) => (
+        current?.type === hoverCard?.type && current?.id === hoverCard?.id ? current : hoverCard
+      ))
       return
     }
     const point = pointerPosition(event)
@@ -1891,19 +1923,15 @@ export function CelestialSphere({
           return projected ? Math.hypot(point.x - projected.x, point.y - projected.y) : Number.POSITIVE_INFINITY
         })
         .sort((a, b) => a - b)[0] ?? Number.POSITIVE_INFINITY
-      const mansionHasPriority = nearest
-        && nearest.distance < 30
-        && (nearest.distance <= nearestOrdinaryDistance + 4 || nearestOrdinaryDistance >= 18)
-      const importantHasPriority = nearestImportant
-        && nearestImportant.distance < 30
-        && (
-          nearestImportant.kind === 'label'
-          || selectedImportantAsterism?.id === nearestImportant.id
-          || !mansionHasPriority
-          || nearestImportant.distance + 5 < nearest.distance
-        )
-      if (importantHasPriority) onSelectImportantAsterism(nearestImportant.id)
-      else if (mansionHasPriority) onSelectMansion(nearest.id)
+      const target = resolveSkyInteractionTarget({
+        mansion: nearest,
+        importantAsterism: nearestImportant,
+        nearestOrdinaryDistance,
+        selectedImportantAsterismId: selectedImportantAsterism?.id,
+        maxDistance: 30,
+      })
+      if (target?.type === 'importantAsterism') onSelectImportantAsterism(target.id)
+      else if (target?.type === 'mansion') onSelectMansion(target.id)
     }
     pointersRef.current.delete(event.pointerId)
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -1977,9 +2005,12 @@ export function CelestialSphere({
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         onPointerLeave={(event) => {
+          event.currentTarget.dataset.hoveredSkyTargetType = ''
+          event.currentTarget.dataset.hoveredSkyTargetId = ''
+          event.currentTarget.dataset.hoveredMansion = ''
           event.currentTarget.dataset.hoveredImportantAsterism = ''
           if (pointersRef.current.size === 0) event.currentTarget.style.cursor = 'grab'
-          setHoveredImportantId(undefined)
+          setHoveredSkyTarget(undefined)
         }}
         onWheel={handleWheel}
         role="application"
@@ -2000,10 +2031,10 @@ export function CelestialSphere({
         <i />
         <span>THREE · WEBGL</span>
       </div>
-      {hoveredImportantId ? (
-        <div className="sky-important-hover" aria-hidden="true">
-          <small>IMPORTANT ASTERISM</small>
-          <span>{IMPORTANT_ASTERISMS.find((asterism) => asterism.id === hoveredImportantId)?.name}</span>
+      {hoveredSkyTarget ? (
+        <div className="sky-hover-card" aria-hidden="true">
+          <small>{hoveredSkyTarget.eyebrow}</small>
+          <span>{hoveredSkyTarget.title}</span>
         </div>
       ) : null}
     </div>
