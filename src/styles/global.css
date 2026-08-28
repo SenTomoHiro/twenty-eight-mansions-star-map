@@ -1700,7 +1700,17 @@ img {
 .site-footer > div { display: flex; align-items: center; gap: 15px; }
 .site-footer > div strong { font: 400 15px/1 var(--serif); letter-spacing: 0.15em; }
 .site-footer > p { margin: 0; font-size: 8px; line-height: 1.9; letter-spacing: 0.12em; text-align: center; color: var(--muted-dark); }
-.site-footer > a { justify-self: end; font-size: 8px; letter-spacing: 0.14em; color: var(--muted); }
+.site-footer > button {
+  justify-self: end;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  cursor: pointer;
+}
 
 @keyframes slow-spin { to { transform: translateY(-48%) rotate(360deg); } }
 @keyframes slow-spin-centered { to { transform: translate(-50%, -51%) rotate(360deg); } }

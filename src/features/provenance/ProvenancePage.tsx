@@ -74,7 +74,7 @@ export function ProvenancePage() {
       <footer className="site-footer">
         <div><span>宿</span><strong>二十八星宿星图系统</strong></div>
         <p>中国传统星宿文化展示与展示级天象可视化<br />YANGCHENG REFERENCE VIEW · 2026</p>
-        <a href="/">返回观星 ↑</a>
+        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>返回顶部 ↑</button>
       </footer>
     </main>
   )
