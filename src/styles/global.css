@@ -1147,18 +1147,18 @@ img {
   animation: cloud-drift-reverse 23s ease-in-out infinite alternate;
 }
 
-/* The decoration owns the entire stage width, so no finite image edge can enter the artwork. */
+/* Foreground decoration owns the entire stage width, so no finite image edge can enter the artwork. */
 .deity-stage__cloud-bed {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   inset: 0;
   pointer-events: none;
   background-repeat: repeat-x;
   background-position: center bottom;
   background-size: auto 48%;
-  filter: saturate(0.68) brightness(0.68);
+  filter: saturate(0.68) brightness(0.8);
   mix-blend-mode: screen;
-  opacity: 0.24;
+  opacity: 0.38;
 }
 
 .deity-stage__ordinal {
