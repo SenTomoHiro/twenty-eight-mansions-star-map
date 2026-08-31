@@ -9,7 +9,6 @@ export interface ArtworkNetworkInformation {
 
 export interface ArtworkLoadingEnvironment {
   connection?: ArtworkNetworkInformation
-  mobile: boolean
 }
 
 /** Maps the official high-resolution asset stem to its generated mobile derivative. */
@@ -17,13 +16,17 @@ export function mobileArtworkStem(assetStem: string) {
   return `${assetStem}.mobile`
 }
 
-/** Use browser-provided low-bandwidth signals only when the device is mobile. */
-export function shouldUseMobileArtwork({ mobile, connection }: ArtworkLoadingEnvironment) {
-  if (!mobile) return false
+/** Use browser-provided low-bandwidth signals on every device. */
+export function shouldUseMobileArtwork({ connection }: ArtworkLoadingEnvironment) {
   return connection?.saveData === true
     || connection?.effectiveType === 'slow-2g'
     || connection?.effectiveType === '2g'
     || connection?.effectiveType === '3g'
+}
+
+/** Browsers without Network Information use the one-way load-time fallback. */
+export function shouldAttemptArtworkTimeoutFallback(connection: ArtworkNetworkInformation | undefined) {
+  return connection === undefined
 }
 
 /**
@@ -58,22 +61,20 @@ interface BrowserNavigator extends Navigator {
   connection?: ArtworkNetworkInformation
   mozConnection?: ArtworkNetworkInformation
   webkitConnection?: ArtworkNetworkInformation
-  userAgentData?: { mobile?: boolean }
 }
 
-function isMobileBrowser() {
-  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false
+function browserNetworkInformation() {
+  if (typeof navigator === 'undefined') return undefined
   const browserNavigator = navigator as BrowserNavigator
-  if (browserNavigator.userAgentData?.mobile === true) return true
-  if (/Android|iPhone|iPod|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent)) return true
-  return navigator.maxTouchPoints > 0 && window.innerWidth <= 767
+  return browserNavigator.connection ?? browserNavigator.mozConnection ?? browserNavigator.webkitConnection
 }
 
 export function shouldUseMobileArtworkInBrowser() {
-  if (typeof navigator === 'undefined') return false
-  const browserNavigator = navigator as BrowserNavigator
   return shouldUseMobileArtwork({
-    mobile: isMobileBrowser(),
-    connection: browserNavigator.connection ?? browserNavigator.mozConnection ?? browserNavigator.webkitConnection,
+    connection: browserNetworkInformation(),
   })
+}
+
+export function shouldAttemptArtworkTimeoutFallbackInBrowser() {
+  return shouldAttemptArtworkTimeoutFallback(browserNetworkInformation())
 }

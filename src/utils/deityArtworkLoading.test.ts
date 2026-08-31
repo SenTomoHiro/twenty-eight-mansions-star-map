@@ -3,24 +3,26 @@ import { MANSIONS } from '../data/mansions'
 import {
   createArtworkLoadController,
   mobileArtworkStem,
+  shouldAttemptArtworkTimeoutFallback,
   shouldUseMobileArtwork,
 } from './deityArtworkLoading'
 
-describe('mobile deity artwork selection', () => {
-  it('never selects a mobile derivative for desktop, even on a low-speed connection', () => {
-    expect(shouldUseMobileArtwork({ mobile: false, connection: { effectiveType: '2g', saveData: true } })).toBe(false)
+describe('low-network deity artwork selection', () => {
+  it('selects a compressed derivative for every device when data saving is enabled', () => {
+    expect(shouldUseMobileArtwork({ connection: { saveData: true } })).toBe(true)
   })
 
-  it('keeps the high-resolution artwork on a normal mobile connection', () => {
-    expect(shouldUseMobileArtwork({ mobile: true, connection: { effectiveType: '4g' } })).toBe(false)
+  it('keeps the high-resolution artwork on a normal connection', () => {
+    expect(shouldUseMobileArtwork({ connection: { effectiveType: '4g' } })).toBe(false)
   })
 
-  it.each(['slow-2g', '2g', '3g'])('selects the mobile derivative on %s mobile networks', (effectiveType) => {
-    expect(shouldUseMobileArtwork({ mobile: true, connection: { effectiveType } })).toBe(true)
+  it.each(['slow-2g', '2g', '3g'])('selects the compressed derivative on every device at %s', (effectiveType) => {
+    expect(shouldUseMobileArtwork({ connection: { effectiveType } })).toBe(true)
   })
 
-  it('selects the mobile derivative when the browser reports data saving', () => {
-    expect(shouldUseMobileArtwork({ mobile: true, connection: { saveData: true } })).toBe(true)
+  it('only enables the timeout fallback when network information is unavailable', () => {
+    expect(shouldAttemptArtworkTimeoutFallback(undefined)).toBe(true)
+    expect(shouldAttemptArtworkTimeoutFallback({ effectiveType: '4g' })).toBe(false)
   })
 
   it('maps every approved mansion artwork to one deterministic mobile filename', () => {
@@ -46,5 +48,15 @@ describe('high-resolution artwork timeout fallback', () => {
 
     expect(controller.downgradeAfterTimeout()).toBe(false)
     expect(controller.source).toBe('high')
+  })
+
+  it('keeps timeout sessions independent when the displayed deity changes quickly', () => {
+    const previousDeity = createArtworkLoadController()
+    const currentDeity = createArtworkLoadController()
+
+    previousDeity.downgradeAfterTimeout()
+    expect(previousDeity.source).toBe('mobile')
+    expect(currentDeity.source).toBe('high')
+    expect(currentDeity.hasDowngraded).toBe(false)
   })
 })

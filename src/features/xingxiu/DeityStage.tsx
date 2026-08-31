@@ -5,7 +5,11 @@ import { MANSIONS } from '../../data/mansions'
 import { XINGXIU_CULTURE_BY_ID } from '../../data/xingxiuCulture'
 import type { Mansion, MansionStarMapping } from '../../types/xingxiu'
 import { formatStellarDistance } from '../../utils/stellarDistance'
-import { HIGH_RES_DEITY_ARTWORK_TIMEOUT_MS, shouldUseMobileArtworkInBrowser } from '../../utils/deityArtworkLoading'
+import {
+  HIGH_RES_DEITY_ARTWORK_TIMEOUT_MS,
+  shouldAttemptArtworkTimeoutFallbackInBrowser,
+  shouldUseMobileArtworkInBrowser,
+} from '../../utils/deityArtworkLoading'
 import { CultureArchive } from './CultureArchive'
 import { SourceDisclosure } from './SourceDisclosure'
 
@@ -17,6 +21,7 @@ interface DeityStageProps {
 
 function useResponsiveDeityArtwork(highResolutionUrl: string | undefined, mobileUrl: string | undefined) {
   const [useMobileImmediately] = useState(() => shouldUseMobileArtworkInBrowser() && Boolean(mobileUrl))
+  const [useTimeoutFallback] = useState(() => shouldAttemptArtworkTimeoutFallbackInBrowser())
   const [source, setSource] = useState(() => useMobileImmediately ? mobileUrl : highResolutionUrl)
   const session = useRef({ highResolutionLoaded: false, pendingFallback: false })
 
@@ -24,7 +29,7 @@ function useResponsiveDeityArtwork(highResolutionUrl: string | undefined, mobile
     session.current = { highResolutionLoaded: false, pendingFallback: false }
     const currentSession = session.current
 
-    if (useMobileImmediately || !highResolutionUrl || !mobileUrl) return undefined
+    if (useMobileImmediately || !useTimeoutFallback || !highResolutionUrl || !mobileUrl) return undefined
 
     let active = true
     const timer = window.setTimeout(() => {
@@ -42,7 +47,7 @@ function useResponsiveDeityArtwork(highResolutionUrl: string | undefined, mobile
       active = false
       window.clearTimeout(timer)
     }
-  }, [highResolutionUrl, mobileUrl, useMobileImmediately])
+  }, [highResolutionUrl, mobileUrl, useMobileImmediately, useTimeoutFallback])
 
   return {
     source,
@@ -133,6 +138,13 @@ export function DeityStage({ mansion, mapping, onSelect }: DeityStageProps) {
             </div>
           )}
         </div>
+        {cloud ? (
+          <div
+            className="deity-stage__cloud-bed"
+            style={{ backgroundImage: `url(${cloud})` }}
+            aria-hidden="true"
+          />
+        ) : null}
       </div>
 
       <article className="deity-copy">

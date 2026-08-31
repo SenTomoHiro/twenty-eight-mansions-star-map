@@ -1147,6 +1147,20 @@ img {
   animation: cloud-drift-reverse 23s ease-in-out infinite alternate;
 }
 
+/* The decoration owns the entire stage width, so no finite image edge can enter the artwork. */
+.deity-stage__cloud-bed {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 48%;
+  filter: saturate(0.68) brightness(0.68);
+  mix-blend-mode: screen;
+  opacity: 0.24;
+}
+
 .deity-stage__ordinal {
   position: absolute;
   z-index: 0;
@@ -3053,6 +3067,8 @@ body.is-sky-home {
   .detail-overlay__content .deity-stage__figure {
     inset: 4% 12%;
   }
+
+  .deity-stage__cloud-bed { background-size: auto 54%; }
 
   .detail-overlay__content .deity-stage__placeholder span {
     font-size: 92px;
