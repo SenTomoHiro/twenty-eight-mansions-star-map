@@ -13,7 +13,8 @@
     "typecheck": "tsc -b --pretty",
     "lint": "eslint .",
     "test": "vitest run",
-    "audit:stellarium-song": "node scripts/audit-stellarium-song-data.mjs"
+    "audit:stellarium-song": "node scripts/audit-stellarium-song-data.mjs",
+    "generate:mobile-deity-artworks": "node scripts/generate-mobile-deity-artworks.mjs"
   },
   "dependencies": {
     "@types/three": "^0.185.4",

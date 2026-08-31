@@ -23,6 +23,10 @@ export function deityArtwork(assetStem: string) {
     ?? findAsset(deityArtworkModules, `/${assetStem}.png`)
 }
 
+export function mobileDeityArtwork(assetStem: string) {
+  return findAsset(deityArtworkModules, `/${assetStem}.mobile.webp`)
+}
+
 export function visualAsset(relativePath: string) {
   return findAsset(visualModules, `/${relativePath}`)
 }

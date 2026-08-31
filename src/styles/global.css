@@ -1106,8 +1106,7 @@ img {
 
 .deity-stage__orbit,
 .deity-stage__halo,
-.deity-stage__cloud,
-.deity-stage__haze {
+.deity-stage__cloud {
   position: absolute;
   pointer-events: none;
   object-fit: contain;
@@ -1146,24 +1145,6 @@ img {
   width: 70%;
   opacity: 0.23;
   animation: cloud-drift-reverse 23s ease-in-out infinite alternate;
-}
-
-.deity-stage__cloud--front {
-  z-index: 4;
-  bottom: -10%;
-  left: -12%;
-  width: 88%;
-  opacity: 0.38;
-  animation: cloud-drift 20s ease-in-out infinite alternate;
-}
-
-.deity-stage__haze {
-  z-index: 3;
-  right: -12%;
-  bottom: -12%;
-  width: 98%;
-  opacity: 0.42;
-  mix-blend-mode: screen;
 }
 
 .deity-stage__ordinal {
