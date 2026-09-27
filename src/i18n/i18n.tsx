@@ -37,14 +37,18 @@ interface LocaleContextValue {
 const LocaleContext = createContext<LocaleContextValue | undefined>(undefined)
 
 export function resolveLocalePreference(stored: string | null): Locale {
-  return stored === 'en' || stored === 'zh-CN' ? stored : 'zh-CN'
+  return stored === 'en' || stored === 'zh-CN' ? stored : 'en'
+}
+
+export function persistLocalePreference(storage: Pick<Storage, 'setItem'>, locale: Locale): void {
+  storage.setItem(STORAGE_KEY, locale)
 }
 
 function initialLocale(): Locale {
   try {
     return resolveLocalePreference(window.localStorage.getItem(STORAGE_KEY))
   } catch { /* localStorage can be unavailable in privacy modes */ }
-  return 'zh-CN'
+  return 'en'
 }
 
 export function LocaleProvider({ children, initialLocaleOverride }: { children: ReactNode; initialLocaleOverride?: Locale }) {
@@ -59,7 +63,7 @@ export function LocaleProvider({ children, initialLocaleOverride }: { children: 
     document.documentElement.lang = locale
     document.title = messages[locale].metadataTitle
     document.querySelector('meta[name="description"]')?.setAttribute('content', messages[locale].metadataDescription)
-    try { window.localStorage.setItem(STORAGE_KEY, locale) } catch { /* preference persistence is best effort */ }
+    try { persistLocalePreference(window.localStorage, locale) } catch { /* preference persistence is best effort */ }
   }, [locale])
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>

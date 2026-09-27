@@ -6,7 +6,7 @@ import mansionStarMappingsData from '../data/mansion-star-mappings.json'
 import { MANSIONS } from '../data/mansions'
 import { XINGXIU_CULTURE_BY_ID } from '../data/xingxiuCulture'
 import type { MansionStarMapping } from '../types/xingxiu'
-import { LocaleProvider, LocaleSwitch, messages, resolveLocalePreference } from './i18n'
+import { LocaleProvider, LocaleSwitch, messages, persistLocalePreference, resolveLocalePreference } from './i18n'
 import { localizeCulture, localizeFourSymbol, localizeImportantAsterism, localizeMansion, localizeMapping } from './localizedData'
 
 describe('localization', () => {
@@ -21,10 +21,23 @@ describe('localization', () => {
     expect(english).toContain('aria-pressed="true">English')
   })
 
-  it('restores a valid stored preference and safely defaults invalid values', () => {
+  it('defaults missing and invalid preferences to English', () => {
+    expect(resolveLocalePreference(null)).toBe('en')
     expect(resolveLocalePreference('en')).toBe('en')
     expect(resolveLocalePreference('zh-CN')).toBe('zh-CN')
-    expect(resolveLocalePreference('unknown')).toBe('zh-CN')
+    expect(resolveLocalePreference('unknown')).toBe('en')
+  })
+
+  it('keeps an explicit language selection after a later initialization', () => {
+    let stored: string | null = null
+    const storage = {
+      setItem: (_key: string, value: string) => { stored = value },
+      getItem: () => stored,
+    }
+    persistLocalePreference(storage, 'zh-CN')
+    expect(resolveLocalePreference(storage.getItem())).toBe('zh-CN')
+    persistLocalePreference(storage, 'en')
+    expect(resolveLocalePreference(storage.getItem())).toBe('en')
   })
 
   it('has complete English data for every mansion, symbol, culture profile, and important asterism', () => {
