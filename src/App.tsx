@@ -26,14 +26,17 @@ import { dateInputValue, equatorialToHorizontal, makeObservationDate } from './u
 import { requestCurrentObserver } from './utils/geolocation'
 import { LocaleSwitch, useLocale } from './i18n/i18n'
 import { localizeFourSymbol, localizeImportantAsterism, localizeMansion } from './i18n/localizedData'
+import { appRouteUrl, pageFromLocation, type AppPage } from './routing'
 
 const mappings = mansionStarMappingsData.mappings as MansionStarMapping[]
 const mappingById = Object.fromEntries(
   mappings.map((mapping) => [mapping.mansionId, mapping]),
 ) as Record<string, MansionStarMapping>
 
+const baseUrl = import.meta.env.BASE_URL
+
 function currentPage() {
-  return window.location.pathname === '/provenance' ? 'provenance' : 'sky'
+  return pageFromLocation(window.location.pathname, window.location.hash, baseUrl)
 }
 
 export function App() {
@@ -100,7 +103,11 @@ export function App() {
   useEffect(() => {
     const handlePopState = () => setPage(currentPage())
     window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
+    window.addEventListener('hashchange', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('hashchange', handlePopState)
+    }
   }, [])
 
   useEffect(() => {
@@ -131,10 +138,11 @@ export function App() {
 
   useEffect(() => () => window.clearTimeout(detailTimerRef.current), [])
 
-  const navigate = (path: '/' | '/provenance') => {
+  const navigate = (nextPage: AppPage) => {
     window.clearTimeout(detailTimerRef.current)
-    if (window.location.pathname !== path) window.history.pushState({}, '', path)
-    setPage(path === '/provenance' ? 'provenance' : 'sky')
+    const url = appRouteUrl(nextPage, baseUrl)
+    if (`${window.location.pathname}${window.location.hash}` !== url) window.history.pushState({}, '', url)
+    setPage(nextPage)
     setDetailOpen(false)
     setImportantDetailOpen(false)
     setTimePanelOpen(false)
@@ -224,9 +232,9 @@ export function App() {
       <header className="site-header site-header--hud">
         <a
           className="site-mark"
-          href="/"
+          href={appRouteUrl('sky', baseUrl)}
           aria-label={t('homeLabel')}
-          onClick={(event) => { event.preventDefault(); navigate('/') }}
+          onClick={(event) => { event.preventDefault(); navigate('sky') }}
         >
           <span>宿</span>
           <div><strong>{t('brand')}</strong><small>CELESTIAL MANSIONS</small></div>
@@ -234,13 +242,13 @@ export function App() {
         <nav aria-label={t('navLabel')}>
           <a
             className={page === 'sky' && !detailOpen ? 'is-active' : ''}
-            href="/"
-            onClick={(event) => { event.preventDefault(); navigate('/') }}
+            href={appRouteUrl('sky', baseUrl)}
+            onClick={(event) => { event.preventDefault(); navigate('sky') }}
           >{t('sky')}</a>
           <a
             className={page === 'provenance' ? 'is-active' : ''}
-            href="/provenance"
-            onClick={(event) => { event.preventDefault(); navigate('/provenance') }}
+            href={appRouteUrl('provenance', baseUrl)}
+            onClick={(event) => { event.preventDefault(); navigate('provenance') }}
           >{t('provenance')}</a>
         </nav>
         <div className="header-observation">
