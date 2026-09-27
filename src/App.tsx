@@ -24,6 +24,8 @@ import type { MansionStarMapping } from './types/xingxiu'
 import type { ImportantAsterismId } from './types/importantAsterism'
 import { dateInputValue, equatorialToHorizontal, makeObservationDate } from './utils/astronomy'
 import { requestCurrentObserver } from './utils/geolocation'
+import { LocaleSwitch, useLocale } from './i18n/i18n'
+import { localizeFourSymbol, localizeImportantAsterism, localizeMansion } from './i18n/localizedData'
 
 const mappings = mansionStarMappingsData.mappings as MansionStarMapping[]
 const mappingById = Object.fromEntries(
@@ -35,6 +37,7 @@ function currentPage() {
 }
 
 export function App() {
+  const { locale, t } = useLocale()
   const [page, setPage] = useState(currentPage)
   const [date, setDate] = useState(dateInputValue())
   const [time, setTime] = useState('21:00')
@@ -66,6 +69,9 @@ export function App() {
   const selectedImportantAsterism = selectedImportantId
     ? IMPORTANT_ASTERISM_BY_ID[selectedImportantId]
     : undefined
+  const displayMansion = localizeMansion(selectedMansion, locale)
+  const displaySymbol = localizeFourSymbol(selectedSymbol, locale)
+  const displayImportantAsterism = selectedImportantAsterism ? localizeImportantAsterism(selectedImportantAsterism, locale) : undefined
 
   const horizontal = useMemo(() => {
     const defining = selectedMapping.stars.find((star) => star.hip === selectedMapping.definingStarHip)
@@ -205,48 +211,53 @@ export function App() {
 
   const coordinateText = `${formatCoordinate(observer.latitude, 'N', 'S', 4)} · ${formatCoordinate(observer.longitude, 'E', 'W', 4)}`
   const observerTitle = observerSession.mode === 'yangcheng'
-    ? '夏都阳城 · 河南登封'
-    : '当前位置'
+    ? t('yangchengTitle')
+    : t('currentLocation')
+  const observerName = observerSession.mode === 'yangcheng' ? t('yangchengTitle') : t('currentLocation')
+  const directions = locale === 'zh-CN'
+    ? PANORAMA_ORIENTATION
+    : { top: 'South · Vermilion Bird', bottom: 'North · Black Tortoise', left: 'East · Azure Dragon', right: 'West · White Tiger' }
 
   return (
     <div className={`site-shell site-shell--${page}`}>
-      <a className="skip-link" href="#main-content">跳至主要内容</a>
+      <a className="skip-link" href="#main-content">{t('skip')}</a>
       <header className="site-header site-header--hud">
         <a
           className="site-mark"
           href="/"
-          aria-label="返回二十八宿星空"
+          aria-label={t('homeLabel')}
           onClick={(event) => { event.preventDefault(); navigate('/') }}
         >
           <span>宿</span>
-          <div><strong>廿八宿</strong><small>CELESTIAL MANSIONS</small></div>
+          <div><strong>{t('brand')}</strong><small>CELESTIAL MANSIONS</small></div>
         </a>
-        <nav aria-label="主导航">
+        <nav aria-label={t('navLabel')}>
           <a
             className={page === 'sky' && !detailOpen ? 'is-active' : ''}
             href="/"
             onClick={(event) => { event.preventDefault(); navigate('/') }}
-          >观星</a>
+          >{t('sky')}</a>
           <a
             className={page === 'provenance' ? 'is-active' : ''}
             href="/provenance"
             onClick={(event) => { event.preventDefault(); navigate('/provenance') }}
-          >溯源</a>
+          >{t('provenance')}</a>
         </nav>
         <div className="header-observation">
           <span>{page === 'sky'
-            ? viewMode === SKY_VIEW.panorama ? '固定全景 · 不取地点与时刻' : `${date.replaceAll('-', '.')} · ${time}`
+            ? viewMode === SKY_VIEW.panorama ? t('panoramaStatic') : `${date.replaceAll('-', '.')} · ${time}`
             : 'PROVENANCE'}</span>
           <small>{page === 'sky'
-            ? viewMode === SKY_VIEW.panorama ? '完整中国传统星空' : observer.name
-            : '天文 · 文化 · 文物'}</small>
+            ? viewMode === SKY_VIEW.panorama ? t('traditionalSky') : observerName
+            : t('provenanceKinds')}</small>
         </div>
+        <LocaleSwitch />
       </header>
 
       {page === 'provenance' ? (
         <ProvenancePage />
       ) : (
-        <main className={`sky-home sky-home--${viewMode}${detailOpen || importantDetailOpen ? ' has-detail' : ''}${viewTransitioning ? ' is-view-transitioning' : ''}`} id="main-content" aria-label="全屏三维星空">
+        <main className={`sky-home sky-home--${viewMode}${detailOpen || importantDetailOpen ? ' has-detail' : ''}${viewTransitioning ? ' is-view-transitioning' : ''}`} id="main-content" aria-label={t('mainSkyLabel')}>
           <div className="sky-home__scene">
             <CelestialSphere
               date={date}
@@ -254,7 +265,8 @@ export function App() {
               latitude={observer.latitude}
               longitude={observer.longitude}
               timezone={observer.timezone}
-              observerLabel={observer.name}
+              observerLabel={observerName}
+              key={locale}
               mode={viewMode}
               selectedMansion={selectedMansion}
               selectedImportantAsterism={selectedImportantAsterism}
@@ -268,53 +280,53 @@ export function App() {
 
           <div className="sky-home__status" aria-live="polite">
             <small>{selectedImportantAsterism
-              ? `重要星官 · 0${selectedImportantAsterism.order} / 03`
-              : `${String(selectedMansion.order).padStart(2, '0')} / 28 · ${selectedSymbol.name}${viewMode === SKY_VIEW.observation ? ` · ${observer.shortName}` : ''}`}</small>
+              ? `${t('importantAsterism')} · 0${selectedImportantAsterism.order} / 03`
+              : `${String(selectedMansion.order).padStart(2, '0')} / 28 · ${displaySymbol.name}${viewMode === SKY_VIEW.observation ? ` · ${observerName}` : ''}`}</small>
             <button type="button" onClick={() => selectedImportantAsterism ? setImportantDetailOpen(true) : setDetailOpen(true)}>
-              <strong>{selectedImportantAsterism?.name ?? selectedMansion.name}</strong>
+              <strong>{displayImportantAsterism?.name ?? displayMansion.name}</strong>
               <span>{selectedImportantAsterism
-                ? `${selectedImportantAsterism.members.length} 位 · ${selectedImportantAsterism.traditionalRegion}`
-                : `${selectedMansion.fullName} · HIP ${selectedMapping.definingStarHip}`}</span>
+                ? `${selectedImportantAsterism.members.length} ${locale === 'en' ? 'members' : '位'} · ${displayImportantAsterism?.traditionalRegion}`
+                : `${displayMansion.fullName} · HIP ${selectedMapping.definingStarHip}`}</span>
             </button>
             <p>{selectedImportantAsterism
-              ? selectedImportantAsterism.modernMappingNotes
+              ? displayImportantAsterism?.modernMappingNotes
               : viewMode === SKY_VIEW.panorama
-              ? '固定全天投影 · 不代表某地某时的瞬时天空'
-              : `ALT ${horizontal.altitude.toFixed(1)}° · AZ ${horizontal.azimuth.toFixed(1)}° · ${horizontal.altitude >= 0 ? '地平线上' : '地平线下'}`}</p>
+              ? t('fixedProjection')
+              : `ALT ${horizontal.altitude.toFixed(1)}° · AZ ${horizontal.azimuth.toFixed(1)}° · ${horizontal.altitude >= 0 ? t('aboveHorizon') : t('belowHorizon')}`}</p>
           </div>
 
-          {viewMode === SKY_VIEW.observation ? <div className="sky-home__tools" aria-label="星空控制">
+          {viewMode === SKY_VIEW.observation ? <div className="sky-home__tools" aria-label={t('skyControls')}>
             <button
               type="button"
               className={timePanelOpen ? 'is-active' : ''}
               onClick={() => { setTimePanelOpen((value) => !value); setMansionNavOpen(false); setImportantNavOpen(false) }}
-            ><span>日期时刻</span><small>{time}</small></button>
+            ><span>{t('dateTime')}</span><small>{time}</small></button>
             <button
               type="button"
               className={mansionNavOpen ? 'is-active' : ''}
               onClick={() => { setMansionNavOpen((value) => !value); setTimePanelOpen(false); setImportantNavOpen(false) }}
-            ><span>周天列宿</span><small>28</small></button>
+            ><span>{t('mansionsNav')}</span><small>28</small></button>
             <button
               type="button"
               className={importantNavOpen ? 'is-active' : ''}
               onClick={() => { setImportantNavOpen((value) => !value); setTimePanelOpen(false); setMansionNavOpen(false) }}
-            ><span>重要星官</span><small>{IMPORTANT_ASTERISMS.length}</small></button>
+            ><span>{t('importantAsterism')}</span><small>{IMPORTANT_ASTERISMS.length}</small></button>
             <button type="button" onClick={() => setResetToken((value) => value + 1)}>
-              <span>重置视角</span><small>◎</small>
+              <span>{t('resetView')}</span><small>◎</small>
             </button>
           </div> : null}
 
           {viewMode === SKY_VIEW.observation ? (
-            <section className="sky-observer-control" aria-label="观测点状态">
+            <section className="sky-observer-control" aria-label={t('observationStatus')}>
               <header>
-                <span>观测点</span>
-                <div role="group" aria-label="切换观测点">
+                <span>{t('observationPoint')}</span>
+                <div role="group" aria-label={t('switchObservationPoint')}>
                   <button
                     type="button"
                     className={observerSession.mode === 'yangcheng' ? 'is-active' : ''}
                     aria-pressed={observerSession.mode === 'yangcheng'}
                     onClick={restoreYangcheng}
-                  >阳城</button>
+                  >{t('yangcheng')}</button>
                   <i aria-hidden="true" />
                   <button
                     type="button"
@@ -322,11 +334,11 @@ export function App() {
                     aria-pressed={observerSession.mode === 'current-location'}
                     disabled={observerSession.status === 'requesting' && !observerSession.cachedCurrentObserver}
                     onClick={useCurrentLocation}
-                  >当前位置</button>
+                  >{t('currentLocation')}</button>
                 </div>
               </header>
               <p><strong>{observerTitle}</strong><span>{coordinateText}</span></p>
-              <small aria-live="polite">{observerStatusMessage(observerSession)}</small>
+              <small aria-live="polite">{observerStatusMessage(observerSession, locale)}</small>
             </section>
           ) : null}
 
@@ -334,11 +346,11 @@ export function App() {
             type="button"
             className="sky-view-toggle"
             disabled={viewTransitioning}
-            aria-label={viewMode === SKY_VIEW.observation ? '拉远至完整全景星图' : '返回原地理观测视角'}
+            aria-label={viewMode === SKY_VIEW.observation ? t('panoramaOut') : t('returnObservationLabel')}
             onClick={toggleView}
           >
             <i aria-hidden="true" />
-            <span>{viewMode === SKY_VIEW.observation ? '全景' : '返回观测'}</span>
+            <span>{viewMode === SKY_VIEW.observation ? t('panorama') : t('returnObservation')}</span>
           </button>
 
           {viewMode === SKY_VIEW.panorama ? (
@@ -347,21 +359,21 @@ export function App() {
               className="sky-panorama-reset"
               disabled={viewTransitioning}
               onClick={() => setPanoramaResetToken((value) => value + 1)}
-            >恢复全景</button>
+            >{t('resetPanorama')}</button>
           ) : null}
 
           {viewMode === SKY_VIEW.panorama ? (
-            <div className="panorama-directions" aria-label="全景固定方位">
-              <span className="is-top">{PANORAMA_ORIENTATION.top}</span>
-              <span className="is-bottom">{PANORAMA_ORIENTATION.bottom}</span>
-              <span className="is-left">{PANORAMA_ORIENTATION.left}</span>
-              <span className="is-right">{PANORAMA_ORIENTATION.right}</span>
+            <div className="panorama-directions" aria-label={t('panoramaDirections')}>
+              <span className="is-top">{directions.top}</span>
+              <span className="is-bottom">{directions.bottom}</span>
+              <span className="is-left">{directions.left}</span>
+              <span className="is-right">{directions.right}</span>
             </div>
           ) : null}
 
           {timePanelOpen ? (
-            <aside className="sky-time-panel" aria-label="日期时刻与季节">
-              <header><span>观测时刻</span><button type="button" onClick={() => setTimePanelOpen(false)}>收起 ×</button></header>
+            <aside className="sky-time-panel" aria-label={t('dateTimeSeason')}>
+              <header><span>{t('observationTime')}</span><button type="button" onClick={() => setTimePanelOpen(false)}>{t('collapse')}</button></header>
               <TimeControls date={date} time={time} timezone={observer.timezone} onDateChange={setDate} onTimeChange={setTime} />
             </aside>
           ) : null}

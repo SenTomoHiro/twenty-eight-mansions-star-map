@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { resolveImportantMembers } from '../../data/importantAsterisms'
 import type { ImportantAsterism } from '../../types/importantAsterism'
+import { useLocale } from '../../i18n/i18n'
 
 interface ImportantAsterismDiagramProps {
   asterism: ImportantAsterism
@@ -12,6 +13,7 @@ function wrappedDelta(value: number, center: number) {
 }
 
 export function ImportantAsterismDiagram({ asterism, selectedMemberIds }: ImportantAsterismDiagramProps) {
+  const { locale } = useLocale()
   const resolved = useMemo(() => resolveImportantMembers(asterism), [asterism])
   const plotted = resolved.filter((member) => member.star)
   const centerRa = plotted.length > 0
@@ -40,7 +42,7 @@ export function ImportantAsterismDiagram({ asterism, selectedMemberIds }: Import
 
   return (
     <figure className="important-diagram">
-      <svg viewBox="0 0 100 100" role="img" aria-label={`${asterism.name}成员星位示意`}>
+      <svg viewBox="0 0 100 100" role="img" aria-label={locale === 'en' ? `Schematic member positions for ${asterism.name}` : `${asterism.name}成员星位示意`}>
         <circle className="important-diagram__orbit" cx="50" cy="50" r="45" />
         {asterism.lines.flatMap((strip) => strip.slice(1).map((hip, index) => {
           const from = pointByHip.get(strip[index])
@@ -59,15 +61,14 @@ export function ImportantAsterismDiagram({ asterism, selectedMemberIds }: Import
           <g className={`is-traditional${selected.has(bi.id) ? ' is-selected' : ''}`}>
             <line x1={lastReal.sx} y1={lastReal.sy} x2={Math.min(92, lastReal.sx + 9)} y2={Math.min(92, lastReal.sy + 8)} />
             <circle cx={Math.min(92, lastReal.sx + 9)} cy={Math.min(92, lastReal.sy + 8)} r="2.7" />
-            <text x={Math.min(88, lastReal.sx + 12)} y={Math.min(96, lastReal.sy + 11)}>弼 · 传统示意</text>
+            <text x={Math.min(88, lastReal.sx + 12)} y={Math.min(96, lastReal.sy + 11)}>{locale === 'en' ? 'Bi · traditional schematic' : '弼 · 传统示意'}</text>
           </g>
         ) : null}
       </svg>
       <figcaption>
-        <span><i />真实恒星</span>
-        {bi ? <span className="is-traditional"><i />传统星位 · 无现代映射</span> : null}
+        <span><i />{locale === 'en' ? 'Physical star' : '真实恒星'}</span>
+        {bi ? <span className="is-traditional"><i />{locale === 'en' ? 'Traditional position · no modern mapping' : '传统星位 · 无现代映射'}</span> : null}
       </figcaption>
     </figure>
   )
 }
-

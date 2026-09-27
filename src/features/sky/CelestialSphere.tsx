@@ -47,6 +47,8 @@ import {
   type ScreenLabel,
 } from './skyLabelCollision'
 import { buildTraditionalPositionCache, type SkyPositionCache } from './skyModel'
+import { useLocale, type Locale } from '../../i18n/i18n'
+import { localizeImportantAsterism, localizeMansion, traditionalFigureLabel } from '../../i18n/localizedData'
 import {
   DEFAULT_PANORAMA_VIEWPORT,
   PANORAMA_ORIENTATION,
@@ -292,7 +294,7 @@ function makeLabelSprite(
   return sprite
 }
 
-function makeStaticHorizon() {
+function makeStaticHorizon(locale: Locale) {
   const group = new THREE.Group()
   group.name = 'local-horizon'
 
@@ -385,7 +387,12 @@ function makeStaticHorizon() {
   haze.position.y = 0.06
   group.add(haze)
 
-  const cardinalPoints = [
+  const cardinalPoints = locale === 'en' ? [
+    { title: 'North', subtitle: 'N', azimuth: 0 },
+    { title: 'East', subtitle: 'E', azimuth: 90 },
+    { title: 'South', subtitle: 'S', azimuth: 180 },
+    { title: 'West', subtitle: 'W', azimuth: 270 },
+  ] : [
     { title: '北', subtitle: 'N', azimuth: 0 },
     { title: '东', subtitle: 'E', azimuth: 90 },
     { title: '南', subtitle: 'S', azimuth: 180 },
@@ -403,7 +410,7 @@ function makeStaticHorizon() {
     group.add(label)
   })
 
-  const zenith = makeLabelSprite('天顶', 'ZENITH', '#e1d2b6', true)
+  const zenith = makeLabelSprite(locale === 'en' ? 'Zenith' : '天顶', 'ZENITH', '#e1d2b6', true)
   zenith.position.set(0, SKY_RADIUS * 0.94, 0)
   group.add(zenith)
 
@@ -544,6 +551,7 @@ function rebuildSky(
   timezone: string,
   selectedMansion: Mansion,
   selectedImportantAsterism?: ImportantAsterism,
+  locale: Locale = 'zh-CN',
 ) {
   const previousGroup = runtime.dynamicGroup
   const group = new THREE.Group()
@@ -629,7 +637,8 @@ function rebuildSky(
     if (center) {
       nonInteractiveTargets.push(center.clone())
       if (center.y >= 0) visibleTraditionalAsterismCount += 1
-      const label = makeLabelSprite(figure.name, '', center.y >= 0 ? '#c0b192' : '#91938e', true)
+      const figureName = traditionalFigureLabel(figure, locale)
+      const label = makeLabelSprite(figureName, '', center.y >= 0 ? '#c0b192' : '#91938e', true)
       label.position.copy(center)
       label.scale.multiplyScalar(0.66)
       setMaterialBaseOpacity(
@@ -646,7 +655,7 @@ function rebuildSky(
         position: center,
         kind: 'traditional',
         id: figure.id,
-        name: figure.name,
+        name: figureName,
       })
     }
     figure.lines.forEach((strip) => {
@@ -692,6 +701,7 @@ function rebuildSky(
   }
 
   MANSIONS.forEach((mansion) => {
+    const displayMansion = localizeMansion(mansion, locale)
     const mapping = mansionMappingById[mansion.id]
     if (!mapping) return
     const selected = !selectedImportantAsterism && mansion.id === selectedMansion.id
@@ -780,7 +790,7 @@ function rebuildSky(
     if (defining) {
       const belowHorizon = defining.y < 0
       const label = makeLabelSprite(
-        mansion.name,
+        displayMansion.name,
         selected ? `${mansion.latin} · HIP ${mapping.definingStarHip}` : mansion.latin,
         selected ? '#ffe9c5' : belowHorizon ? '#969894' : sameSymbol ? '#d1bea0' : '#b9aa90',
       )
@@ -798,12 +808,13 @@ function rebuildSky(
         position: label.position.clone(),
         kind: 'mansion',
         id: mansion.id,
-        name: mansion.name,
+        name: displayMansion.name,
       })
     }
   })
 
   IMPORTANT_ASTERISMS.forEach((asterism) => {
+    const displayAsterism = localizeImportantAsterism(asterism, locale)
     const selected = asterism.id === selectedImportantAsterism?.id
     const members = resolveImportantMembers(asterism).filter((member) => member.star)
     const positionByHip = new Map<number, THREE.Vector3>()
@@ -851,8 +862,8 @@ function rebuildSky(
     }
     if (center) {
       const label = makeLabelSprite(
-        asterism.name,
-        selected ? `${asterism.members.length} 位 · IMPORTANT` : '重要星官',
+        displayAsterism.name,
+        selected ? `${asterism.members.length} ${locale === 'en' ? 'members' : '位'} · IMPORTANT` : (locale === 'en' ? 'Important asterism' : '重要星官'),
         selected ? '#ffe5bd' : '#d9b785',
       )
       label.position.copy(center).multiplyScalar(0.95)
@@ -861,7 +872,7 @@ function rebuildSky(
       label.scale.multiplyScalar(selected ? 1 : 0.74)
       label.visible = true
       group.add(label)
-      labelCandidates.push({ sprite: label, position: label.position.clone(), kind: 'important', id: asterism.id, name: asterism.name })
+      labelCandidates.push({ sprite: label, position: label.position.clone(), kind: 'important', id: asterism.id, name: displayAsterism.name })
     }
   })
 
@@ -924,7 +935,7 @@ function panoramaLabelCenter(cache: SkyPositionCache, references: TraditionalSky
   return points.reduce((sum, point) => sum.add(point), new THREE.Vector3()).multiplyScalar(1 / points.length)
 }
 
-function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedImportantAsterism?: ImportantAsterism) {
+function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedImportantAsterism?: ImportantAsterism, locale: Locale = 'zh-CN') {
   const previousGroup = runtime.panoramaGroup
   const group = new THREE.Group()
   group.name = 'fixed-ra-dec-all-sky-panorama'
@@ -996,7 +1007,8 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
     const center = panoramaLabelCenter(cache, figure.memberRefs)
     if (center) {
       nonInteractiveTargets.push(center.clone())
-      const label = makeLabelSprite(figure.name, '', '#aaa293', true)
+      const figureName = traditionalFigureLabel(figure, locale)
+      const label = makeLabelSprite(figureName, '', '#aaa293', true)
       label.position.copy(center)
       label.scale.multiplyScalar(0.45)
       setMaterialBaseOpacity(label.material, PANORAMA_VISUAL.traditionalLabelOpacity)
@@ -1008,7 +1020,7 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
         position: center.clone(),
         kind: 'traditional',
         id: figure.id,
-        name: figure.name,
+        name: figureName,
       })
     }
     figure.lines.forEach((strip) => {
@@ -1032,6 +1044,7 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
 
   const hitTargets: Array<{ id: string; position: THREE.Vector3 }> = []
   MANSIONS.forEach((mansion) => {
+    const displayMansion = localizeMansion(mansion, locale)
     const mapping = mansionMappingById[mansion.id]
     if (!mapping) return
     const selected = !selectedImportantAsterism && mansion.id === selectedMansion.id
@@ -1075,7 +1088,7 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
     const defining = positionByHip.get(mapping.definingStarHip)
     if (defining) {
       const label = makeLabelSprite(
-        mansion.name,
+        displayMansion.name,
         selected ? `${mansion.latin} · HIP ${mapping.definingStarHip}` : mansion.latin,
         selected ? '#ffe6bd' : '#c5b89f',
       )
@@ -1093,13 +1106,14 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
         position: label.position.clone(),
         kind: 'mansion',
         id: mansion.id,
-        name: mansion.name,
+        name: displayMansion.name,
       })
     }
   })
 
   const importantHitTargets: SkyRuntime['importantHitTargets'] = []
   IMPORTANT_ASTERISMS.forEach((asterism) => {
+    const displayAsterism = localizeImportantAsterism(asterism, locale)
     const selected = asterism.id === selectedImportantAsterism?.id
     const members = resolveImportantMembers(asterism).filter((member) => member.star)
     const positions = members.map((member) => ({ member, point: panoramaVector(member.star!) }))
@@ -1133,14 +1147,14 @@ function buildPanorama(runtime: SkyRuntime, selectedMansion: Mansion, selectedIm
     const center = panoramaLabelCenter(cache, members.flatMap((member) => member.hip === undefined ? [] : [member.hip]))
     if (center) {
       importantHitTargets.push({ id: asterism.id, position: center.clone(), kind: 'label' })
-      const label = makeLabelSprite(asterism.name, selected ? `${asterism.members.length} 位 · IMPORTANT` : '重要星官', selected ? '#ffe5bd' : '#d9b785')
+      const label = makeLabelSprite(displayAsterism.name, selected ? `${asterism.members.length} ${locale === 'en' ? 'members' : '位'} · IMPORTANT` : (locale === 'en' ? 'Important asterism' : '重要星官'), selected ? '#ffe5bd' : '#d9b785')
       label.position.copy(center)
       label.position.z = 3
       label.scale.multiplyScalar(selected ? 0.78 : 0.58)
       setMaterialBaseOpacity(label.material, selected ? 1 : selectedImportantAsterism ? 0.42 : 0.86)
       label.visible = true
       group.add(label)
-      labelCandidates.push({ sprite: label, position: label.position.clone(), kind: 'important', id: asterism.id, name: asterism.name })
+      labelCandidates.push({ sprite: label, position: label.position.clone(), kind: 'important', id: asterism.id, name: displayAsterism.name })
     }
   })
 
@@ -1472,6 +1486,7 @@ export function CelestialSphere({
   resetToken,
   panoramaResetToken,
 }: CelestialSphereProps) {
+  const { locale } = useLocale()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const runtimeRef = useRef<SkyRuntime | null>(null)
   const transitionChangeRef = useRef(onTransitionChange)
@@ -1512,7 +1527,7 @@ export function CelestialSphere({
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(0x07101a)
     scene.fog = new THREE.FogExp2(0x07101a, 0.00055)
-    const staticGroup = makeStaticHorizon()
+    const staticGroup = makeStaticHorizon(locale)
     scene.add(staticGroup)
 
     const panoramaScene = new THREE.Scene()
@@ -1688,19 +1703,19 @@ export function CelestialSphere({
       renderer.dispose()
       runtimeRef.current = null
     }
-  }, [])
+  }, [locale])
 
   useEffect(() => {
     const runtime = runtimeRef.current
     if (!runtime) return
-    rebuildSky(runtime, date, time, latitude, longitude, timezone, selectedMansion, selectedImportantAsterism)
-  }, [date, latitude, longitude, selectedImportantAsterism, selectedMansion, time, timezone])
+    rebuildSky(runtime, date, time, latitude, longitude, timezone, selectedMansion, selectedImportantAsterism, locale)
+  }, [date, latitude, locale, longitude, selectedImportantAsterism, selectedMansion, time, timezone])
 
   useEffect(() => {
     const runtime = runtimeRef.current
     if (!runtime) return
-    buildPanorama(runtime, selectedMansion, selectedImportantAsterism)
-  }, [selectedImportantAsterism, selectedMansion])
+    buildPanorama(runtime, selectedMansion, selectedImportantAsterism, locale)
+  }, [locale, selectedImportantAsterism, selectedMansion])
 
   useEffect(() => {
     const runtime = runtimeRef.current
@@ -1800,9 +1815,9 @@ export function CelestialSphere({
         ? IMPORTANT_ASTERISMS.find((asterism) => asterism.id === target.id)
         : undefined
       const hoverCard = mansion
-        ? mansionHoverCard(mansion)
+        ? mansionHoverCard(localizeMansion(mansion, locale))
         : importantAsterism
-          ? importantAsterismHoverCard(importantAsterism)
+          ? importantAsterismHoverCard(localizeImportantAsterism(importantAsterism, locale))
           : undefined
       event.currentTarget.dataset.hoveredSkyTargetType = hoverCard?.type ?? ''
       event.currentTarget.dataset.hoveredSkyTargetId = hoverCard?.id ?? ''
@@ -1996,8 +2011,8 @@ export function CelestialSphere({
         className="sky-canvas sky-webgl"
         aria-describedby="sky-canvas-help"
         aria-label={mode === SKY_VIEW.panorama
-          ? '中国传统星空固定全景；上南下北、左东右西，可缩放和平移并点选二十八宿与重要星官，方向不可旋转'
-          : `${observerLabel}三维天球；观察者位于天球中心，可拖动环顾地平线上下，并点选星宿或重要星官`}
+          ? (locale === 'en' ? 'Fixed all-sky projection of the traditional Chinese sky; south is up, north down, east left, and west right. Pan, zoom, and select mansions or important asterisms; orientation does not rotate.' : '中国传统星空固定全景；上南下北、左东右西，可缩放和平移并点选二十八宿与重要星官，方向不可旋转')
+          : (locale === 'en' ? `${observerLabel} three-dimensional celestial sphere; the observer is at its center. Drag above and below the horizon and select mansions or important asterisms.` : `${observerLabel}三维天球；观察者位于天球中心，可拖动环顾地平线上下，并点选星宿或重要星官`)}
         data-renderer="three-webgl"
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
@@ -2017,14 +2032,14 @@ export function CelestialSphere({
         tabIndex={0}
       />
       <p className="sr-only" id="sky-canvas-help">
-        观测视图使用方向键环顾三维天空，加号和减号调整视野。全景视图使用拖动平移、滚轮或双指缩放，方向始终固定；数字零恢复当前模式的默认视图。
+        {locale === 'en' ? 'In observation view, use the arrow keys to look around and plus or minus to change the field of view. In all-sky view, drag to pan and use the wheel or a pinch to zoom. Orientation stays fixed; zero restores the current mode’s default view.' : '观测视图使用方向键环顾三维天空，加号和减号调整视野。全景视图使用拖动平移、滚轮或双指缩放，方向始终固定；数字零恢复当前模式的默认视图。'}
       </p>
       <div className="sky-gesture-hint" aria-hidden="true">
-        <span>{mode === SKY_VIEW.panorama ? '拖动平移' : '拖动环顾'}</span>
+        <span>{mode === SKY_VIEW.panorama ? (locale === 'en' ? 'Drag to pan' : '拖动平移') : (locale === 'en' ? 'Drag to look' : '拖动环顾')}</span>
         <i />
         <span>{mode === SKY_VIEW.panorama
-          ? `缩放 ${Math.round(panoramaReadout.zoom / DEFAULT_PANORAMA_VIEWPORT.zoom * 100)}%`
-          : `视野 ${Math.round(fovReadout)}°`}</span>
+          ? `${locale === 'en' ? 'Zoom' : '缩放'} ${Math.round(panoramaReadout.zoom / DEFAULT_PANORAMA_VIEWPORT.zoom * 100)}%`
+          : `${locale === 'en' ? 'Field' : '视野'} ${Math.round(fovReadout)}°`}</span>
       </div>
       <div className="sky-model-badge" aria-hidden="true">
         <span>{mode === SKY_VIEW.panorama ? 'ALL-SKY PROJECTION' : 'CELESTIAL SPHERE'}</span>

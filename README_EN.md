@@ -6,6 +6,8 @@
 
 The project brings modern stellar coordinates, the Twenty-Eight Mansions, traditional asterism relationships, cultural archives, and twenty-eight human-reviewed deity illustrations into one source-aware browser experience. Users can move between a three-dimensional observational sky and a fixed all-sky projection, change the date and time, explore the Four Symbols, and open dedicated features for Beidou, Nandou, and Santai.
 
+The production site supports both Chinese and English. Use the language control in the upper-right corner; the choice is saved in the browser. Both languages share the same astronomical records, cultural records, components, and star-map logic.
+
 ## Vision
 
 The goal is to make the spatial and cultural structure of traditional Chinese astronomy explorable with modern web technology while keeping the underlying sources and historical uncertainties visible. This is a cultural visualization and research-navigation project, not a claim to a single authoritative historical mapping.
@@ -29,12 +31,15 @@ The maintainer leads product direction, cultural source review, illustration app
 - An independent Important Asterisms layer containing only Beidou Nine Stars, Nandou Six Stars, and Santai.
 - Member highlighting, context-safe reuse of Dou-mansion stars for Nandou, and Upper/Middle/Lower Steps for Santai.
 - Responsive layouts for desktop, tablet, and mobile.
+- Complete Chinese and English interface copy, archives, source disclosures, metadata, and accessibility text, with a persistent browser preference.
 
 ## Data and Cultural Boundaries
 
 The project keeps modern stellar data, traditional asterism structures, the mansion system, Daoist star worship, and later folk or divination systems conceptually separate. Historical texts, modern identifications, and divine titles may differ across periods and lineages, so records preserve sources, mapping notes, and uncertainty.
 
 Beidou's Bi star is a concrete example: it appears in the cultural record, but this project does not assign it a fabricated HIP, Gaia, or Bayer identity. It is shown only as a clearly differentiated traditional schematic position with the note “modern stellar counterpart not determined.”
+
+English terminology is deliberately conservative and reversible to the Chinese originals. The Twenty-Eight Mansions are not recast as a Western zodiac, and Daoist star lords are not flattened into “Western gods.” See [TRANSLATION_GLOSSARY.md](TRANSLATION_GLOSSARY.md) for the maintained terminology.
 
 ## Deity Illustrations
 
@@ -96,7 +101,7 @@ See [SOURCES.md](SOURCES.md) for astronomy, classical-text, Daoist, and visual-s
 
 ## Project Status
 
-The current release includes the full Twenty-Eight Mansions star map, twenty-eight formal deity illustrations, cultural archives, the traditional all-sky layer, responsive interaction, and the Beidou, Nandou, and Santai features.
+The current release includes a complete Chinese/English Twenty-Eight Mansions star map, twenty-eight formal deity illustrations, cultural archives, the traditional all-sky layer, responsive interaction, and the Beidou, Nandou, and Santai features.
 
 ## Contributing
 

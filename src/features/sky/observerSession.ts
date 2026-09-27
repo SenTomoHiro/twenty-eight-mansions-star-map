@@ -1,5 +1,6 @@
 import { YANGCHENG_REFERENCE, type ObserverLocation } from '../../config/observation'
 import type { GeolocationResult } from '../../utils/geolocation'
+import type { Locale } from '../../i18n/i18n'
 
 export type ObserverMode = 'yangcheng' | 'current-location'
 export type ObserverLocationStatus = GeolocationResult['status'] | 'idle' | 'requesting'
@@ -53,7 +54,18 @@ export function observerSessionReducer(
   }
 }
 
-export function observerStatusMessage(state: ObserverSessionState) {
+export function observerStatusMessage(state: ObserverSessionState, locale: Locale = 'zh-CN') {
+  if (locale === 'en') {
+    if (state.status === 'requesting') return 'Requesting your location; the current valid observer remains active.'
+    if (state.status === 'denied') return 'Location permission was not granted; continuing with Yangcheng.'
+    if (state.status === 'timeout') return 'The location request timed out; the current valid observer remains active.'
+    if (state.status === 'unavailable') return 'Current location is unavailable; the current valid observer remains active.'
+    if (state.status === 'unsupported') return 'This browser does not support location; continuing with Yangcheng.'
+    if (state.status === 'failed') return 'Location could not be determined; the current valid observer remains active.'
+    if (state.mode === 'current-location') return 'Your location stays in this browser session and is not uploaded.'
+    if (state.cachedCurrentObserver) return 'Your current location is cached for this session and can be selected at any time.'
+    return 'Yangcheng is the current cultural reference observer location.'
+  }
   if (state.status === 'requesting') return '正在获取当前位置；继续使用当前有效观测点。'
   if (state.status === 'denied') return '未获得位置权限，继续使用阳城。'
   if (state.status === 'timeout') return '定位请求超时，继续使用当前有效观测点。'

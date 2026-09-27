@@ -4,6 +4,7 @@ import {
   formatChineseDate,
   representativeSeasonDate,
 } from '../../utils/astronomy'
+import { useLocale } from '../../i18n/i18n'
 
 interface TimeControlsProps {
   date: string
@@ -21,8 +22,11 @@ const seasons = [
 ] as const
 
 export function TimeControls({ date, time, timezone, onDateChange, onTimeChange }: TimeControlsProps) {
+  const { locale } = useLocale()
   const year = Number(date.slice(0, 4)) || new Date().getFullYear()
-  const formatted = useMemo(() => formatChineseDate(date, timezone), [date, timezone])
+  const formatted = useMemo(() => locale === 'zh-CN'
+    ? formatChineseDate(date, timezone)
+    : new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: timezone }).format(new Date(`${date}T12:00:00`)), [date, locale, timezone])
   const [hours = 21, minutes = 0] = time.split(':').map(Number)
   const timeMinutes = Math.min(23 * 60 + 30, Math.max(0, hours * 60 + minutes))
 
@@ -42,7 +46,7 @@ export function TimeControls({ date, time, timezone, onDateChange, onTimeChange 
     <div className="time-controls">
       <div className="time-controls__primary">
         <label className="date-control">
-          <span>观测日期</span>
+          <span>{locale === 'en' ? 'Observation date' : '观测日期'}</span>
           <input
             type="date"
             value={date}
@@ -55,11 +59,11 @@ export function TimeControls({ date, time, timezone, onDateChange, onTimeChange 
           <strong>{formatted}</strong>
         </label>
         <div className="time-control">
-          <span>地方时刻</span>
+          <span>{locale === 'en' ? 'Local time' : '地方时刻'}</span>
           <div className="time-control__value">
-            <button type="button" aria-label="时刻减少三十分钟" onClick={() => stepTime(-30)}>−</button>
+            <button type="button" aria-label={locale === 'en' ? 'Decrease time by thirty minutes' : '时刻减少三十分钟'} onClick={() => stepTime(-30)}>−</button>
             <strong>{time}</strong>
-            <button type="button" aria-label="时刻增加三十分钟" onClick={() => stepTime(30)}>+</button>
+            <button type="button" aria-label={locale === 'en' ? 'Increase time by thirty minutes' : '时刻增加三十分钟'} onClick={() => stepTime(30)}>+</button>
           </div>
           <input
             type="range"
@@ -67,24 +71,24 @@ export function TimeControls({ date, time, timezone, onDateChange, onTimeChange 
             max="1410"
             step="30"
             value={timeMinutes}
-            aria-label="当天时刻，每次三十分钟"
+            aria-label={locale === 'en' ? 'Time of day in thirty-minute steps' : '当天时刻，每次三十分钟'}
             onChange={(event) => changeTimeByMinutes(event.target.value)}
           />
         </div>
         <button className="text-button" type="button" onClick={() => onDateChange(dateInputValue())}>
-          回到今日
+          {locale === 'en' ? 'Today' : '回到今日'}
         </button>
       </div>
-      <div className="season-selector" aria-label="四季代表日期">
+      <div className="season-selector" aria-label={locale === 'en' ? 'Representative seasonal dates' : '四季代表日期'}>
         {seasons.map((season) => (
           <button
             key={season.id}
             type="button"
-            title={season.date}
+            title={locale === 'en' ? ({ spring: 'Around the March equinox', summer: 'Around the June solstice', autumn: 'Around the September equinox', winter: 'Around the December solstice' } as const)[season.id] : season.date}
             onClick={() => onDateChange(representativeSeasonDate(year, season.id))}
           >
-            <span>{season.name}</span>
-            <small>{season.date}</small>
+            <span>{locale === 'en' ? ({ spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter' } as const)[season.id] : season.name}</span>
+            <small>{locale === 'en' ? ({ spring: 'Mar equinox', summer: 'Jun solstice', autumn: 'Sep equinox', winter: 'Dec solstice' } as const)[season.id] : season.date}</small>
           </button>
         ))}
       </div>

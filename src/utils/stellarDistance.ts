@@ -1,4 +1,5 @@
 import type { StellarDistance } from '../types/xingxiu'
+import type { Locale } from '../i18n/i18n'
 
 const PARSEC_TO_LIGHT_YEAR = 3.26156
 export const MAX_SIMPLE_INVERSION_RELATIVE_ERROR = 0.2
@@ -45,7 +46,10 @@ export function distanceFromParallax(
   }
 }
 
-export function formatStellarDistance(distance: StellarDistance) {
+export function formatStellarDistance(distance: StellarDistance, locale: Locale = 'zh-CN') {
+  if (locale === 'en') return distance.status === 'available' && distance.distanceLy !== undefined
+    ? `approximately ${distance.distanceLy.toLocaleString('en')} light-years`
+    : 'distance unavailable'
   return distance.status === 'available' && distance.distanceLy !== undefined
     ? `约 ${distance.distanceLy.toLocaleString('zh-CN')} 光年`
     : '距离数据不足'

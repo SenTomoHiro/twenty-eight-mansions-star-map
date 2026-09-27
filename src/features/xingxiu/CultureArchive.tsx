@@ -1,4 +1,5 @@
 import type { XingxiuCultureProfile } from '../../types/culture'
+import { useLocale } from '../../i18n/i18n'
 
 interface CultureArchiveProps {
   profile: XingxiuCultureProfile
@@ -13,6 +14,10 @@ const reliabilityLabels = {
 } as const
 
 export function CultureArchive({ profile }: CultureArchiveProps) {
+  const { locale } = useLocale()
+  const labels = locale === 'en' ? {
+    'primary-source-confirmed': 'Primary text', 'multiple-sources': 'Cross-checked', 'secondary-source-only': 'Modern research', disputed: 'Variants', insufficient: 'Insufficient evidence',
+  } : reliabilityLabels
   const fields = [
     profile.nameAndImage,
     profile.humanOrder,
@@ -22,10 +27,10 @@ export function CultureArchive({ profile }: CultureArchiveProps) {
   ]
 
   return (
-    <section className="culture-archive" aria-label="统一文化档案">
+    <section className="culture-archive" aria-label={locale === 'en' ? 'Integrated cultural archive' : '统一文化档案'}>
       <header>
         <small>TRADITIONAL CULTURE ARCHIVE</small>
-        <strong>传统文化五章</strong>
+        <strong>{locale === 'en' ? 'Five Cultural Perspectives' : '传统文化五章'}</strong>
       </header>
       <div className="culture-archive__fields">
         {fields.map((field, index) => (
@@ -33,7 +38,7 @@ export function CultureArchive({ profile }: CultureArchiveProps) {
             <div>
               <small>0{index + 1}</small>
               <h3>{field.title}</h3>
-              <span>{reliabilityLabels[field.reliability]}</span>
+              <span>{labels[field.reliability]}</span>
             </div>
             <p>{field.text}</p>
           </article>
@@ -41,13 +46,13 @@ export function CultureArchive({ profile }: CultureArchiveProps) {
       </div>
       <details className="ancient-evidence">
         <summary>
-          <span>古籍依据</span>
-          <small>正史天文志 + 道教文献</small>
+          <span>{locale === 'en' ? 'Textual evidence' : '古籍依据'}</span>
+          <small>{locale === 'en' ? 'Official astronomical treatise + Daoist text' : '正史天文志 + 道教文献'}</small>
         </summary>
         <div>
           {profile.ancientEvidence.map((citation) => (
             <figure key={citation.id}>
-              <blockquote>“{citation.quote}”</blockquote>
+              <blockquote><small>{locale === 'en' ? 'Original Chinese text' : ''}</small>“{citation.quote}”</blockquote>
               <figcaption>
                 <strong>{citation.book}{citation.section}</strong>
                 <span>{citation.dynasty} · {citation.authorOrCompiler} · {citation.locator}</span>
@@ -60,4 +65,3 @@ export function CultureArchive({ profile }: CultureArchiveProps) {
     </section>
   )
 }
-
