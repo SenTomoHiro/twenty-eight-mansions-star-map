@@ -1,0 +1,479 @@
+/* =============================================================================
+   性能降级样式
+   Performance Degradation Styles for Low-End Devices
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   1. 低端设备优化 - Low-End Device Optimizations
+   -------------------------------------------------------------------------- */
+
+/* 禁用 backdrop-filter */
+.no-backdrop-filter .observatory__panel,
+.no-backdrop-filter .sky-mansion-nav,
+.no-backdrop-filter .sky-time-panel,
+.no-backdrop-filter .deity-copy,
+.no-backdrop-filter .sky-observer-control,
+.no-backdrop-filter .sky-home__tools,
+.no-backdrop-filter .sky-view-toggle,
+.no-backdrop-filter .sky-panorama-reset,
+.no-backdrop-filter .detail-overlay__close,
+.no-backdrop-filter .mansion-detail-overlay {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 增加背景不透明度以补偿 */
+.no-backdrop-filter .observatory__panel,
+.no-backdrop-filter .sky-mansion-nav,
+.no-backdrop-filter .sky-time-panel {
+  background: rgba(13, 15, 14, 0.95);
+}
+
+.no-backdrop-filter .sky-observer-control,
+.no-backdrop-filter .sky-home__tools,
+.no-backdrop-filter .sky-view-toggle {
+  background: rgba(13, 15, 14, 0.92);
+}
+
+.no-backdrop-filter .mansion-detail-overlay {
+  background: rgba(5, 7, 6, 0.95);
+}
+
+.no-backdrop-filter .mansion-navigator__list button.is-active::before {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(168, 132, 94, 0.25);
+}
+
+/* 禁用文字阴影 */
+.no-text-shadow .mansion-navigator__list span,
+.no-text-shadow .sky-mansion-nav li span,
+.no-text-shadow .mansion-index__groups button strong,
+.no-text-shadow .sky-observer-control > p strong {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 禁用盒阴影 */
+.no-box-shadow .observatory__panel,
+.no-box-shadow .sky-mansion-nav,
+.no-box-shadow .sky-time-panel,
+.no-box-shadow .sky-home__tools,
+.no-box-shadow .sky-view-toggle,
+.no-box-shadow .sky-observer-control {
+  box-shadow: none !important;
+}
+
+/* 禁用盒阴影但保留边框 */
+.no-box-shadow .observatory__panel,
+.no-box-shadow .sky-time-panel {
+  border: 1px solid rgba(226, 216, 194, 0.3);
+}
+
+/* -----------------------------------------------------------------------------
+   2. 动画速度调整 - Animation Speed Adjustment
+   -------------------------------------------------------------------------- */
+
+/* 使用 CSS 变量控制动画速度 */
+:root {
+  --anim-duration-factor: 1;
+}
+
+.perf-low {
+  --anim-duration-factor: 0.5;
+}
+
+.perf-medium {
+  --anim-duration-factor: 0.75;
+}
+
+/* 应用到所有动画 */
+.observatory__panel,
+.sky-mansion-nav,
+.sky-time-panel,
+.detail-overlay__content,
+.deity-copy > * {
+  animation-duration: calc(var(--base-duration, 400ms) * var(--anim-duration-factor));
+}
+
+/* 应用到过渡 */
+.mansion-navigator__list button,
+.sky-mansion-nav li button,
+.sky-home__tools button,
+.four-symbols-nav button,
+.season-selector button {
+  transition-duration: calc(200ms * var(--anim-duration-factor));
+}
+
+/* -----------------------------------------------------------------------------
+   3. 简化动画 - Simplified Animations
+   -------------------------------------------------------------------------- */
+
+/* 低性能模式：移除复杂动画 */
+.perf-low .observatory__panel::before,
+.perf-low .sky-mansion-nav::before,
+.perf-low .sky-time-panel::before {
+  animation: none;
+  opacity: 0.6;
+}
+
+.perf-low .mansion-navigator__list button.is-active::before {
+  animation: none;
+}
+
+.perf-low .detail-overlay__content {
+  animation: card-fade-in-simple 300ms ease both;
+}
+
+@keyframes card-fade-in-simple {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 禁用骨架屏动画 */
+.perf-low .deity-stage__figure::before {
+  animation: none;
+  background: rgba(226, 216, 194, 0.05);
+}
+
+/* -----------------------------------------------------------------------------
+   4. 减少渲染层 - Reduce Render Layers
+   -------------------------------------------------------------------------- */
+
+/* 低性能模式：移除 will-change */
+.perf-low * {
+  will-change: auto !important;
+}
+
+/* 减少 transform 层 */
+.perf-low .four-symbols-nav button:hover,
+.perf-low .season-selector button:hover {
+  transform: none;
+}
+
+.perf-low .sky-view-toggle:hover:not(:disabled) {
+  transform: none;
+}
+
+/* -----------------------------------------------------------------------------
+   5. 移动端特定优化 - Mobile-Specific Optimizations
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 680px) {
+  /* 进一步减少模糊 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel,
+  .sky-home__tools {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* 简化阴影 */
+  .mansion-navigator__list span,
+  .sky-mansion-nav li span {
+    text-shadow:
+      0 0 6px rgba(0, 0, 0, 0.9),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  /* 禁用 hover 效果中的复杂过渡 */
+  .mansion-navigator__list button:hover span,
+  .sky-mansion-nav li button:hover span {
+    text-shadow:
+      0 0 10px rgba(255, 230, 189, 0.8),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  /* 简化边框动画 */
+  .observatory__panel::before,
+  .sky-mansion-nav::before,
+  .sky-time-panel::before {
+    animation-duration: 6s;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   6. 触摸设备优化 - Touch Device Optimizations
+   -------------------------------------------------------------------------- */
+
+@media (hover: none) and (pointer: coarse) {
+  /* 移除仅 hover 的效果 */
+  .mansion-navigator__list button::before {
+    display: none;
+  }
+
+  /* 增大点击区域 */
+  .mansion-navigator__list button {
+    min-height: 48px;
+    padding: 16px 24px 16px 32px;
+  }
+
+  /* 简化过渡 */
+  .mansion-navigator__list button,
+  .sky-mansion-nav li button,
+  .sky-home__tools button {
+    transition:
+      background 150ms ease,
+      color 150ms ease;
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+   7. 高对比度模式支持 - High Contrast Mode Support
+   -------------------------------------------------------------------------- */
+
+@media (prefers-contrast: high) {
+  /* 增强文字对比度 */
+  .mansion-navigator__list span,
+  .sky-mansion-nav li span,
+  .sky-observer-control > p strong {
+    text-shadow:
+      0 0 2px #000,
+      0 0 4px #000,
+      0 1px 1px #000;
+    color: var(--paper-bright);
+  }
+
+  /* 增强边框 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel,
+  .sky-home__tools {
+    border-color: rgba(226, 216, 194, 0.5);
+  }
+
+  /* 增强激活状态 */
+  .mansion-navigator__list button.is-active,
+  .sky-mansion-nav li button.is-active {
+    background: rgba(168, 132, 94, 0.3);
+  }
+
+  /* 增强焦点指示器 */
+  .mansion-navigator__list button:focus-visible,
+  .sky-mansion-nav li button:focus-visible {
+    outline-width: 3px;
+    outline-offset: 2px;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   8. 暗色模式优化 - Dark Mode Optimizations
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  /* 调整背景不透明度 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel {
+    background: rgba(13, 15, 14, 0.82);
+  }
+
+  /* 增强发光效果 */
+  .mansion-navigator__list button:hover span,
+  .sky-mansion-nav li button:hover span {
+    text-shadow:
+      0 0 14px rgba(255, 230, 189, 1),
+      0 0 28px rgba(255, 230, 189, 0.7),
+      0 0 42px rgba(255, 230, 189, 0.4),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   9. 减少运动偏好 - Reduced Motion Preference
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* 移除所有动画 */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  /* 保留不透明度过渡（对无障碍有帮助）*/
+  .mansion-navigator__list button,
+  .sky-mansion-nav li button {
+    transition: opacity 100ms ease;
+  }
+
+  /* 移除变换动画 */
+  .detail-overlay__content,
+  .observatory__panel,
+  .sky-time-panel {
+    animation: none !important;
+    opacity: 1;
+    transform: none !important;
+  }
+
+  /* 移除骨架屏动画 */
+  .deity-stage__figure::before {
+    animation: none;
+  }
+
+  /* 移除边框动画 */
+  .observatory__panel::before,
+  .sky-mansion-nav::before,
+  .sky-time-panel::before {
+    animation: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   10. 打印样式 - Print Styles
+   -------------------------------------------------------------------------- */
+
+@media print {
+  /* 移除所有背景效果 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel,
+  .sky-home__tools,
+  .sky-observer-control {
+    background: white !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+
+  /* 移除所有阴影 */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  /* 隐藏交互元素 */
+  .sky-home__tools,
+  .sky-view-toggle,
+  .sky-panorama-reset,
+  .detail-overlay__close,
+  .reset-view {
+    display: none !important;
+  }
+
+  /* 优化文字颜色 */
+  body {
+    color: #000 !important;
+  }
+
+  .mansion-navigator__list span,
+  .sky-mansion-nav li span {
+    color: #000 !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   11. 强制颜色模式 - Forced Colors Mode (Windows High Contrast)
+   -------------------------------------------------------------------------- */
+
+@media (forced-colors: active) {
+  /* 使用系统颜色 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .mansion-navigator__list button:hover,
+  .sky-mansion-nav li button:hover {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .mansion-navigator__list button.is-active,
+  .sky-mansion-nav li button.is-active {
+    background: SelectedItem;
+    color: SelectedItemText;
+  }
+
+  /* 移除所有自定义阴影和效果 */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* 确保焦点可见 */
+  *:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   12. 网络慢速模式优化 - Slow Network Optimization
+   -------------------------------------------------------------------------- */
+
+/* 可以通过 JS 添加此类 */
+.slow-network .deity-stage__figure::before {
+  /* 显示加载指示器时间更长 */
+  opacity: 1;
+}
+
+.slow-network .deity-stage__figure img {
+  /* 添加淡入效果 */
+  animation: image-fade-in 600ms ease both;
+}
+
+@keyframes image-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   13. 调试模式 - Debug Mode
+   -------------------------------------------------------------------------- */
+
+/* 用于开发时调试性能问题 */
+.debug-performance * {
+  outline: 1px solid rgba(255, 0, 0, 0.2) !important;
+}
+
+.debug-performance .observatory__panel::before,
+.debug-performance .sky-mansion-nav::before {
+  outline: 2px solid rgba(0, 255, 0, 0.5) !important;
+}
+
+.debug-performance [style*="backdrop-filter"] {
+  outline: 2px solid rgba(255, 255, 0, 0.5) !important;
+}
+
+/* 显示性能等级 */
+.perf-high::before,
+.perf-medium::before,
+.perf-low::before {
+  content: attr(class);
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  z-index: 10000;
+  pointer-events: none;
+  display: none;
+}
+
+.debug-performance.perf-high::before,
+.debug-performance.perf-medium::before,
+.debug-performance.perf-low::before {
+  display: block;
+}

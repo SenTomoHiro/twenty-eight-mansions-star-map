@@ -1,0 +1,76 @@
+/* =============================================================================
+   星宿导航视觉增强
+   布局、字号、间距和响应式行为统一沿用 global.css。
+   ============================================================================= */
+
+.sky-mansion-nav {
+  background: rgba(13, 15, 14, 0.72);
+  backdrop-filter: blur(28px) saturate(1.3);
+  -webkit-backdrop-filter: blur(28px) saturate(1.3);
+  border-color: rgba(226, 216, 194, 0.18);
+  box-shadow:
+    -8px 0 32px rgba(0, 0, 0, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+.sky-mansion-nav > header {
+  border-bottom-color: rgba(226, 216, 194, 0.16);
+  background: linear-gradient(180deg, rgba(20, 22, 20, 0.6), transparent);
+}
+
+.sky-mansion-nav > header button:hover {
+  color: var(--paper);
+}
+
+.sky-mansion-nav__groups > section {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--symbol-accent), transparent 94%),
+    transparent 60%
+  );
+  transition: background 300ms ease;
+}
+
+.sky-mansion-nav__groups > section:hover {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--symbol-accent), transparent 90%),
+    transparent 70%
+  );
+}
+
+.sky-mansion-nav li button {
+  transition: background 240ms ease, color 200ms ease;
+}
+
+.sky-mansion-nav li button:hover {
+  background: color-mix(in srgb, var(--symbol-accent), transparent 92%);
+  color: var(--paper-bright);
+}
+
+.sky-mansion-nav li button.is-active {
+  background: color-mix(in srgb, var(--symbol-accent), transparent 86%);
+  color: var(--paper-bright);
+}
+
+.sky-mansion-nav li button.is-active small {
+  color: var(--symbol-accent);
+}
+
+/* 滚动发生在原有导航容器上，不增加内部滚动区。 */
+.sky-mansion-nav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sky-mansion-nav::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.sky-mansion-nav::-webkit-scrollbar-thumb {
+  background: rgba(168, 132, 94, 0.3);
+  border-radius: 2.5px;
+}
+
+.sky-mansion-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 132, 94, 0.5);
+}

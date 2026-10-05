@@ -1,0 +1,275 @@
+/* =============================================================================
+   观测者控制面板增强
+   Observer Control Panel Enhancements
+   注意：保持原有布局，仅增强视觉效果
+   ============================================================================= */
+
+/* 不修改 .sky-observer-control 的布局，保持原有样式 */
+
+/* =============================================================================
+   时间控制面板增强
+   Time Control Panel Enhancements
+   ============================================================================= */
+
+.sky-time-panel {
+  background: rgba(13, 15, 14, 0.75);
+  backdrop-filter: blur(26px) saturate(1.25);
+  -webkit-backdrop-filter: blur(26px) saturate(1.25);
+  border-color: rgba(226, 216, 194, 0.2);
+  border-radius: 2px;
+  box-shadow:
+    -4px 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* 面板头部 */
+.sky-time-panel > header {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 22, 20, 0.6),
+    transparent
+  );
+  border-bottom-color: rgba(226, 216, 194, 0.16);
+}
+
+.sky-time-panel > header > span {
+  color: var(--paper-bright);
+}
+
+.sky-time-panel > header button {
+  border-color: rgba(226, 216, 194, 0.22);
+  border-radius: 2px;
+  background: rgba(8, 9, 8, 0.4);
+  color: rgba(238, 231, 215, 0.65);
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 180ms var(--ease-cinematic);
+}
+
+.sky-time-panel > header button:hover {
+  background: rgba(8, 9, 8, 0.7);
+  border-color: rgba(168, 132, 94, 0.5);
+  color: var(--paper);
+  transform: translateX(-2px);
+}
+
+.sky-time-panel > header button:active {
+  transform: translateX(0) scale(0.97);
+}
+
+/* 面板内容区域优化 */
+.sky-time-panel .time-controls {
+  background: transparent;
+}
+
+.sky-time-panel .date-control,
+.sky-time-panel .time-control {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 22, 20, 0.3),
+    transparent
+  );
+  transition: background 240ms ease;
+}
+
+.sky-time-panel .date-control:hover,
+.sky-time-panel .time-control:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 22, 20, 0.5),
+    rgba(20, 22, 20, 0.1)
+  );
+}
+
+/* 季节选择器卡片化 */
+.sky-time-panel .season-selector button {
+  position: relative;
+  background: rgba(8, 9, 8, 0.3);
+  border-left-color: rgba(226, 216, 194, 0.1);
+}
+
+.sky-time-panel .season-selector button::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    135deg,
+    rgba(168, 132, 94, 0.08),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 240ms ease;
+  pointer-events: none;
+}
+
+.sky-time-panel .season-selector button:hover::before {
+  opacity: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 680px) {
+  .sky-time-panel {
+    border-radius: 0;
+  }
+}
+
+/* =============================================================================
+   天球工具栏增强
+   Sky Tools Bar Enhancements
+   ============================================================================= */
+
+.sky-home__tools {
+  background: rgba(13, 15, 14, 0.65);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  border-color: rgba(224, 207, 177, 0.22);
+  border-radius: 2px;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.sky-home__tools button {
+  position: relative;
+  border-bottom-color: rgba(224, 207, 177, 0.12);
+  color: rgba(241, 229, 205, 0.7);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background 220ms ease, color 200ms ease;
+}
+
+/* Hover 效果 */
+.sky-home__tools button::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    rgba(168, 132, 94, 0.12),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.sky-home__tools button:hover::before {
+  opacity: 1;
+}
+
+.sky-home__tools button:hover {
+  color: var(--paper-bright);
+}
+
+/* Active 状态 */
+.sky-home__tools button.is-active {
+  color: var(--paper-bright);
+  background: linear-gradient(
+    90deg,
+    rgba(168, 132, 94, 0.16),
+    rgba(168, 132, 94, 0.04)
+  );
+  box-shadow: inset 3px 0 0 rgba(168, 132, 94, 0.6);
+}
+
+.sky-home__tools button.is-active::before {
+  opacity: 1;
+}
+
+/* 右侧数字/图标 */
+.sky-home__tools button small {
+  color: rgba(168, 132, 94, 0.8);
+  transition: color 200ms ease;
+}
+
+.sky-home__tools button:hover small,
+.sky-home__tools button.is-active small {
+  color: var(--bronze);
+}
+
+/* =============================================================================
+   视图切换按钮增强
+   View Toggle Button Enhancements
+   ============================================================================= */
+
+.sky-view-toggle {
+  border-color: rgba(226, 216, 194, 0.24);
+  border-radius: 2px;
+  background: rgba(13, 15, 14, 0.8);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  color: rgba(238, 231, 215, 0.75);
+  cursor: pointer;
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform 240ms var(--ease-cinematic),
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.sky-view-toggle i {
+  color: rgba(168, 132, 94, 0.8);
+  transition: color 200ms ease;
+}
+
+.sky-view-toggle:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(168, 132, 94, 0.6);
+  color: var(--paper-bright);
+  box-shadow:
+    0 0 0 1px rgba(168, 132, 94, 0.4),
+    0 0 24px rgba(168, 132, 94, 0.3),
+    0 10px 32px rgba(0, 0, 0, 0.4);
+}
+
+.sky-view-toggle:hover:not(:disabled) i {
+  color: var(--bronze);
+}
+
+.sky-view-toggle:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.sky-view-toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* 全景重置按钮 */
+.sky-panorama-reset {
+  border-color: rgba(226, 216, 194, 0.2);
+  border-radius: 2px;
+  background: rgba(13, 15, 14, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(238, 231, 215, 0.7);
+  cursor: pointer;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    transform 200ms var(--ease-cinematic),
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 200ms ease;
+}
+
+.sky-panorama-reset:hover:not(:disabled) {
+  border-color: rgba(168, 132, 94, 0.5);
+  color: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(168, 132, 94, 0.3),
+    0 0 18px rgba(168, 132, 94, 0.25),
+    0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sky-panorama-reset:active:not(:disabled) {
+  transform: scale(0.97);
+}

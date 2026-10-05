@@ -1,0 +1,566 @@
+/* =============================================================================
+   二十八宿星图系统 UI 增强样式
+   Twenty-Eight Mansions UI Enhancements
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   1. 文字可读性提升 - Text Readability Enhancements
+   -------------------------------------------------------------------------- */
+
+/* 星官名称文字描边与发光效果 */
+.sky-canvas-wrap .sprite-label,
+.mansion-navigator__list span,
+.sky-mansion-nav li span,
+.mansion-index__groups button strong {
+  /* 多层文字描边，增强对比度 */
+  text-shadow:
+    0 0 8px rgba(0, 0, 0, 0.9),
+    0 0 16px rgba(0, 0, 0, 0.7),
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+  /* Safari 兼容性：使用 paint-order */
+  paint-order: stroke fill;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hover 状态 - 文字发光 */
+.mansion-navigator__list button:hover span,
+.sky-mansion-nav li button:hover span,
+.mansion-index__groups button:hover strong {
+  text-shadow:
+    0 0 12px rgba(255, 230, 189, 0.9),
+    0 0 24px rgba(255, 230, 189, 0.6),
+    0 0 36px rgba(255, 230, 189, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.8);
+  transition: text-shadow 280ms ease;
+}
+
+/* Active/Selected 状态 - 高亮背景卡片 */
+.mansion-navigator__list button.is-active {
+  position: relative;
+}
+
+.mansion-navigator__list button.is-active::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--symbol-accent-rgb, 168, 132, 94), 0.18),
+    rgba(var(--symbol-accent-rgb, 168, 132, 94), 0.08)
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 4px;
+  border: 1px solid rgba(var(--symbol-accent-rgb, 168, 132, 94), 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+.mansion-navigator__list button.is-active span,
+.sky-mansion-nav li button.is-active span {
+  color: var(--paper-bright);
+  text-shadow:
+    0 0 16px rgba(255, 230, 189, 1),
+    0 0 32px rgba(255, 230, 189, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* -----------------------------------------------------------------------------
+   2. 信息面板优化 - Information Panel Enhancements
+   -------------------------------------------------------------------------- */
+
+/* 玻璃拟态效果 */
+.observatory__panel,
+.sky-mansion-nav,
+.sky-time-panel,
+.deity-copy,
+.sky-observer-control {
+  background: rgba(13, 15, 14, 0.68);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+}
+
+/* 面板边框渐变光晕 */
+.observatory__panel::before,
+.sky-mansion-nav::before,
+.sky-time-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    165deg,
+    rgba(168, 132, 94, 0.38) 0%,
+    rgba(168, 132, 94, 0.08) 35%,
+    transparent 50%,
+    rgba(168, 132, 94, 0.12) 85%,
+    rgba(168, 132, 94, 0.28) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.7;
+  animation: border-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes border-glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+/* 面板滑入动画 */
+.observatory__panel {
+  animation: slide-in-from-right 480ms var(--ease-cinematic) both;
+}
+
+.sky-time-panel {
+  animation: slide-in-from-right 380ms var(--ease-cinematic) both;
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 滚动视差效果 */
+.observatory__panel,
+.deity-copy {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.observatory__panel::-webkit-scrollbar,
+.deity-copy::-webkit-scrollbar,
+.source-disclosure__body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.observatory__panel::-webkit-scrollbar-track,
+.deity-copy::-webkit-scrollbar-track,
+.source-disclosure__body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.observatory__panel::-webkit-scrollbar-thumb,
+.deity-copy::-webkit-scrollbar-thumb,
+.source-disclosure__body::-webkit-scrollbar-thumb {
+  background: rgba(168, 132, 94, 0.35);
+  border-radius: 3px;
+  transition: background 200ms ease;
+}
+
+.observatory__panel::-webkit-scrollbar-thumb:hover,
+.deity-copy::-webkit-scrollbar-thumb:hover,
+.source-disclosure__body::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 132, 94, 0.55);
+}
+
+/* -----------------------------------------------------------------------------
+   3. 按钮系统 - Button System Enhancements
+   -------------------------------------------------------------------------- */
+
+/* 统一按钮基础样式 */
+.reset-view,
+.view-deity,
+.text-button,
+.enter-button,
+.sky-home__tools button,
+.sky-view-toggle,
+.sky-panorama-reset,
+.deity-pager button,
+.interlude button {
+  transition:
+    transform 200ms var(--ease-cinematic),
+    color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Hover 发光边框效果 */
+.reset-view:hover,
+.view-deity:hover,
+.enter-button:hover,
+.sky-home__tools button:hover,
+.sky-view-toggle:hover:not(:disabled),
+.sky-panorama-reset:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px rgba(168, 132, 94, 0.6),
+    0 0 16px rgba(168, 132, 94, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: rgba(168, 132, 94, 0.8);
+}
+
+/* Active 缩放反馈 */
+.reset-view:active,
+.view-deity:active,
+.enter-button:active,
+.sky-home__tools button:active,
+.sky-view-toggle:active:not(:disabled),
+.sky-panorama-reset:active:not(:disabled),
+.deity-pager button:active,
+.interlude button:active,
+.mansion-navigator__list button:active {
+  transform: scale(0.96);
+}
+
+/* Loading 状态旋转动画 */
+.reset-view[data-loading="true"]::after,
+.sky-panorama-reset[data-loading="true"]::after {
+  content: "◎";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  animation: button-loading-spin 1.2s linear infinite;
+}
+
+@keyframes button-loading-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 按钮禁用状态 */
+.sky-view-toggle:disabled,
+.sky-panorama-reset:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 按钮表面效果；内边距沿用正式布局。 */
+.reset-view,
+.sky-home__tools button,
+.sky-view-toggle,
+.sky-panorama-reset {
+  border-radius: 2px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* -----------------------------------------------------------------------------
+   4. 星官/神像卡片动画 - Mansion Card Animations
+   注意：不覆盖原有布局，仅添加动画效果
+   -------------------------------------------------------------------------- */
+
+/* 神像弹窗容器 - 仅添加淡入动画，不改变任何布局 */
+.mansion-detail-overlay {
+  animation: overlay-fade-in 320ms ease both;
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 神像详情卡片 - 简单的淡入+上移动画 */
+.detail-overlay__content {
+  animation: card-fade-in 380ms ease both;
+}
+
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 关闭按钮增强 - 仅增强交互，不改变布局 */
+.detail-overlay__close:hover {
+  border-color: rgba(168, 132, 94, 0.5);
+  color: var(--paper-bright);
+  box-shadow: 0 0 12px rgba(168, 132, 94, 0.25);
+  transition: all 200ms ease;
+}
+
+.detail-overlay__close:active {
+  transform: scale(0.98);
+}
+
+/* 神像图片骨架屏 - 仅在加载时显示 */
+.deity-stage__figure.is-loading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(226, 216, 194, 0.03) 0%,
+    rgba(226, 216, 194, 0.08) 50%,
+    rgba(226, 216, 194, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 信息区域渐入动画 - 温和版本 */
+.deity-copy > * {
+  animation: content-fade-in 500ms ease both;
+}
+
+.deity-copy > *:nth-child(1) { animation-delay: 80ms; }
+.deity-copy > *:nth-child(2) { animation-delay: 140ms; }
+.deity-copy > *:nth-child(3) { animation-delay: 200ms; }
+.deity-copy > *:nth-child(4) { animation-delay: 260ms; }
+.deity-copy > *:nth-child(5) { animation-delay: 320ms; }
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   5. 天球交互反馈 - Celestial Sphere Interaction
+   -------------------------------------------------------------------------- */
+
+/* 拖拽时星官名称淡出 */
+.sky-canvas-wrap.is-interacting .mansion-navigator__list span,
+.sky-canvas-wrap.is-interacting .sky-mansion-nav li span {
+  opacity: 0.3;
+  transition: opacity 200ms ease;
+}
+
+/* 释放后淡入 */
+.sky-canvas-wrap:not(.is-interacting) .mansion-navigator__list span,
+.sky-canvas-wrap:not(.is-interacting) .sky-mansion-nav li span {
+  opacity: 1;
+  transition: opacity 400ms ease 100ms;
+}
+
+/* 旋转惯性视觉反馈 - 通过模糊提示运动 */
+.sky-canvas-wrap.is-interacting .sky-canvas {
+  filter: none;
+  transition: filter 100ms ease;
+}
+
+.sky-canvas-wrap.has-momentum .sky-canvas {
+  /* 可选：添加轻微模糊表示惯性滑动 */
+  /* filter: blur(0.3px); */
+  transition: filter 200ms ease;
+}
+
+/* -----------------------------------------------------------------------------
+   6. 额外交互优化 - Additional Interaction Polish
+   -------------------------------------------------------------------------- */
+
+/* 四象导航按钮增强 */
+.four-symbols-nav button {
+  transition:
+    background 280ms ease,
+    transform 180ms ease;
+}
+
+.four-symbols-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.four-symbols-nav button:active {
+  transform: translateY(0);
+}
+
+/* 季节选择器增强 */
+.season-selector button {
+  transition:
+    color 220ms ease,
+    background 220ms ease,
+    transform 180ms ease;
+}
+
+.season-selector button:hover {
+  transform: scale(1.05);
+}
+
+.season-selector button:active {
+  transform: scale(0.98);
+}
+
+/* 时间控制滑块增强 */
+.time-control input::-webkit-slider-thumb {
+  transition:
+    box-shadow 200ms ease,
+    transform 180ms ease;
+}
+
+.time-control input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 18px rgba(176, 112, 74, 0.85);
+}
+
+.time-control input::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+/* 观测点切换按钮组 */
+.sky-observer-control [role="group"] button {
+  position: relative;
+  transition:
+    color 200ms ease,
+    background 200ms ease,
+    transform 160ms ease;
+}
+
+.sky-observer-control [role="group"] button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 132, 94, 0.12),
+    rgba(168, 132, 94, 0.05)
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.sky-observer-control [role="group"] button:hover::before {
+  opacity: 1;
+}
+
+.sky-observer-control [role="group"] button.is-active::before {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 132, 94, 0.22),
+    rgba(168, 132, 94, 0.12)
+  );
+  opacity: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   7. 性能优化 - Performance Optimizations
+   -------------------------------------------------------------------------- */
+
+/* 使用 will-change 提示浏览器优化 */
+.sky-canvas,
+.mansion-navigator__list button,
+.deity-stage__figure > img {
+  will-change: transform;
+}
+
+.observatory__panel::before,
+.sky-mansion-nav::before {
+  will-change: opacity;
+}
+
+/* 减少重绘：使用 transform 代替 top/left */
+.detail-overlay__close,
+.reset-view,
+.sky-home__tools button {
+  will-change: transform, opacity;
+}
+
+/* 低端设备优化：简化动画 */
+@media (prefers-reduced-motion: reduce) {
+  .mansion-navigator__list button.is-active::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel,
+  .deity-copy {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(13, 15, 14, 0.92);
+  }
+}
+
+/* 移动端性能优化 */
+@media (max-width: 680px) {
+  /* 减少模糊强度 */
+  .observatory__panel,
+  .sky-mansion-nav,
+  .sky-time-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* 简化阴影 */
+  .mansion-navigator__list span,
+  .sky-mansion-nav li span {
+    text-shadow:
+      0 0 8px rgba(0, 0, 0, 0.9),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   8. 无障碍访问增强 - Accessibility Enhancements
+   -------------------------------------------------------------------------- */
+
+/* 焦点可见性增强 */
+.mansion-navigator__list button:focus-visible,
+.sky-mansion-nav li button:focus-visible,
+.detail-overlay__close:focus-visible {
+  outline: 2px solid rgba(168, 132, 94, 0.9);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 4px rgba(168, 132, 94, 0.2),
+    0 0 20px rgba(168, 132, 94, 0.4);
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .mansion-navigator__list span,
+  .sky-mansion-nav li span {
+    text-shadow:
+      0 0 2px #000,
+      0 0 4px #000,
+      0 1px 1px #000;
+  }
+
+  .observatory__panel::before,
+  .sky-mansion-nav::before {
+    opacity: 1;
+  }
+}
+
+/* 键盘导航提示 */
+.mansion-navigator__list button:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 2px dashed rgba(168, 132, 94, 0.5);
+  border-radius: 4px;
+  animation: focus-pulse 1.5s ease infinite;
+  pointer-events: none;
+}
+
+@keyframes focus-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

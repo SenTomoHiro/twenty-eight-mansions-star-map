@@ -54,14 +54,14 @@ export function ImportantAsterismDiagram({ asterism, selectedMemberIds }: Import
         {[...pointByHip.values()].map(({ member, sx, sy }) => (
           <g key={member.id} className={selected.has(member.id) ? 'is-selected' : ''}>
             <circle cx={sx} cy={sy} r={selected.has(member.id) ? 3.2 : 2.1} />
-            <text x={sx + 2.8} y={sy - 2.8}>{member.name}</text>
+            <text x={sx > 80 ? sx - 2.8 : sx + 2.8} y={sy - 2.8} textAnchor={sx > 80 ? 'end' : 'start'}>{member.name}</text>
           </g>
         ))}
         {bi && lastReal ? (
           <g className={`is-traditional${selected.has(bi.id) ? ' is-selected' : ''}`}>
             <line x1={lastReal.sx} y1={lastReal.sy} x2={Math.min(92, lastReal.sx + 9)} y2={Math.min(92, lastReal.sy + 8)} />
             <circle cx={Math.min(92, lastReal.sx + 9)} cy={Math.min(92, lastReal.sy + 8)} r="2.7" />
-            <text x={Math.min(88, lastReal.sx + 12)} y={Math.min(96, lastReal.sy + 11)}>{locale === 'en' ? 'Bi · traditional schematic' : '弼 · 传统示意'}</text>
+            <text x={Math.min(88, lastReal.sx + 12)} y={Math.min(96, lastReal.sy + 11)} textAnchor="end">{locale === 'en' ? 'Bi · traditional schematic' : '弼 · 传统示意'}</text>
           </g>
         ) : null}
       </svg>
