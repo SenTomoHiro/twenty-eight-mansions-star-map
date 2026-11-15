@@ -1,0 +1,1570 @@
+/* ============================================================
+   数字观象台 · atlas-design.css
+   墨蓝 / 古金 / 纸色 —— 档案式观测台
+   Loaded after global.css + performance-degradation.css
+   ============================================================ */
+
+:root {
+  --atlas-ink: #08111a;
+  --atlas-ink-deep: #060d15;
+  --atlas-gold: #c9a468;
+  --atlas-gold-dim: #b49a72;
+  --atlas-gold-line: rgba(201, 164, 104, 0.24);
+  --atlas-gold-hair: rgba(201, 164, 104, 0.13);
+  --atlas-paper: #ded4c1;
+  --atlas-paper-warm: #f1e8d7;
+  --atlas-paper-mute: #c3b9a7;
+  --atlas-paper-faint: #a69d8d;
+  --atlas-serif: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif;
+}
+
+/* ---------- 1. 页头 HUD ---------- */
+
+.site-header--hud {
+  height: 74px;
+  padding-inline: clamp(14px, 2.6vw, 42px);
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(12px, 2vw, 34px);
+  border-bottom: 1px solid var(--atlas-gold-line);
+  background: linear-gradient(180deg, rgba(5, 11, 18, 0.9), rgba(5, 11, 18, 0.28) 64%, transparent);
+  backdrop-filter: none;
+}
+
+.site-header--hud .site-mark {
+  gap: 11px;
+}
+
+.site-header--hud .site-mark > .site-mark__seal {
+  width: 35px;
+  border: 1px solid var(--atlas-gold-dim);
+  color: var(--atlas-paper-warm);
+  font: 400 19px/1 var(--atlas-serif);
+  border-radius: 0;
+  background: rgba(201, 164, 104, 0.05);
+}
+
+.site-header--hud .site-mark > .site-mark__type {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+  aspect-ratio: auto;
+  border: 0;
+  white-space: nowrap;
+  gap: 3px;
+}
+
+.site-mark__type strong {
+  font: 400 14px/1.15 var(--atlas-serif);
+  letter-spacing: 0.3em;
+  color: var(--atlas-paper-warm);
+}
+
+.site-mark__type small {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--atlas-gold-dim);
+}
+
+.atlas-nav {
+  justify-self: center;
+  display: flex;
+  gap: clamp(16px, 2.4vw, 36px);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--atlas-paper-mute);
+}
+
+.atlas-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 2px;
+  transition: color 200ms ease;
+}
+
+.atlas-nav a:hover,
+.atlas-nav a.is-active {
+  color: var(--atlas-paper-warm);
+}
+
+.atlas-header__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper-mute);
+  white-space: nowrap;
+}
+
+.atlas-header__meta small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.locale-switch {
+  gap: 4px;
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.locale-switch button {
+  min-height: 44px;
+  padding: 0 7px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 2. 星空背景与渐层 ---------- */
+
+.sky-home__gradient {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 116%, rgba(4, 10, 17, 0.66), transparent 56%),
+    linear-gradient(180deg, rgba(4, 10, 17, 0.58), transparent 15%, transparent 76%, rgba(4, 10, 17, 0.46));
+}
+
+.sky-home .sky-model-badge {
+  top: 82px;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-home .sky-gesture-hint {
+  bottom: 22px;
+  font-size: 9px;
+  color: var(--atlas-paper-faint);
+}
+
+.panorama-directions {
+  color: var(--atlas-gold-dim);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+/* ---------- 3. 左下档案卡 ---------- */
+
+.sky-home__status {
+  left: clamp(14px, 2.6vw, 42px);
+  right: auto;
+  bottom: clamp(14px, 2.6vw, 32px);
+  width: min(376px, calc(100vw - 28px));
+  min-width: 0;
+  max-height: calc(100dvh - 118px);
+  display: flex;
+  pointer-events: auto;
+}
+
+.sky-home__status .atlas-card {
+  position: relative;
+  width: 100%;
+  padding: 15px 18px 0;
+  border: 1px solid var(--atlas-gold-line);
+  background: linear-gradient(158deg, rgba(10, 19, 28, 0.95), rgba(6, 12, 19, 0.92));
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.44);
+  overflow: hidden;
+}
+
+.sky-home__status .atlas-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 62px;
+  height: 1px;
+  background: var(--symbol-accent, var(--atlas-gold));
+  opacity: 0.9;
+}
+
+.sky-home__status .atlas-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+}
+
+.sky-home__status .atlas-card__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.15em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-home__status .atlas-card__eyebrow svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.atlas-card__top .sky-view-toggle {
+  position: static;
+  right: auto;
+  bottom: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  flex-shrink: 0;
+  padding: 0 8px 0 6px;
+  border: 1px solid var(--atlas-gold-line);
+  color: var(--atlas-paper-mute);
+  background: transparent;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.atlas-card__top .sky-view-toggle svg {
+  width: 15px;
+  height: 15px;
+  color: var(--atlas-gold);
+}
+
+.atlas-card__top .sky-view-toggle:hover:not(:disabled) {
+  color: var(--atlas-paper-warm);
+  border-color: var(--atlas-gold-dim);
+}
+
+.atlas-card__top .sky-view-toggle:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+
+.sky-home__status .atlas-card__title {
+  margin: 13px 0 0;
+  font: 400 clamp(30px, 3vw, 42px)/1.06 var(--atlas-serif);
+  letter-spacing: 0.06em;
+  color: var(--atlas-paper-warm);
+}
+
+.sky-home__status .atlas-card__sub {
+  margin: 6px 0 0;
+  font: 400 12px/1.5 var(--atlas-serif);
+  letter-spacing: 0.14em;
+  color: var(--atlas-paper-faint);
+}
+
+.sky-home__status .atlas-card__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 14px 0 0;
+  border-top: 1px solid var(--atlas-gold-hair);
+}
+
+.atlas-card__facts > div {
+  padding: 9px 10px 10px 0;
+  border-right: 1px solid var(--atlas-gold-hair);
+  min-width: 0;
+}
+
+.atlas-card__facts > div:last-child {
+  border-right: 0;
+}
+
+.atlas-card__facts > div.is-wide {
+  grid-column: 1 / -1;
+  border-right: 0;
+}
+
+.atlas-card__facts dt {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--atlas-gold-dim);
+}
+
+.atlas-card__facts dd {
+  margin: 5px 0 0;
+  font: 400 14px/1.25 var(--atlas-serif);
+  letter-spacing: 0.04em;
+  color: var(--atlas-paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sky-home__status .atlas-card__note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 9px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: var(--atlas-paper-faint);
+}
+
+.sky-home__status .atlas-card__note svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-home__status .atlas-card__open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 12px;
+  padding: 10px 0;
+  border: 0;
+  border-top: 1px solid var(--atlas-gold-hair);
+  color: var(--atlas-paper);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sky-home__status .atlas-card__open > span {
+  display: block;
+  min-width: 0;
+}
+
+.atlas-card__open strong {
+  display: block;
+  font: 400 13px/1.35 var(--atlas-serif);
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper-warm);
+}
+
+.atlas-card__open small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: var(--atlas-gold-dim);
+}
+
+.atlas-card__open svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--atlas-gold);
+  transition: transform 240ms var(--ease-cinematic);
+}
+
+.sky-home__status .atlas-card__open:hover svg,
+.sky-home__status .atlas-card__open:focus-visible svg {
+  transform: translateX(4px);
+}
+
+/* ---------- 4. 右上工具列与地点 ---------- */
+
+.sky-home__rail {
+  position: absolute;
+  z-index: 14;
+  top: 84px;
+  right: clamp(14px, 2.6vw, 42px);
+  left: auto;
+  width: 198px;
+  max-height: calc(100dvh - 112px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.sky-home__rail::-webkit-scrollbar {
+  width: 0;
+}
+
+.sky-home__tools {
+  position: static;
+  top: auto;
+  right: auto;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--atlas-gold-line);
+}
+
+.sky-home__tools .atlas-tool {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 6px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+  color: var(--atlas-paper-mute);
+  background: transparent;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.sky-home__tools .atlas-tool svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  color: var(--atlas-gold-dim);
+  transition: color 180ms ease;
+}
+
+.sky-home__tools .atlas-tool__label {
+  flex: 1;
+  text-align: left;
+}
+
+.sky-home__tools .atlas-tool small {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-home__tools .atlas-tool:hover,
+.sky-home__tools .atlas-tool.is-active {
+  color: var(--atlas-paper-warm);
+}
+
+.sky-home__tools .atlas-tool:hover svg,
+.sky-home__tools .atlas-tool.is-active svg {
+  color: var(--atlas-gold);
+}
+
+.sky-home__tools .atlas-tool.is-active {
+  box-shadow: inset 1px 0 0 var(--atlas-gold);
+}
+
+.sky-observer-control {
+  position: static;
+  top: auto;
+  right: auto;
+  width: 100%;
+  padding-top: 11px;
+  border-top: 1px solid var(--atlas-gold-line);
+  color: var(--atlas-paper-mute);
+}
+
+.sky-observer-control header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+}
+
+.sky-observer-control__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-observer-control__label svg {
+  width: 13px;
+  height: 13px;
+}
+
+.sky-observer-control header div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sky-observer-control header i {
+  width: 1px;
+  height: 9px;
+  background: var(--atlas-gold-line);
+}
+
+.sky-observer-control button {
+  min-height: 44px;
+  padding: 2px 4px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  color: var(--atlas-paper-faint);
+  background: transparent;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.sky-observer-control button.is-active {
+  border-bottom-color: var(--atlas-gold);
+  color: var(--atlas-paper-warm);
+}
+
+.sky-observer-control button:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+
+.sky-observer-control p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3px;
+  margin: 8px 0 0;
+}
+
+.sky-observer-control strong {
+  font: 400 12px/1.3 var(--atlas-serif);
+  letter-spacing: 0.08em;
+  color: var(--atlas-paper);
+}
+
+.sky-observer-control p span {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-observer-control > small {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--atlas-paper-faint);
+}
+
+/* ---------- 5. 面板通用 ---------- */
+
+.sky-time-panel .atlas-panel-close,
+.sky-mansion-nav .atlas-panel-close,
+.important-asterism-nav .atlas-panel-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--atlas-gold-line);
+  color: var(--atlas-paper-mute);
+  background: transparent;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.sky-time-panel .atlas-panel-close svg,
+.sky-mansion-nav .atlas-panel-close svg,
+.important-asterism-nav .atlas-panel-close svg {
+  width: 14px;
+  height: 14px;
+  color: var(--atlas-gold);
+}
+
+/* ---------- 6. 日期面板（左上） ---------- */
+
+.sky-time-panel {
+  top: 84px;
+  left: clamp(14px, 2.6vw, 42px);
+  right: auto;
+  width: min(560px, calc(100vw - 28px));
+  max-height: calc(100dvh - 108px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--atlas-gold-line);
+  background: rgba(8, 15, 23, 0.96);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(10px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-gold-line) transparent;
+}
+
+.sky-time-panel > header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+  font: 400 12px/1 var(--atlas-serif);
+  letter-spacing: 0.14em;
+  color: var(--atlas-paper);
+}
+
+.sky-time-panel > header > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sky-time-panel > header svg {
+  width: 14px;
+  height: 14px;
+  color: var(--atlas-gold);
+}
+
+.sky-time-panel .time-controls {
+  grid-template-columns: 1fr;
+  border: 0;
+}
+
+.sky-time-panel .time-controls__primary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+}
+
+.sky-time-panel .date-control,
+.sky-time-panel .time-control {
+  min-width: 0;
+  padding: 13px 16px;
+  border-right: 1px solid var(--atlas-gold-hair);
+}
+
+.sky-time-panel .date-control > span,
+.sky-time-panel .time-control > span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-time-panel .date-control strong,
+.sky-time-panel .time-control strong {
+  font: 400 14px/1.45 var(--atlas-serif);
+  letter-spacing: 0.06em;
+  color: var(--atlas-paper);
+}
+
+.sky-time-panel .time-control__value {
+  grid-template-columns: 44px 1fr 44px;
+  gap: 4px;
+}
+
+.sky-time-panel .time-control__value button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--atlas-gold-line);
+  color: var(--atlas-paper-mute);
+  background: transparent;
+}
+
+.sky-time-panel .text-button {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  border-top: 1px solid var(--atlas-gold-hair);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper-mute);
+}
+
+.sky-time-panel .season-selector {
+  grid-template-columns: repeat(4, 1fr);
+  min-height: 66px;
+}
+
+.sky-time-panel .season-selector span {
+  font-size: 16px;
+  color: var(--atlas-paper);
+}
+
+.sky-time-panel .season-selector small {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--atlas-gold-dim);
+}
+
+/* ---------- 7. 底部档案抽屉 ---------- */
+
+.sky-mansion-nav {
+  top: auto;
+  left: clamp(14px, 2.6vw, 42px);
+  right: clamp(14px, 2.6vw, 42px);
+  bottom: 0;
+  max-height: min(62dvh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--atlas-gold-line);
+  border-bottom: 0;
+  background: rgba(8, 15, 23, 0.97);
+  box-shadow: 0 -20px 64px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-gold-line) transparent;
+}
+
+.sky-mansion-nav > header {
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+}
+
+.sky-mansion-nav > header > div {
+  gap: 12px;
+}
+
+.sky-mansion-nav > header small {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-mansion-nav > header strong {
+  font: 400 13px/1 var(--atlas-serif);
+  letter-spacing: 0.14em;
+  color: var(--atlas-paper-warm);
+}
+
+.sky-mansion-nav__groups > section {
+  padding: 12px 16px 14px;
+  border-right: 1px solid var(--atlas-gold-hair);
+}
+
+.sky-mansion-nav__groups > section > div small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.sky-mansion-nav__groups > section > div strong {
+  font: 400 12px/1 var(--atlas-serif);
+  letter-spacing: 0.14em;
+  color: var(--atlas-paper);
+}
+
+.sky-mansion-nav .sky-mansion-nav__groups li button {
+  min-height: 44px;
+  padding: 5px 0 7px;
+  color: var(--atlas-paper-faint);
+}
+
+.sky-mansion-nav .sky-mansion-nav__groups li button:hover,
+.sky-mansion-nav .sky-mansion-nav__groups li button.is-active {
+  color: var(--atlas-paper-warm);
+}
+
+.sky-mansion-nav .sky-mansion-nav__groups li small {
+  font-size: 9px;
+  color: rgba(201, 164, 104, 0.5);
+}
+
+.sky-mansion-nav .sky-mansion-nav__groups li span {
+  font: 400 14px/1 var(--atlas-serif);
+}
+
+.important-asterism-nav {
+  top: auto;
+  left: clamp(14px, 2.6vw, 42px);
+  right: auto;
+  bottom: 0;
+  width: min(560px, calc(100vw - 28px));
+  max-height: min(60dvh, 470px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--atlas-gold-line);
+  border-bottom: 0;
+  background: rgba(8, 15, 23, 0.97);
+  box-shadow: 0 -20px 64px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-gold-line) transparent;
+}
+
+.important-asterism-nav > header {
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--atlas-gold-hair);
+}
+
+.important-asterism-nav > header small {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--atlas-gold-dim);
+}
+
+.important-asterism-nav > header strong {
+  font: 400 13px/1 var(--atlas-serif);
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper-warm);
+}
+
+.important-asterism-nav ol li button {
+  min-height: 124px;
+  padding: 16px 18px;
+  color: var(--atlas-paper-mute);
+}
+
+.important-asterism-nav ol li small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.important-asterism-nav ol li strong {
+  margin: 22px 0 10px;
+  font: 400 21px/1.1 var(--atlas-serif);
+  letter-spacing: 0.1em;
+}
+
+.important-asterism-nav ol li span {
+  font: 400 11px/1.6 var(--atlas-serif);
+  letter-spacing: 0.04em;
+  color: var(--atlas-paper-faint);
+}
+
+.important-asterism-nav > p {
+  padding: 10px 18px;
+  border-top: 1px solid var(--atlas-gold-hair);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  color: var(--atlas-paper-faint);
+}
+
+/* ---------- 8. 星宿详情正文 ---------- */
+
+.mansion-detail-overlay {
+  background: rgba(3, 8, 13, 0.52);
+  backdrop-filter: blur(3px);
+}
+
+.detail-overlay__close {
+  min-height: 44px;
+  border-color: var(--atlas-gold-line);
+  color: var(--atlas-paper-warm);
+  background: rgba(7, 13, 20, 0.86);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.detail-overlay__close i {
+  color: var(--atlas-gold);
+}
+
+.detail-overlay__content {
+  border-color: var(--atlas-gold-line);
+}
+
+.detail-overlay__content .deity-section {
+  background: rgba(7, 13, 20, 0.97);
+}
+
+.detail-overlay__content .deity-copy {
+  padding: clamp(40px, 4vw, 64px) clamp(26px, 4vw, 64px) 72px;
+  scrollbar-color: var(--atlas-gold-line) transparent;
+}
+
+.detail-overlay__content .deity-copy header > p {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .deity-copy h2 {
+  color: var(--atlas-paper-warm);
+}
+
+.detail-overlay__content .deity-copy header strong {
+  font: 400 16px/1.4 var(--atlas-serif);
+  letter-spacing: 0.14em;
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .deity-copy header span {
+  font-size: 11px;
+  color: var(--atlas-paper-faint);
+}
+
+.detail-overlay__content .deity-copy__lead {
+  margin-top: 28px;
+  font: 400 15px/1.95 var(--atlas-serif);
+  letter-spacing: 0.05em;
+  color: rgba(240, 231, 214, 0.86);
+}
+
+.detail-overlay__content .deity-copy__note {
+  font: 400 13px/1.9 var(--atlas-serif);
+  letter-spacing: 0.04em;
+  color: var(--atlas-paper-faint);
+}
+
+.detail-overlay__content .culture-archive > header small {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .culture-archive > header strong {
+  font: 400 13px/1 var(--atlas-serif);
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .culture-archive__fields h3 {
+  font: 400 14px/1.3 var(--atlas-serif);
+  letter-spacing: 0.1em;
+  color: var(--atlas-paper-warm);
+}
+
+.detail-overlay__content .culture-archive__fields article > div small {
+  font-size: 10px;
+  color: var(--atlas-gold);
+}
+
+.detail-overlay__content .culture-archive__fields article > div span {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--atlas-paper-faint);
+  border-color: var(--atlas-gold-hair);
+}
+
+.detail-overlay__content .culture-archive__fields article > p {
+  margin: 10px 0 0;
+  font: 400 14px/1.9 var(--atlas-serif);
+  letter-spacing: 0.03em;
+  color: rgba(232, 222, 203, 0.76);
+}
+
+.detail-overlay__content .ancient-evidence summary span {
+  font: 400 13px/1 var(--atlas-serif);
+  letter-spacing: 0.1em;
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .ancient-evidence summary small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .ancient-evidence blockquote {
+  font: 400 14px/1.85 var(--atlas-serif);
+  color: rgba(240, 231, 214, 0.82);
+}
+
+.detail-overlay__content .ancient-evidence figcaption strong {
+  font: 400 12px/1.6 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .ancient-evidence figcaption span,
+.detail-overlay__content .ancient-evidence figcaption p {
+  font-size: 11px;
+  line-height: 1.75;
+  color: var(--atlas-paper-faint);
+}
+
+.detail-overlay__content .mapping-facts small {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .mapping-facts strong {
+  font: 400 13px/1.4 var(--atlas-serif);
+  letter-spacing: 0.06em;
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .mapping-facts__distance strong {
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+.detail-overlay__content .mapped-stars > small {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .mapped-stars span {
+  font-size: 11px;
+  color: var(--atlas-paper-mute);
+  border-color: var(--atlas-gold-hair);
+}
+
+.detail-overlay__content .source-disclosure summary {
+  min-height: 44px;
+  font: 400 12px/1.4 var(--atlas-serif);
+  letter-spacing: 0.08em;
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .source-disclosure summary small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .source-disclosure__difference {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--atlas-paper-faint);
+}
+
+.detail-overlay__content .source-disclosure__group h4 {
+  font: 400 12px/1 var(--atlas-serif);
+  letter-spacing: 0.1em;
+  color: var(--atlas-paper-warm);
+}
+
+.detail-overlay__content .source-disclosure li strong {
+  font: 400 12px/1.5 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.detail-overlay__content .source-disclosure li p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--atlas-paper-faint);
+}
+
+.detail-overlay__content .source-disclosure li a {
+  font-size: 11px;
+  color: var(--atlas-gold);
+}
+
+.detail-overlay__content .deity-pager button {
+  min-height: 44px;
+}
+
+.detail-overlay__content .deity-pager button small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.detail-overlay__content .deity-pager button span {
+  font: 400 20px/1 var(--atlas-serif);
+  color: var(--atlas-paper-warm);
+}
+
+.detail-overlay__content .deity-pager > span {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+/* ---------- 9. 星官详情 ---------- */
+
+.important-detail-overlay {
+  background: rgba(3, 8, 13, 0.58);
+  backdrop-filter: blur(3px);
+}
+
+.important-detail-overlay__content {
+  border-color: var(--atlas-gold-line);
+  background: rgba(7, 13, 20, 0.98);
+}
+
+.important-detail-overlay__sky {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(201, 164, 104, 0.1), transparent 30rem),
+    var(--atlas-ink-deep);
+}
+
+.important-detail-overlay__sky > header {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__sky > header span {
+  color: var(--atlas-gold);
+}
+
+.important-detail-overlay__sky > p {
+  font: 400 12px/1.85 var(--atlas-serif);
+  color: var(--atlas-paper-faint);
+}
+
+.important-diagram figcaption {
+  font-size: 10px;
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__archive {
+  scrollbar-color: var(--atlas-gold-line) transparent;
+}
+
+.important-detail-overlay__archive > header > small,
+.important-detail-overlay__members > div small,
+.important-detail-overlay__chapters small,
+.important-detail-overlay__sources > small {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--atlas-gold);
+}
+
+.important-detail-overlay__archive > header h2 {
+  color: var(--atlas-paper-warm);
+}
+
+.important-detail-overlay__archive > header p {
+  font: 400 13px/1.7 var(--atlas-serif);
+  letter-spacing: 0.06em;
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__groups button {
+  min-height: 92px;
+  color: var(--atlas-paper-mute);
+}
+
+.important-detail-overlay__groups strong {
+  font: 400 16px/1.2 var(--atlas-serif);
+  color: var(--atlas-paper-warm);
+}
+
+.important-detail-overlay__groups span {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.important-detail-overlay__groups small {
+  font: 400 11px/1.7 var(--atlas-serif);
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__members h3 {
+  font: 400 16px/1.3 var(--atlas-serif);
+  color: var(--atlas-paper-warm);
+}
+
+.important-detail-overlay__members button {
+  min-height: 56px;
+  color: var(--atlas-paper-mute);
+}
+
+.important-detail-overlay__members button > small {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.important-detail-overlay__members button > strong {
+  font: 400 13px/1.25 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.important-detail-overlay__members button > span {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__members button > i {
+  font-size: 10px;
+  color: var(--atlas-gold-dim);
+}
+
+.important-detail-overlay__chapters h3 {
+  margin: 20px 0 12px;
+  font: 400 15px/1.3 var(--atlas-serif);
+  color: var(--atlas-paper-warm);
+}
+
+.important-detail-overlay__chapters p {
+  font: 400 14px/1.9 var(--atlas-serif);
+  letter-spacing: 0.03em;
+  color: rgba(232, 222, 203, 0.74);
+}
+
+.important-detail-overlay__sources a strong {
+  font: 400 13px/1.5 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.important-detail-overlay__sources a span {
+  font-size: 11px;
+  color: var(--atlas-paper-faint);
+}
+
+.important-detail-overlay__sources li > p {
+  font: 400 12px/1.8 var(--atlas-serif);
+  color: var(--atlas-paper-faint);
+}
+
+/* ---------- 10. 来源页 ---------- */
+
+.provenance-page {
+  padding-top: 74px;
+  background:
+    radial-gradient(circle at 72% 8%, rgba(201, 164, 104, 0.06), transparent 34rem),
+    var(--atlas-ink);
+}
+
+.site-shell--provenance .site-header--hud {
+  background: rgba(6, 12, 19, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+.provenance-page .source-columns h2 {
+  font: 400 18px/1.3 var(--atlas-serif);
+  letter-spacing: 0.12em;
+  color: var(--atlas-paper-warm);
+}
+
+.provenance-page .source-columns article > span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--atlas-gold);
+}
+
+.provenance-page .source-columns strong {
+  font: 400 13px/1.55 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.provenance-page .source-columns p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--atlas-paper-faint);
+}
+
+.provenance-page .source-columns a {
+  font-size: 11px;
+  color: var(--atlas-gold);
+}
+
+.yangcheng-provenance__chapters p {
+  font: 400 14px/1.95 var(--atlas-serif);
+  color: rgba(228, 217, 197, 0.68);
+}
+
+.yangcheng-provenance__chapters h3 {
+  color: var(--atlas-paper-warm);
+}
+
+.yangcheng-provenance__sources strong {
+  font: 400 13px/1.6 var(--atlas-serif);
+  color: var(--atlas-paper);
+}
+
+.yangcheng-provenance__sources span {
+  font-size: 11px;
+  color: var(--atlas-paper-faint);
+}
+
+.site-footer > p {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--atlas-paper-faint);
+}
+
+/* ---------- 11. 平板 ---------- */
+
+@media (max-width: 1100px) {
+  .sky-home__rail { width: 178px; }
+  .sky-home__status { width: min(340px, calc(100vw - 28px)); }
+  .sky-home__status .atlas-card__title { font-size: 34px; }
+  .sky-time-panel { width: min(500px, calc(100vw - 28px)); }
+  .important-asterism-nav { width: min(520px, calc(100vw - 28px)); }
+}
+
+@media (max-width: 900px) {
+  .site-header--hud {
+    height: 64px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .atlas-header__meta { display: none; }
+  .atlas-nav { justify-self: end; font-size: 10px; gap: 18px; }
+  .sky-home__rail { top: 78px; width: 168px; }
+  .sky-mansion-nav__groups > section { padding: 11px 12px 12px; }
+  .detail-overlay__content .deity-copy { padding-inline: 30px; }
+}
+
+/* ---------- 12. 手机 ---------- */
+
+@media (max-width: 680px) {
+  .site-header--hud {
+    height: 56px;
+    padding-inline: 12px;
+    gap: 10px;
+  }
+
+  .site-header--hud .site-mark { gap: 8px; }
+  .site-header--hud .site-mark > .site-mark__seal { width: 30px; font-size: 16px; }
+  .site-mark__type strong { font-size: 12px; letter-spacing: 0.18em; }
+  .site-mark__type small { display: none; }
+
+  .atlas-nav { gap: 14px; font-size: 10px; letter-spacing: 0.1em; }
+  .atlas-nav a { padding: 12px 0; }
+  .locale-switch button { min-height: 40px; padding: 0 5px; }
+
+  .sky-home__rail {
+    top: 62px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-height: none;
+    gap: 0;
+    overflow: visible;
+  }
+
+  .sky-home__tools {
+    flex-direction: row;
+    border-top: 1px solid var(--atlas-gold-line);
+    border-bottom: 1px solid var(--atlas-gold-line);
+    background: rgba(7, 13, 20, 0.62);
+  }
+
+  .sky-home__tools .atlas-tool {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    min-height: 54px;
+    padding: 5px 2px;
+    border-bottom: 0;
+    border-left: 1px solid var(--atlas-gold-hair);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .sky-home__tools .atlas-tool:first-child { border-left: 0; }
+  .sky-home__tools .atlas-tool svg { width: 16px; height: 16px; }
+  .sky-home__tools .atlas-tool__label { flex: none; text-align: center; }
+  .sky-home__tools .atlas-tool small { font-size: 9px; }
+  .sky-home__tools .atlas-tool.is-active { box-shadow: inset 0 -1px 0 var(--atlas-gold); }
+
+  .sky-observer-control {
+    padding: 8px 2px 0;
+    border-top: 0;
+  }
+
+  .sky-observer-control header { font-size: 10px; }
+  .sky-observer-control button { min-height: 40px; padding: 2px 8px; font-size: 11px; }
+  .sky-observer-control p { flex-direction: row; align-items: baseline; gap: 8px; }
+  .sky-observer-control p span { font-size: 10px; }
+  .sky-observer-control > small { font-size: 10px; }
+
+  .sky-home__status {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    max-height: 62dvh;
+    overflow-y: auto;
+  }
+
+  .sky-home__status .atlas-card {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    padding: 11px 14px 0;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(9, 17, 26, 0.94), rgba(5, 11, 17, 0.99));
+    box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.46);
+  }
+
+  .sky-home__status .atlas-card__top { padding-bottom: 9px; }
+  .sky-home__status .atlas-card__eyebrow { font-size: 10px; letter-spacing: 0.1em; }
+  .atlas-card__top .sky-view-toggle { min-height: 34px; font-size: 10px; }
+
+  .sky-home__status .atlas-card__title { margin-top: 10px; font-size: 32px; }
+  .sky-home__status .atlas-card__sub { margin-top: 5px; font-size: 12px; letter-spacing: 0.1em; }
+
+  .sky-home__status .atlas-card__facts { margin-top: 11px; }
+  .atlas-card__facts > div { padding: 8px 8px 8px 0; }
+  .atlas-card__facts dt { font-size: 10px; }
+  .atlas-card__facts dd { font-size: 13px; }
+
+  .sky-home__status .atlas-card__note { margin-top: 7px; font-size: 11px; }
+  .sky-home__status .atlas-card__open { min-height: 48px; margin-top: 9px; padding: 8px 0; }
+  .atlas-card__open strong { font-size: 13px; }
+  .atlas-card__open small { font-size: 10px; }
+
+  .sky-time-panel {
+    top: 62px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-height: calc(100dvh - 76px);
+  }
+
+  .sky-time-panel .time-controls__primary { grid-template-columns: 1fr 1fr; }
+  .sky-time-panel .date-control,
+  .sky-time-panel .time-control { padding: 11px 12px; }
+  .sky-time-panel .text-button { min-height: 46px; }
+
+  .sky-mansion-nav {
+    left: 0;
+    right: 0;
+    max-height: 68dvh;
+  }
+
+  .sky-mansion-nav__groups { grid-template-columns: 1fr; }
+  .sky-mansion-nav__groups > section {
+    border-right: 0;
+    border-bottom: 1px solid var(--atlas-gold-hair);
+  }
+
+  .important-asterism-nav {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-height: 64dvh;
+  }
+
+  .important-asterism-nav ol { grid-template-columns: 1fr; }
+  .important-asterism-nav ol li button { min-height: 84px; padding: 12px 16px; }
+  .important-asterism-nav ol li strong { margin: 10px 0 6px; font-size: 19px; }
+
+  .detail-overlay__close { top: 8px; right: 10px; min-height: 40px; font-size: 10px; }
+  .mansion-detail-overlay,
+  .important-detail-overlay { padding: 50px 0 0; }
+  .detail-overlay__content .deity-copy { padding: 40px 18px 64px; }
+  .detail-overlay__content .deity-copy h2 { font-size: 88px; }
+  .detail-overlay__content .deity-copy__lead { font-size: 15px; }
+  .detail-overlay__content .culture-archive__fields article > p { font-size: 14px; }
+  .important-detail-overlay__archive { padding: 38px 18px 64px; }
+  .important-detail-overlay__archive > header h2 { font-size: 58px; }
+  .important-detail-overlay__chapters p { font-size: 14px; }
+  .important-detail-overlay__members button > span { font-size: 10px; }
+  .important-detail-overlay__groups button { min-height: 0; padding: 12px 10px; }
+
+  .provenance-page { padding-top: 56px; }
+  .provenance-page .source-columns p { font-size: 13px; }
+  .site-footer { padding-bottom: calc(34px + env(safe-area-inset-bottom)); }
+}
+
+/* ---------- 13. 低高度 / 横屏 ---------- */
+
+@media (max-height: 640px) and (min-width: 681px) {
+  .site-header--hud { height: 54px; }
+  .sky-home__rail { top: 62px; gap: 10px; }
+  .sky-home__tools .atlas-tool { min-height: 44px; }
+  .sky-home__status { bottom: 12px; width: min(330px, calc(100vw - 28px)); }
+  .sky-home__status .atlas-card { padding: 11px 14px 0; }
+  .sky-home__status .atlas-card__title { font-size: 28px; margin-top: 9px; }
+  .sky-home__status .atlas-card__sub { display: none; }
+  .sky-home__status .atlas-card__note { display: none; }
+  .sky-home__status .atlas-card__facts { margin-top: 10px; }
+  .sky-home__status .atlas-card__open { min-height: 46px; margin-top: 8px; padding: 7px 0; }
+  .sky-time-panel { top: 62px; max-height: calc(100dvh - 70px); }
+  .sky-mansion-nav { max-height: 78dvh; }
+  .important-asterism-nav { max-height: 78dvh; }
+  .detail-overlay__content .deity-copy { padding-block: 34px 46px; }
+  .detail-overlay__content .deity-copy h2 { font-size: 82px; }
+  .important-detail-overlay__groups button { min-height: 0; }
+}
+
+@media (max-height: 640px) and (max-width: 680px) {
+  .sky-home__status { max-height: 54dvh; }
+  .sky-home__status .atlas-card__sub { display: none; }
+  .sky-home__status .atlas-card__note { display: none; }
+  .sky-home__status .atlas-card__title { font-size: 28px; }
+  .sky-home__tools .atlas-tool { min-height: 48px; }
+}
+
+/* ---------- 14. 触控与可访问性 ---------- */
+
+@media (hover: none) and (pointer: coarse) {
+  .sky-home__tools .atlas-tool,
+  .sky-observer-control button,
+  .atlas-card__top .sky-view-toggle,
+  .sky-home__status .atlas-card__open,
+  .sky-time-panel .atlas-panel-close,
+  .sky-mansion-nav .atlas-panel-close,
+  .important-asterism-nav .atlas-panel-close {
+    min-height: 44px;
+  }
+  .sky-home__tools .atlas-tool:hover { box-shadow: none; }
+}
+
+
+/* Review: resolve inherited HUD sizing and keep controls usable at every size. */
+.sky-home__status .sky-view-toggle span { display: inline; }
+.sky-home__status .atlas-card__open strong { font: 400 14px/1.4 var(--atlas-serif); }
+.site-header--hud .site-mark__type small { font-size: 10px; letter-spacing: .12em; }
+.sky-home .sky-model-badge { display: none; }
+.sky-home .sky-gesture-hint { font-size: 11px; color: var(--atlas-paper-faint); }
+.sky-home__tools .atlas-tool { font-size: 13px; }
+.sky-home__tools .atlas-tool:disabled { opacity: .5; cursor: wait; }
+.important-detail-overlay__groups button[aria-pressed='true'] {
+  color: var(--atlas-paper-warm);
+  background: rgba(201, 164, 104, .13);
+  box-shadow: inset 0 -2px var(--atlas-gold);
+}
+.atlas-card__open:focus-visible,
+.atlas-tool:focus-visible,
+.sky-view-toggle:focus-visible,
+.sky-observer-control button:focus-visible,
+.atlas-panel-close:focus-visible {
+  outline: 2px solid var(--atlas-gold);
+  outline-offset: -3px;
+}
+@media (max-width: 680px) {
+  .site-header--hud .site-mark__type strong { font-size: 14px; }
+  .site-header--hud .site-mark__type small { display: none; }
+  .site-header--hud nav { font-size: 12px; gap: 14px; }
+  .locale-switch button { min-height: 44px; }
+  .sky-observer-control header,
+  .sky-observer-control p span,
+  .sky-observer-control > small { display: flex; }
+  .sky-observer-control button { min-height: 44px; }
+  .sky-home__status .sky-view-toggle { min-height: 44px; }
+  .sky-home__tools .atlas-tool { font-size: 12px; }
+  .sky-home__tools .atlas-tool small { font-size: 10px; }
+  .sky-home .sky-gesture-hint { display: none; }
+  .sky-home--panorama .sky-home__status { bottom: 0; }
+  .detail-overlay__close { min-height: 44px; }
+}
+@media (max-width: 360px) {
+  .site-header--hud .site-mark__type { display: none; }
+  .sky-time-panel .time-controls__primary { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sky-home__gradient, .sky-home__scene, .atlas-card__open svg { transition: none; }
+}
+@media (forced-colors: active) {
+  .sky-home__status .atlas-card,
+  .sky-mansion-nav, .important-asterism-nav, .sky-time-panel {
+    color: CanvasText; background: Canvas; border: 1px solid CanvasText;
+  }
+}
+
+/* Final screenshot review: wrapping and compact viewports. */
+.atlas-card__facts dd { white-space: normal; overflow-wrap: anywhere; line-height: 1.4; }
+.sky-home__status .atlas-card { flex-shrink: 0; }
+.sky-mansion-nav__groups,
+.important-asterism-nav > header > div { min-width: 0; }
+.sky-mansion-nav > header > div,
+.important-asterism-nav > header > div { flex-wrap: wrap; row-gap: 8px; }
+.sky-mansion-nav > header,
+.important-asterism-nav > header { gap: 12px; }
+.sky-mansion-nav .sky-mansion-nav__groups li span { overflow-wrap: anywhere; line-height: 1.45; }
+.sky-mansion-nav .sky-mansion-nav__groups li small { font-size: 10px; color: var(--atlas-gold-dim); }
+@media (max-width: 1100px) {
+  .sky-mansion-nav__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  .sky-home--panorama .sky-home__status { max-width: none; }
+  .sky-home__status .atlas-card { padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+  .sky-mansion-nav__groups { grid-template-columns: 1fr; }
+  .sky-mansion-nav .sky-mansion-nav__groups li span { font-size: 12px; }
+  .sky-mansion-nav > header small,
+  .important-asterism-nav > header small { font-size: 10px; }
+  .sky-mansion-nav > header > div,
+  .important-asterism-nav > header > div { flex-direction: column; align-items: flex-start; }
+  .atlas-card__facts dt { letter-spacing: .04em; }
+}
+@media (max-width: 480px) {
+  html[lang='en'] .site-header--hud .site-mark > .site-mark__type { display: none; }
+}
+@media (max-width: 360px) {
+  .site-header--hud .site-mark > .site-mark__type { display: none; }
+  .site-header--hud { gap: 8px; }
+}
+@media (max-height: 520px) and (min-width: 681px) {
+  .sky-home__rail { max-height: calc(100dvh - 72px); padding-bottom: 12px; }
+  .sky-home__status { width: min(300px, 38vw); max-height: calc(100dvh - 76px); overflow-y: auto; }
+  .sky-home .sky-gesture-hint { display: none; }
+}
+
+.sky-home__rail { width: 228px; }
+.sky-observer-control header { flex-wrap: wrap; }
+.sky-observer-control header div { flex-shrink: 0; }
+.sky-home__status .atlas-card__facts { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(42px, .65fr); }
+@media (max-width: 900px) and (min-width: 681px) {
+  .sky-home__rail { width: 208px; }
+  .sky-observer-control header { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 680px) {
+  .sky-home__rail { width: auto; }
+}

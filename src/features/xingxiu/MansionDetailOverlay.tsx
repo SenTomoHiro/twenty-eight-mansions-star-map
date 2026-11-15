@@ -1,4 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import { AtlasIcon } from '../../components/AtlasIcon'
+import { useDialogFocus } from '../useDialogFocus'
 import type { Mansion, MansionStarMapping } from '../../types/xingxiu'
 import { DeityStage } from './DeityStage'
 import { useLocale } from '../../i18n/i18n'
@@ -14,24 +16,21 @@ interface MansionDetailOverlayProps {
 export function MansionDetailOverlay({ mansion, mapping, onClose, onSelect }: MansionDetailOverlayProps) {
   const { locale } = useLocale()
   const displayMansion = localizeMansion(mansion, locale)
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    closeButtonRef.current?.focus()
-  }, [])
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useDialogFocus(dialogRef)
 
   return (
-    <div className="mansion-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="deity-title">
+    <div ref={dialogRef} className='mansion-detail-overlay' role='dialog' aria-modal='true' aria-labelledby='deity-title' tabIndex={-1}>
       <button
-        ref={closeButtonRef}
-        className="detail-overlay__close"
-        type="button"
+        className='detail-overlay__close'
+        type='button'
         onClick={onClose}
         aria-label={locale === 'en' ? `Close details for ${displayMansion.name}` : `关闭${mansion.name}宿详情`}
       >
-        <span>{locale === 'en' ? 'Close' : '关闭'}</span><i aria-hidden="true">×</i>
+        <AtlasIcon name='close' />
+        <span>{locale === 'en' ? 'Close' : '关闭'}</span>
       </button>
-      <div className="detail-overlay__content">
+      <div className='detail-overlay__content'>
         <DeityStage mansion={mansion} mapping={mapping} onSelect={onSelect} />
       </div>
     </div>

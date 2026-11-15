@@ -18,7 +18,7 @@ The goal is to make the spatial and cultural structure of traditional Chinese as
 
 ## Origins and Collaboration
 
-The maintainer leads product direction, cultural source review, illustration approval, and final visual and cultural acceptance. GPT / Codex assists with engineering, data organization, implementation, testing, and debugging. Domain decisions remain grounded in reviewable sources and maintainer judgment; AI is not treated as an authority on traditional culture.
+The maintainer leads product direction, cultural source review, illustration approval, and final visual and cultural acceptance. GPT / Codex assists with engineering, data organization, code review, testing, and debugging; Claude contributes the digital observatory interface design and frontend visual upgrade. Domain decisions remain grounded in reviewable sources and maintainer judgment; AI is not treated as an authority on traditional culture.
 
 ## Features
 

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import {
-  formatCoordinate,
-} from './config/observation'
+import { formatCoordinate } from './config/observation'
+import { AtlasIcon } from './components/AtlasIcon'
 import { FOUR_SYMBOL_BY_ID } from './data/fourSymbols'
 import { IMPORTANT_ASTERISM_BY_ID, IMPORTANT_ASTERISMS } from './data/importantAsterisms'
 import mansionStarMappingsData from './data/mansion-star-mappings.json'
@@ -118,14 +117,12 @@ export function App() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
+      window.clearTimeout(detailTimerRef.current)
+      detailTimerRef.current = undefined
       if (importantDetailOpen) {
-        window.clearTimeout(detailTimerRef.current)
-        detailTimerRef.current = undefined
         setImportantDetailOpen(false)
       }
       else if (detailOpen) {
-        window.clearTimeout(detailTimerRef.current)
-        detailTimerRef.current = undefined
         setDetailOpen(false)
       }
       else if (importantNavOpen) setImportantNavOpen(false)
@@ -189,6 +186,8 @@ export function App() {
 
   const toggleView = () => {
     if (viewTransitioning) return
+    window.clearTimeout(detailTimerRef.current)
+    detailTimerRef.current = undefined
     setViewTransitioning(true)
     setTimePanelOpen(false)
     setMansionNavOpen(false)
@@ -225,38 +224,62 @@ export function App() {
   const directions = locale === 'zh-CN'
     ? PANORAMA_ORIENTATION
     : { top: 'South · Vermilion Bird', bottom: 'North · Black Tortoise', left: 'East · Azure Dragon', right: 'West · White Tiger' }
+  const english = locale === 'en'
+  const label = {
+    time: english ? 'Time' : '时刻',
+    mansions: english ? 'Mansions' : '列宿',
+    asterisms: english ? 'Asterisms' : '星官',
+    reset: english ? 'Reset' : '重置',
+    close: english ? 'Close' : '收起',
+    archive: english ? 'Open deity archive' : '打开神像档案',
+    archiveNote: english ? 'Reviewed artwork · asterism · sources' : '正式神像 · 星官 · 古籍依据',
+    asterismArchive: english ? 'Open asterism dossier' : '打开星官档案',
+    asterismArchiveNote: english ? 'Member structure · astronomy · sources' : '成员结构 · 天文 · 资料依据',
+    definingStar: english ? 'Defining star' : '距星',
+    members: english ? 'Members' : '成员',
+    region: english ? 'Region' : '所属',
+    index: english ? 'Index' : '编号',
+    projection: english ? 'Projection' : '投影',
+  }
+  const nowInPanorama = viewMode === SKY_VIEW.panorama
 
   return (
     <div className={`site-shell site-shell--${page}`}>
-      <a className="skip-link" href="#main-content">{t('skip')}</a>
-      <header className="site-header site-header--hud">
+      <a className='skip-link' href='#main-content'>{t('skip')}</a>
+
+      <header className='site-header site-header--hud atlas-header'>
         <a
-          className="site-mark"
+          className='site-mark'
           href={appRouteUrl('sky', baseUrl)}
           aria-label={t('homeLabel')}
           onClick={(event) => { event.preventDefault(); navigate('sky') }}
         >
-          <span>宿</span>
-          <div><strong>{t('brand')}</strong><small>CELESTIAL MANSIONS</small></div>
+          <span className='site-mark__seal' aria-hidden='true'>宿</span>
+          <span className='site-mark__type'>
+            <strong>{t('brand')}</strong>
+            <small>CELESTIAL MANSIONS · 二十八宿</small>
+          </span>
         </a>
-        <nav aria-label={t('navLabel')}>
+        <nav className='atlas-nav' aria-label={t('navLabel')}>
           <a
             className={page === 'sky' && !detailOpen ? 'is-active' : ''}
             href={appRouteUrl('sky', baseUrl)}
+            aria-current={page === 'sky' ? 'page' : undefined}
             onClick={(event) => { event.preventDefault(); navigate('sky') }}
           >{t('sky')}</a>
           <a
             className={page === 'provenance' ? 'is-active' : ''}
             href={appRouteUrl('provenance', baseUrl)}
+            aria-current={page === 'provenance' ? 'page' : undefined}
             onClick={(event) => { event.preventDefault(); navigate('provenance') }}
           >{t('provenance')}</a>
         </nav>
-        <div className="header-observation">
+        <div className='atlas-header__meta'>
           <span>{page === 'sky'
-            ? viewMode === SKY_VIEW.panorama ? t('panoramaStatic') : `${date.replaceAll('-', '.')} · ${time}`
+            ? nowInPanorama ? t('panoramaStatic') : `${date.replaceAll('-', '.')} · ${time}`
             : 'PROVENANCE'}</span>
           <small>{page === 'sky'
-            ? viewMode === SKY_VIEW.panorama ? t('traditionalSky') : observerName
+            ? nowInPanorama ? t('traditionalSky') : observerName
             : t('provenanceKinds')}</small>
         </div>
         <LocaleSwitch />
@@ -265,8 +288,12 @@ export function App() {
       {page === 'provenance' ? (
         <ProvenancePage />
       ) : (
-        <main className={`sky-home sky-home--${viewMode}${detailOpen || importantDetailOpen ? ' has-detail' : ''}${viewTransitioning ? ' is-view-transitioning' : ''}`} id="main-content" aria-label={t('mainSkyLabel')}>
-          <div className="sky-home__scene">
+        <main
+          className={`sky-home sky-home--${viewMode}${detailOpen || importantDetailOpen ? ' has-detail' : ''}${viewTransitioning ? ' is-view-transitioning' : ''}`}
+          id='main-content'
+          aria-label={t('mainSkyLabel')}
+        >
+          <div className='sky-home__scene'>
             <CelestialSphere
               date={date}
               time={time}
@@ -285,103 +312,211 @@ export function App() {
               panoramaResetToken={panoramaResetToken}
             />
           </div>
+          <div className='sky-home__gradient' aria-hidden='true' />
 
-          <div className="sky-home__status" aria-live="polite">
-            <small>{selectedImportantAsterism
-              ? `${t('importantAsterism')} · 0${selectedImportantAsterism.order} / 03`
-              : `${String(selectedMansion.order).padStart(2, '0')} / 28 · ${displaySymbol.name}${viewMode === SKY_VIEW.observation ? ` · ${observerName}` : ''}`}</small>
-            <button type="button" onClick={() => selectedImportantAsterism ? setImportantDetailOpen(true) : setDetailOpen(true)}>
-              <strong>{displayImportantAsterism?.name ?? displayMansion.name}</strong>
-              <span>{selectedImportantAsterism
-                ? `${selectedImportantAsterism.members.length} ${locale === 'en' ? 'members' : '位'} · ${displayImportantAsterism?.traditionalRegion}`
-                : `${displayMansion.fullName} · HIP ${selectedMapping.definingStarHip}`}</span>
-            </button>
-            <p>{selectedImportantAsterism
-              ? displayImportantAsterism?.modernMappingNotes
-              : viewMode === SKY_VIEW.panorama
-              ? t('fixedProjection')
-              : `ALT ${horizontal.altitude.toFixed(1)}° · AZ ${horizontal.azimuth.toFixed(1)}° · ${horizontal.altitude >= 0 ? t('aboveHorizon') : t('belowHorizon')}`}</p>
+          <div className='sky-home__status atlas-selection'>
+            <div className='atlas-card' style={{ '--symbol-accent': selectedSymbol.accent } as React.CSSProperties}>
+              <div className='atlas-card__top'>
+                <p className='atlas-card__eyebrow'>
+                  <AtlasIcon name='compass' />
+                  <span>{selectedImportantAsterism
+                    ? `${t('importantAsterism')} · 0${selectedImportantAsterism.order} / 03`
+                    : `${String(selectedMansion.order).padStart(2, '0')} / 28 · ${displaySymbol.name}`}</span>
+                </p>
+                <button
+                  type='button'
+                  className='sky-view-toggle'
+                  disabled={viewTransitioning}
+                  aria-label={nowInPanorama ? t('returnObservationLabel') : t('panoramaOut')}
+                  onClick={toggleView}
+                >
+                  <AtlasIcon name={nowInPanorama ? 'compress' : 'expand'} />
+                  <span>{nowInPanorama ? t('returnObservation') : t('panorama')}</span>
+                </button>
+              </div>
+
+              <p className='atlas-card__title' aria-live='polite'>
+                {displayImportantAsterism?.name ?? displayMansion.name}
+              </p>
+              <p className='atlas-card__sub'>
+                {selectedImportantAsterism
+                  ? (displayImportantAsterism?.aliases.join(' · ') ?? '')
+                  : displayMansion.fullName}
+              </p>
+
+              <dl className='atlas-card__facts'>
+                {selectedImportantAsterism ? (
+                  <>
+                    <div>
+                      <dt>{label.members}</dt>
+                      <dd>{selectedImportantAsterism.members.length}{english ? '' : ' 位'}</dd>
+                    </div>
+                    <div>
+                      <dt>{label.region}</dt>
+                      <dd>{displayImportantAsterism?.traditionalRegion}</dd>
+                    </div>
+                    <div>
+                      <dt>{label.index}</dt>
+                      <dd>0{selectedImportantAsterism.order}</dd>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <dt>{label.definingStar}</dt>
+                      <dd>HIP {selectedMapping.definingStarHip}</dd>
+                    </div>
+                    {nowInPanorama ? (
+                      <div className='is-wide'>
+                        <dt>{label.projection}</dt>
+                        <dd>{t('traditionalSky')}</dd>
+                      </div>
+                    ) : (
+                      <>
+                        <div>
+                          <dt>ALT</dt>
+                          <dd>{horizontal.altitude.toFixed(1)}°</dd>
+                        </div>
+                        <div>
+                          <dt>AZ</dt>
+                          <dd>{horizontal.azimuth.toFixed(1)}°</dd>
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
+              </dl>
+
+              <p className='atlas-card__note'>
+                <AtlasIcon name={nowInPanorama ? 'compass' : 'location'} />
+                <span>{nowInPanorama
+                  ? t('fixedProjection')
+                  : selectedImportantAsterism
+                    ? observerName
+                    : `${horizontal.altitude >= 0 ? t('aboveHorizon') : t('belowHorizon')} · ${observerName}`}</span>
+              </p>
+
+              <button
+                type='button'
+                className='atlas-card__open'
+                onClick={() => selectedImportantAsterism ? setImportantDetailOpen(true) : setDetailOpen(true)}
+              >
+                <span>
+                  <strong>{selectedImportantAsterism ? label.asterismArchive : label.archive}</strong>
+                  <small>{selectedImportantAsterism ? label.asterismArchiveNote : label.archiveNote}</small>
+                </span>
+                <AtlasIcon name='arrow' />
+              </button>
+            </div>
           </div>
 
-          {viewMode === SKY_VIEW.observation ? <div className="sky-home__tools" aria-label={t('skyControls')}>
-            <button
-              type="button"
-              className={timePanelOpen ? 'is-active' : ''}
-              onClick={() => { setTimePanelOpen((value) => !value); setMansionNavOpen(false); setImportantNavOpen(false) }}
-            ><span>{t('dateTime')}</span><small>{time}</small></button>
-            <button
-              type="button"
-              className={mansionNavOpen ? 'is-active' : ''}
-              onClick={() => { setMansionNavOpen((value) => !value); setTimePanelOpen(false); setImportantNavOpen(false) }}
-            ><span>{t('mansionsNav')}</span><small>28</small></button>
-            <button
-              type="button"
-              className={importantNavOpen ? 'is-active' : ''}
-              onClick={() => { setImportantNavOpen((value) => !value); setTimePanelOpen(false); setMansionNavOpen(false) }}
-            ><span>{t('importantAsterism')}</span><small>{IMPORTANT_ASTERISMS.length}</small></button>
-            <button type="button" onClick={() => setResetToken((value) => value + 1)}>
-              <span>{t('resetView')}</span><small>◎</small>
-            </button>
-          </div> : null}
+          <div className='sky-home__rail'>
+            <div className='sky-home__tools' role='group' aria-label={t('skyControls')}>
+              {nowInPanorama ? null : (
+                <button
+                  type='button'
+                  className={`atlas-tool${timePanelOpen ? ' is-active' : ''}`}
+                  aria-expanded={timePanelOpen}
+                  aria-controls='sky-time-panel'
+                  aria-label={t('dateTime')}
+                  title={t('dateTime')}
+                  onClick={() => { setTimePanelOpen((value) => !value); setMansionNavOpen(false); setImportantNavOpen(false) }}
+                >
+                  <AtlasIcon name='clock' />
+                  <span className='atlas-tool__label'>{label.time}</span>
+                  <small>{time}</small>
+                </button>
+              )}
+              <button
+                type='button'
+                className={`atlas-tool${mansionNavOpen ? ' is-active' : ''}`}
+                aria-expanded={mansionNavOpen}
+                aria-controls='sky-mansion-nav'
+                aria-label={t('mansionsNav')}
+                title={t('mansionsNav')}
+                onClick={() => { setMansionNavOpen((value) => !value); setTimePanelOpen(false); setImportantNavOpen(false) }}
+              >
+                <AtlasIcon name='mansions' />
+                <span className='atlas-tool__label'>{label.mansions}</span>
+                <small>28</small>
+              </button>
+              <button
+                type='button'
+                className={`atlas-tool${importantNavOpen ? ' is-active' : ''}`}
+                aria-expanded={importantNavOpen}
+                aria-controls='sky-important-nav'
+                aria-label={t('importantAsterism')}
+                title={t('importantAsterism')}
+                onClick={() => { setImportantNavOpen((value) => !value); setTimePanelOpen(false); setMansionNavOpen(false) }}
+              >
+                <AtlasIcon name='asterism' />
+                <span className='atlas-tool__label'>{label.asterisms}</span>
+                <small>{IMPORTANT_ASTERISMS.length}</small>
+              </button>
+              <button
+                type='button'
+                className='atlas-tool'
+                disabled={viewTransitioning}
+                title={nowInPanorama ? t('resetPanorama') : t('resetView')}
+                aria-label={nowInPanorama ? t('resetPanorama') : t('resetView')}
+                onClick={() => {
+                  if (nowInPanorama) setPanoramaResetToken((value) => value + 1)
+                  else setResetToken((value) => value + 1)
+                }}
+              >
+                <AtlasIcon name='reset' />
+                <span className='atlas-tool__label'>{label.reset}</span>
+              </button>
+            </div>
 
-          {viewMode === SKY_VIEW.observation ? (
-            <section className="sky-observer-control" aria-label={t('observationStatus')}>
-              <header>
-                <span>{t('observationPoint')}</span>
-                <div role="group" aria-label={t('switchObservationPoint')}>
-                  <button
-                    type="button"
-                    className={observerSession.mode === 'yangcheng' ? 'is-active' : ''}
-                    aria-pressed={observerSession.mode === 'yangcheng'}
-                    onClick={restoreYangcheng}
-                  >{t('yangcheng')}</button>
-                  <i aria-hidden="true" />
-                  <button
-                    type="button"
-                    className={observerSession.mode === 'current-location' ? 'is-active' : ''}
-                    aria-pressed={observerSession.mode === 'current-location'}
-                    disabled={observerSession.status === 'requesting' && !observerSession.cachedCurrentObserver}
-                    onClick={useCurrentLocation}
-                  >{t('currentLocation')}</button>
-                </div>
-              </header>
-              <p><strong>{observerTitle}</strong><span>{coordinateText}</span></p>
-              <small aria-live="polite">{observerStatusMessage(observerSession, locale)}</small>
-            </section>
-          ) : null}
+            {nowInPanorama ? null : (
+              <section className='sky-observer-control' aria-label={t('observationStatus')}>
+                <header>
+                  <span className='sky-observer-control__label'>
+                    <AtlasIcon name='location' />
+                    {t('observationPoint')}
+                  </span>
+                  <div role='group' aria-label={t('switchObservationPoint')}>
+                    <button
+                      type='button'
+                      className={observerSession.mode === 'yangcheng' ? 'is-active' : ''}
+                      aria-pressed={observerSession.mode === 'yangcheng'}
+                      onClick={restoreYangcheng}
+                    >{t('yangcheng')}</button>
+                    <i aria-hidden='true' />
+                    <button
+                      type='button'
+                      className={observerSession.mode === 'current-location' ? 'is-active' : ''}
+                      aria-pressed={observerSession.mode === 'current-location'}
+                      disabled={observerSession.status === 'requesting' && !observerSession.cachedCurrentObserver}
+                      onClick={useCurrentLocation}
+                    >{t('currentLocation')}</button>
+                  </div>
+                </header>
+                <p><strong>{observerTitle}</strong><span>{coordinateText}</span></p>
+                <small aria-live='polite'>{observerStatusMessage(observerSession, locale)}</small>
+              </section>
+            )}
+          </div>
 
-          <button
-            type="button"
-            className="sky-view-toggle"
-            disabled={viewTransitioning}
-            aria-label={viewMode === SKY_VIEW.observation ? t('panoramaOut') : t('returnObservationLabel')}
-            onClick={toggleView}
-          >
-            <i aria-hidden="true" />
-            <span>{viewMode === SKY_VIEW.observation ? t('panorama') : t('returnObservation')}</span>
-          </button>
-
-          {viewMode === SKY_VIEW.panorama ? (
-            <button
-              type="button"
-              className="sky-panorama-reset"
-              disabled={viewTransitioning}
-              onClick={() => setPanoramaResetToken((value) => value + 1)}
-            >{t('resetPanorama')}</button>
-          ) : null}
-
-          {viewMode === SKY_VIEW.panorama ? (
-            <div className="panorama-directions" aria-label={t('panoramaDirections')}>
-              <span className="is-top">{directions.top}</span>
-              <span className="is-bottom">{directions.bottom}</span>
-              <span className="is-left">{directions.left}</span>
-              <span className="is-right">{directions.right}</span>
+          {nowInPanorama ? (
+            <div className='panorama-directions' aria-label={t('panoramaDirections')}>
+              <span className='is-top'>{directions.top}</span>
+              <span className='is-bottom'>{directions.bottom}</span>
+              <span className='is-left'>{directions.left}</span>
+              <span className='is-right'>{directions.right}</span>
             </div>
           ) : null}
 
           {timePanelOpen ? (
-            <aside className="sky-time-panel" aria-label={t('dateTimeSeason')}>
-              <header><span>{t('observationTime')}</span><button type="button" onClick={() => setTimePanelOpen(false)}>{t('collapse')}</button></header>
+            <aside className='sky-time-panel' id='sky-time-panel' aria-label={t('dateTimeSeason')}>
+              <header>
+                <span><AtlasIcon name='clock' />{t('observationTime')}</span>
+                <button type='button' className='atlas-panel-close' onClick={() => setTimePanelOpen(false)} aria-label={t('collapse')}>
+                  <AtlasIcon name='close' />
+                  <span>{label.close}</span>
+                </button>
+              </header>
               <TimeControls date={date} time={time} timezone={observer.timezone} onDateChange={setDate} onTimeChange={setTime} />
             </aside>
           ) : null}

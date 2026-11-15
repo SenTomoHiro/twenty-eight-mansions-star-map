@@ -1719,7 +1719,11 @@ export function CelestialSphere({
 
   useEffect(() => {
     const runtime = runtimeRef.current
-    if (!runtime || runtime.transition || runtime.mode === mode) return
+    if (!runtime || runtime.transition) return
+    if (runtime.mode === mode) {
+      runtime.onTransitionChange(false)
+      return
+    }
     if (mode === SKY_VIEW.panorama) {
       runtime.savedObservation = {
         azimuth: runtime.yaw,
@@ -1734,7 +1738,7 @@ export function CelestialSphere({
       startedAt: performance.now(),
     }
     runtime.onTransitionChange(true)
-  }, [mode])
+  }, [locale, mode])
 
   useEffect(() => {
     const runtime = runtimeRef.current

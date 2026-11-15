@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
+import { AtlasIcon } from '../../components/AtlasIcon'
+import { useDialogFocus } from '../useDialogFocus'
 import { IMPORTANT_ASTERISM_SOURCE_BY_ID } from '../../data/importantAsterismSources'
 import type { ImportantAsterismSource } from '../../data/importantAsterismSources'
 import { resolveImportantMembers } from '../../data/importantAsterisms'
@@ -15,13 +17,10 @@ interface ImportantAsterismOverlayProps {
 export function ImportantAsterismOverlay({ asterism, onClose }: ImportantAsterismOverlayProps) {
   const { locale } = useLocale()
   const display = localizeImportantAsterism(asterism, locale)
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useDialogFocus(dialogRef)
   const [selectedMemberIds, setSelectedMemberIds] = useState<string[]>([])
   const members = resolveImportantMembers(display)
-
-  useEffect(() => {
-    closeButtonRef.current?.focus()
-  }, [])
 
   const selectMember = (id: string) => setSelectedMemberIds((current) => current.length === 1 && current[0] === id ? [] : [id])
   const selectGroup = (memberIds: string[]) => setSelectedMemberIds((current) => (
@@ -29,9 +28,9 @@ export function ImportantAsterismOverlay({ asterism, onClose }: ImportantAsteris
   ))
 
   return (
-    <div className="important-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="important-title">
-      <button ref={closeButtonRef} className="detail-overlay__close" type="button" onClick={onClose}>
-        <span>{locale === 'en' ? 'Close' : '关闭'}</span><i aria-hidden="true">×</i>
+    <div ref={dialogRef} className="important-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="important-title" tabIndex={-1}>
+      <button className="detail-overlay__close" type="button" onClick={onClose}>
+        <AtlasIcon name="close" /><span>{locale === 'en' ? 'Close' : '关闭'}</span>
       </button>
       <div className="important-detail-overlay__content">
         <section className="important-detail-overlay__sky">
@@ -49,7 +48,7 @@ export function ImportantAsterismOverlay({ asterism, onClose }: ImportantAsteris
           {asterism.childGroups.length > 0 ? (
             <div className="important-detail-overlay__groups" aria-label={locale === 'en' ? 'Internal groups' : '内部子组'}>
               {display.childGroups.map((group) => (
-                <button key={group.id} type="button" onClick={() => selectGroup(group.memberIds)}>
+                <button key={group.id} type="button" aria-pressed={group.memberIds.length === selectedMemberIds.length && group.memberIds.every((id) => selectedMemberIds.includes(id))} onClick={() => selectGroup(group.memberIds)}>
                   <strong>{group.name}</strong><span>2 {locale === 'en' ? 'stars' : '星'}</span><small>{group.summary}</small>
                 </button>
               ))}
@@ -64,6 +63,7 @@ export function ImportantAsterismOverlay({ asterism, onClose }: ImportantAsteris
                   <button
                     type="button"
                     className={selectedMemberIds.includes(member.id) ? 'is-active' : ''}
+                    aria-pressed={selectedMemberIds.includes(member.id)}
                     onClick={() => selectMember(member.id)}
                   >
                     <small>{String(index + 1).padStart(2, '0')}</small>
